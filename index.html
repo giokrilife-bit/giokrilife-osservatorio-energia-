@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GiOKri Life | Osservatorio Energia</title>
+<title>GiOKri Life | Quotazioni PUN & PSV</title>
 
 <style>
 
@@ -37,6 +37,10 @@ body{
   padding:22px;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 header{
   display:flex;
   justify-content:space-between;
@@ -59,6 +63,23 @@ header{
   color:var(--muted);
   text-align:right;
 }
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+  background:#fff3f3;
+  color:#8b1e1e;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:18px;
+  display:none;
+}
+
+/* =========================
+   MAIN CARDS
+========================= */
 
 .cards{
   display:grid;
@@ -117,6 +138,10 @@ header{
   margin-top:12px;
 }
 
+/* =========================
+   SECTION
+========================= */
+
 .section{
   margin-top:22px;
 }
@@ -125,6 +150,10 @@ header{
   font-size:19px;
   margin:0 0 12px;
 }
+
+/* =========================
+   CHART
+========================= */
 
 .chartbox{
   height:310px;
@@ -142,6 +171,10 @@ canvas{
   color:var(--muted);
   margin-top:8px;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 .actions{
   display:flex;
@@ -165,12 +198,24 @@ button.secondary{
   color:#243447;
 }
 
+button:hover{
+  opacity:.9;
+}
+
+/* =========================
+   SOCIAL
+========================= */
+
 .social{
   background:#fff;
   border:1px solid var(--line);
   border-radius:18px;
   padding:20px;
   margin-top:22px;
+}
+
+.social h2{
+  margin-top:0;
 }
 
 .social-grid{
@@ -198,6 +243,10 @@ button.secondary{
   line-height:1.55;
 }
 
+/* =========================
+   SOURCE
+========================= */
+
 .source{
   font-size:12px;
   color:var(--muted);
@@ -205,22 +254,9 @@ button.secondary{
   line-height:1.45;
 }
 
-.error{
-  background:#fff3f3;
-  color:#8b1e1e;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:18px;
-  display:none;
-}
-
-.loading{
-  background:#eef6ff;
-  color:#145da0;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:18px;
-}
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:760px){
 
@@ -245,8 +281,8 @@ button.secondary{
 }
 
 </style>
-
 </head>
+
 
 <body>
 
@@ -255,23 +291,22 @@ button.secondary{
 <header>
 
   <div class="brand">
-    GiOKri Life <span>| Osservatorio Energia</span>
+    GiOKri Life <span>| Energia</span>
   </div>
 
   <div class="updated" id="updated">
-    Caricamento dati...
+    Caricamento...
   </div>
 
 </header>
 
 
-<div id="loading" class="loading">
-  Recupero delle ultime quotazioni PUN e PSV...
-</div>
-
-
 <div id="error" class="error"></div>
 
+
+<!-- =====================================================
+     QUOTAZIONI
+===================================================== -->
 
 <section class="cards">
 
@@ -327,6 +362,10 @@ button.secondary{
 </section>
 
 
+<!-- =====================================================
+     GRAFICO
+===================================================== -->
+
 <section class="section card">
 
   <h2>
@@ -341,14 +380,22 @@ button.secondary{
 
   <div class="legend">
 
-    <span>● PUN €/kWh</span>
+    <span>
+      ● PUN €/kWh
+    </span>
 
-    <span>● PSV €/Smc</span>
+    <span>
+      ● PSV €/Smc
+    </span>
 
   </div>
 
 </section>
 
+
+<!-- =====================================================
+     AZIONI
+===================================================== -->
 
 <section class="actions">
 
@@ -358,20 +405,18 @@ button.secondary{
 
   <button
     onclick="generateSocial()"
-    class="secondary"
-  >
-    📲 Genera Social Card
-  </button>
+    class="secondary">
 
-  <button
-    onclick="downloadSocialCard()"
-    class="secondary"
-  >
-    ⬇️ Scarica Social Card PNG
+    📲 Genera Social Card
+
   </button>
 
 </section>
 
+
+<!-- =====================================================
+     SOCIAL CARD
+===================================================== -->
 
 <section class="social">
 
@@ -384,16 +429,18 @@ button.secondary{
     <canvas
       id="socialCard"
       width="1080"
-      height="1080"
-    ></canvas>
+      height="1080">
+    </canvas>
+
 
     <div>
 
       <div
         class="posttext"
-        id="postText"
-      >
-        In attesa dei dati...
+        id="postText">
+
+        Generazione...
+
       </div>
 
     </div>
@@ -403,21 +450,23 @@ button.secondary{
 </section>
 
 
+<!-- =====================================================
+     NOTE
+===================================================== -->
+
 <div class="source">
 
-  <strong>Fonte dati:</strong>
-  GME per il PUN e SNAM / filiera gas per il PSV,
-  attraverso l'Osservatorio Energia GiOKri Life.
-
-  <br><br>
-
   <strong>Nota:</strong>
-  i valori mostrati sono riferiti all'ultimo giorno disponibile.
-  Se il dato del giorno non è ancora disponibile,
-  il sistema utilizza automaticamente l'ultimo dato disponibile.
 
-  Il PUN è riportato in €/kWh per facilitarne
-  il confronto con le bollette.
+  i valori mostrati sono riferiti
+  all'ultimo giorno disponibile.
+
+  Se il dato del giorno non è ancora
+  disponibile, il sistema utilizza
+  automaticamente l'ultimo dato disponibile.
+
+  Il PUN è riportato in €/kWh per
+  facilitarne il confronto con le bollette.
 
 </div>
 
@@ -427,12 +476,8 @@ button.secondary{
 <script>
 
 /* =====================================================
-   CONFIGURAZIONE API
-   ===================================================== */
-
-/*
- * QUESTA È LA TUA WEB APP APPS SCRIPT
- */
+   API APPS SCRIPT
+===================================================== */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
@@ -442,347 +487,217 @@ let DATA = null;
 
 
 /* =====================================================
-   CARICAMENTO DATI
-   ===================================================== */
+   RECUPERO DATI
+===================================================== */
 
-/*
- * Usiamo JSONP.
- *
- * Questo evita i problemi CORS tra:
- *
- * GitHub Pages
- *        ↓
- * Apps Script
- *
- * L'API Apps Script supporta già:
- *
- * ?callback=nomeFunzione
- */
+async function refresh(){
 
-function refresh(){
-
-  const error =
+  const err =
     document.getElementById("error");
 
-  const loading =
-    document.getElementById("loading");
+  err.style.display = "none";
 
 
-  error.style.display="none";
+  try{
 
-  loading.style.display="block";
-
-  loading.textContent =
-    "Recupero delle ultime quotazioni PUN e PSV...";
-
-
-  /*
-   * Nome callback univoco.
-   */
-
-  const callbackName =
-    "giokriEnergyCallback_" +
-    Date.now();
-
-
-  /*
-   * Funzione globale chiamata
-   * direttamente da Apps Script.
-   */
-
-  window[callbackName] =
-    function(apiData){
-
-      try{
-
-        console.log(
-          "Risposta API:",
-          apiData
-        );
-
-
-        /*
-         * Verifica API.
-         */
-
-        if(
-          !apiData ||
-          apiData.success !== true
-        ){
-
-          throw new Error(
-            apiData &&
-            apiData.error
-              ? apiData.error
-              : "Risposta API non valida"
-          );
-
+    const response =
+      await fetch(
+        API_URL,
+        {
+          cache:"no-store"
         }
-
-
-        /*
-         * Trasformiamo la struttura
-         * dell'API nella struttura utilizzata
-         * dalla dashboard.
-         */
-
-        DATA =
-          normalizzaDati(apiData);
-
-
-        /*
-         * Visualizza dati.
-         */
-
-        render(DATA);
-
-
-        loading.style.display="none";
-
-
-      }catch(e){
-
-        loading.style.display="none";
-
-        showError(
-          "Errore elaborazione dati: " +
-          e.message
-        );
-
-      }
-
-
-      /*
-       * Eliminiamo la funzione callback.
-       */
-
-      delete window[callbackName];
-
-      /*
-       * Eliminiamo lo script dal DOM.
-       */
-
-      const script =
-        document.getElementById(
-          callbackName
-        );
-
-      if(script){
-        script.remove();
-      }
-
-    };
-
-
-  /*
-   * Creiamo dinamicamente
-   * il tag SCRIPT.
-   *
-   * Questo è il meccanismo JSONP.
-   */
-
-  const script =
-    document.createElement("script");
-
-
-  script.id =
-    callbackName;
-
-
-  script.src =
-    API_URL +
-    "?callback=" +
-    encodeURIComponent(
-      callbackName
-    );
-
-
-  script.onerror =
-    function(){
-
-      loading.style.display="none";
-
-      showError(
-        "Impossibile collegarsi all'API Apps Script."
       );
 
-      delete window[callbackName];
 
-    };
+    if(!response.ok){
+
+      throw new Error(
+        "Errore HTTP " +
+        response.status
+      );
+
+    }
 
 
-  document.body.appendChild(
-    script
-  );
+    const data =
+      await response.json();
+
+
+    if(!data.success){
+
+      throw new Error(
+        data.error ||
+        "Errore dati"
+      );
+
+    }
+
+
+    DATA = normalizzaDati(data);
+
+    render(DATA);
+
+
+  }catch(error){
+
+    showError(
+      "Impossibile recuperare i dati: " +
+      error.message
+    );
+
+  }
 
 }
 
 
 /* =====================================================
-   NORMALIZZAZIONE DATI
-   ===================================================== */
+   NORMALIZZAZIONE DATI API
+===================================================== */
 
-function normalizzaDati(api){
+function normalizzaDati(data){
+
+  if(
+    !data ||
+    !data.success ||
+    !data.ultimoDato
+  ){
+
+    throw new Error(
+      "Struttura dati API non valida"
+    );
+
+  }
+
 
   const storico =
-    Array.isArray(api.storico)
-      ? api.storico
+    Array.isArray(data.storico)
+      ? data.storico
       : [];
 
 
   /*
    * L'API restituisce lo storico
    * dal più recente al più vecchio.
-   *
-   * Per il grafico lo riportiamo
-   * dal più vecchio al più recente.
    */
 
-  const rows =
-    storico
-      .slice()
-      .reverse();
+  const storicoOrdinato =
+    [...storico].sort(
+      (a,b) =>
+        new Date(a.data) -
+        new Date(b.data)
+    );
 
-
-  /*
-   * Calcoliamo la variazione
-   * rispetto al giorno precedente.
-   */
-
-  rows.forEach(
-    function(row,index){
-
-      if(index === 0){
-
-        row.punChange = null;
-        row.psvChange = null;
-
-        return;
-
-      }
-
-
-      const precedente =
-        rows[index-1];
-
-
-      row.punChange =
-        variazionePercentuale(
-          precedente.pun_kwh,
-          row.pun_kwh
-        );
-
-
-      row.psvChange =
-        variazionePercentuale(
-          precedente.psv_smc,
-          row.psv_smc
-        );
-
-    }
-  );
-
-
-  /*
-   * Ultimo dato.
-   */
 
   const ultimo =
-    api.ultimoDato;
+    data.ultimoDato;
 
 
   /*
-   * Se c'è un solo giorno,
-   * non possiamo calcolare la variazione.
+   * Calcolo variazione PUN
    */
 
   let punChange = null;
+
   let psvChange = null;
 
 
-  if(rows.length >= 2){
+  if(
+    storicoOrdinato.length >= 2
+  ){
 
     const precedente =
-      rows[rows.length - 2];
+      storicoOrdinato[
+        storicoOrdinato.length - 2
+      ];
 
 
-    punChange =
-      variazionePercentuale(
-        precedente.pun_kwh,
-        ultimo.pun_kwh
-      );
+    if(
+      precedente.pun_kwh !== null &&
+      precedente.pun_kwh !== undefined &&
+      Number(precedente.pun_kwh) !== 0
+    ){
+
+      punChange =
+        (
+          (
+            Number(ultimo.pun_kwh) -
+            Number(precedente.pun_kwh)
+          )
+          /
+          Number(precedente.pun_kwh)
+        ) * 100;
+
+    }
 
 
-    psvChange =
-      variazionePercentuale(
-        precedente.psv_smc,
-        ultimo.psv_smc
-      );
+    if(
+      precedente.psv_smc !== null &&
+      precedente.psv_smc !== undefined &&
+      Number(precedente.psv_smc) !== 0
+    ){
+
+      psvChange =
+        (
+          (
+            Number(ultimo.psv_smc) -
+            Number(precedente.psv_smc)
+          )
+          /
+          Number(precedente.psv_smc)
+        ) * 100;
+
+    }
 
   }
 
 
   return {
 
-    generatedAt:
-      formatDataOra(
-        api.aggiornato
-      ),
-
     latest:{
 
       pun:
-        Number(
-          ultimo.pun_kwh
-        ),
+        Number(ultimo.pun_kwh),
 
       psv:
-        Number(
-          ultimo.psv_smc
-        ),
+        Number(ultimo.psv_smc),
+
+      punDate:
+        formatDate(ultimo.data),
+
+      psvDate:
+        formatDate(ultimo.data),
 
       punChange:
         punChange,
 
       psvChange:
-        psvChange,
-
-      punDate:
-        formatData(
-          ultimo.data
-        ),
-
-      psvDate:
-        formatData(
-          ultimo.data
-        )
+        psvChange
 
     },
 
-    history:
-      rows.map(
-        function(r){
 
-          return {
+    history:
+      storicoOrdinato
+        .slice(-7)
+        .map(
+          r => ({
 
             date:
-              formatDataBreve(
-                r.data
-              ),
+              formatDate(r.data),
 
             pun:
-              Number(
-                r.pun_kwh
-              ),
+              Number(r.pun_kwh),
 
             psv:
-              Number(
-                r.psv_smc
-              )
+              Number(r.psv_smc)
 
-          };
+          })
+        ),
 
-        }
+
+    generatedAt:
+      formatDateTime(
+        data.aggiornato
       )
 
   };
@@ -791,154 +706,129 @@ function normalizzaDati(api){
 
 
 /* =====================================================
-   CALCOLO VARIAZIONE
-   ===================================================== */
+   FORMATTA DATA
+===================================================== */
 
-function variazionePercentuale(
-  precedente,
-  attuale
-){
+function formatDate(value){
 
-  precedente =
-    Number(precedente);
-
-  attuale =
-    Number(attuale);
+  if(!value){
+    return "—";
+  }
 
 
-  if(
-    !isFinite(precedente) ||
-    !isFinite(attuale) ||
-    precedente === 0
-  ){
+  const d =
+    new Date(value);
 
-    return null;
+
+  if(isNaN(d.getTime())){
+
+    return value;
 
   }
 
 
-  return (
-    (attuale - precedente) /
-    precedente
-  ) * 100;
+  return d.toLocaleDateString(
+    "it-IT",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric"
+    }
+  );
 
 }
 
 
 /* =====================================================
-   FORMATTAZIONE
-   ===================================================== */
+   FORMATTA DATA E ORA
+===================================================== */
+
+function formatDateTime(value){
+
+  if(!value){
+    return "—";
+  }
+
+
+  const d =
+    new Date(value);
+
+
+  if(isNaN(d.getTime())){
+
+    return value;
+
+  }
+
+
+  return d.toLocaleString(
+    "it-IT",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
+
+}
+
+
+/* =====================================================
+   ERRORE
+===================================================== */
+
+function showError(message){
+
+  const error =
+    document.getElementById("error");
+
+
+  error.textContent =
+    message;
+
+
+  error.style.display =
+    "block";
+
+}
+
+
+/* =====================================================
+   FORMATTA NUMERO
+===================================================== */
 
 function fmt(
-  n,
-  dec
+  number,
+  decimals
 ){
 
-  return Number(n)
+  return Number(number)
     .toLocaleString(
       "it-IT",
       {
-        minimumFractionDigits:dec,
-        maximumFractionDigits:dec
+        minimumFractionDigits:
+          decimals,
+
+        maximumFractionDigits:
+          decimals
       }
     );
 
 }
 
 
-function formatData(data){
-
-  if(!data){
-    return "—";
-  }
-
-
-  const parti =
-    String(data).split("-");
-
-
-  if(parti.length !== 3){
-    return data;
-  }
-
-
-  return (
-    parti[2] +
-    "/" +
-    parti[1] +
-    "/" +
-    parti[0]
-  );
-
-}
-
-
-function formatDataBreve(data){
-
-  if(!data){
-    return "";
-  }
-
-
-  const parti =
-    String(data).split("-");
-
-
-  if(parti.length !== 3){
-    return data;
-  }
-
-
-  return (
-    parti[2] +
-    "/" +
-    parti[1]
-  );
-
-}
-
-
-function formatDataOra(data){
-
-  if(!data){
-    return "";
-  }
-
-
-  try{
-
-    const d =
-      new Date(data);
-
-
-    if(isNaN(d.getTime())){
-      return data;
-    }
-
-
-    return d.toLocaleString(
-      "it-IT"
-    );
-
-  }catch(e){
-
-    return data;
-
-  }
-
-}
-
-
 /* =====================================================
-   VARIAZIONE VISIVA
-   ===================================================== */
+   VARIAZIONE HTML
+===================================================== */
 
-function changeHtml(v){
+function changeHtml(value){
 
   if(
-    v === null ||
-    v === undefined ||
-    isNaN(v)
+    value === null ||
+    value === undefined ||
+    isNaN(value)
   ){
 
     return "—";
@@ -946,34 +836,42 @@ function changeHtml(v){
   }
 
 
-  const cls =
-    v > 0
-      ? "up"
-      : v < 0
-        ? "down"
-        : "flat";
+  let className =
+    "flat";
+
+  let arrow =
+    "=";
 
 
-  const arrow =
-    v > 0
-      ? "▲"
-      : v < 0
-        ? "▼"
-        : "=";
+  if(value > 0){
+
+    className =
+      "up";
+
+    arrow =
+      "▲";
+
+  }
 
 
-  const sign =
-    v > 0
-      ? "+"
-      : "";
+  if(value < 0){
+
+    className =
+      "down";
+
+    arrow =
+      "▼";
+
+  }
 
 
   return `
-    <span class="${cls}">
+    <span class="${className}">
       ${arrow}
-      ${sign}${Math.abs(v)
+      ${Math.abs(value)
         .toFixed(1)
-        .replace(".",",")}%
+        .replace(".",",")
+      }%
       vs giorno precedente
     </span>
   `;
@@ -983,16 +881,16 @@ function changeHtml(v){
 
 /* =====================================================
    RENDER DASHBOARD
-   ===================================================== */
+===================================================== */
 
-function render(d){
+function render(data){
 
   document.getElementById(
     "pun"
   ).textContent =
     fmt(
-      d.latest.pun,
-      4
+      data.latest.pun,
+      5
     );
 
 
@@ -1000,8 +898,8 @@ function render(d){
     "psv"
   ).textContent =
     fmt(
-      d.latest.psv,
-      4
+      data.latest.psv,
+      5
     );
 
 
@@ -1009,7 +907,7 @@ function render(d){
     "punChange"
   ).innerHTML =
     changeHtml(
-      d.latest.punChange
+      data.latest.punChange
     );
 
 
@@ -1017,7 +915,7 @@ function render(d){
     "psvChange"
   ).innerHTML =
     changeHtml(
-      d.latest.psvChange
+      data.latest.psvChange
     );
 
 
@@ -1025,26 +923,26 @@ function render(d){
     "punDate"
   ).textContent =
     "Dato: " +
-    d.latest.punDate;
+    data.latest.punDate;
 
 
   document.getElementById(
     "psvDate"
   ).textContent =
     "Dato: " +
-    d.latest.psvDate;
+    data.latest.psvDate;
 
 
   document.getElementById(
     "updated"
   ).textContent =
     "Aggiornato: " +
-    d.generatedAt +
+    data.generatedAt +
     " | Ultimo dato disponibile";
 
 
   drawChart(
-    d.history
+    data.history
   );
 
 
@@ -1055,38 +953,38 @@ function render(d){
 
 /* =====================================================
    GRAFICO
-   ===================================================== */
+===================================================== */
 
 function drawChart(rows){
 
-  const c =
+  const canvas =
     document.getElementById(
       "chart"
     );
 
 
   const ctx =
-    c.getContext("2d");
+    canvas.getContext("2d");
 
 
   const ratio =
     window.devicePixelRatio || 1;
 
 
-  const w =
-    c.clientWidth;
+  const width =
+    canvas.clientWidth;
 
 
-  const h =
-    c.clientHeight;
+  const height =
+    canvas.clientHeight;
 
 
-  c.width =
-    w * ratio;
+  canvas.width =
+    width * ratio;
 
 
-  c.height =
-    h * ratio;
+  canvas.height =
+    height * ratio;
 
 
   ctx.setTransform(
@@ -1102,8 +1000,8 @@ function drawChart(rows){
   ctx.clearRect(
     0,
     0,
-    w,
-    h
+    width,
+    height
   );
 
 
@@ -1117,22 +1015,24 @@ function drawChart(rows){
   }
 
 
-  const pad={
+  const pad = {
+
     l:48,
     r:20,
     t:20,
     b:38
+
   };
 
 
   const iw =
-    w -
+    width -
     pad.l -
     pad.r;
 
 
   const ih =
-    h -
+    height -
     pad.t -
     pad.b;
 
@@ -1149,61 +1049,65 @@ function drawChart(rows){
     );
 
 
-  const min1 =
+  const minPun =
     Math.min(...pun);
 
 
-  const max1 =
+  const maxPun =
     Math.max(...pun);
 
 
-  const min2 =
+  const minPsv =
     Math.min(...psv);
 
 
-  const max2 =
+  const maxPsv =
     Math.max(...psv);
 
 
-  function x(i){
+  function x(index){
 
-    return pad.l +
+    return (
+      pad.l +
       (
-        i /
+        index /
         (rows.length - 1 || 1)
       ) *
-      iw;
+      iw
+    );
 
   }
 
 
   function y(
-    v,
+    value,
     min,
     max
   ){
 
-    return pad.t +
+    return (
+      pad.t +
       (
         1 -
         (
-          (v-min) /
-          (max-min || 1)
+          (value - min) /
+          (max - min || 1)
         )
       ) *
-      ih;
+      ih
+    );
 
   }
 
 
   /*
-   * Griglia.
+   * Griglia
    */
 
   ctx.strokeStyle =
     "#e5e7eb";
 
-  ctx.lineWidth=1;
+  ctx.lineWidth = 1;
 
 
   for(
@@ -1215,8 +1119,7 @@ function drawChart(rows){
     const yy =
       pad.t +
       i *
-      ih /
-      3;
+      ih / 3;
 
 
     ctx.beginPath();
@@ -1227,7 +1130,7 @@ function drawChart(rows){
     );
 
     ctx.lineTo(
-      w-pad.r,
+      width - pad.r,
       yy
     );
 
@@ -1237,47 +1140,48 @@ function drawChart(rows){
 
 
   /*
-   * Linee.
+   * Disegna una linea
    */
 
-  ctx.lineWidth=3;
-
-
-  function line(
+  function drawLine(
     key,
     min,
     max,
-    tipo
+    lineColor
   ){
 
     ctx.beginPath();
 
 
     rows.forEach(
-      function(r,i){
+      (row,index) => {
 
         const xx =
-          x(i);
+          x(index);
 
 
         const yy =
           y(
-            r[key],
+            row[key],
             min,
             max
           );
 
 
-        if(i){
-          ctx.lineTo(
-            xx,
-            yy
-          );
-        }else{
+        if(index === 0){
+
           ctx.moveTo(
             xx,
             yy
           );
+
+        }else{
+
+          ctx.lineTo(
+            xx,
+            yy
+          );
+
         }
 
       }
@@ -1285,60 +1189,58 @@ function drawChart(rows){
 
 
     ctx.strokeStyle =
-      tipo === "psv"
-        ? "#d97706"
-        : "#0b6bcb";
+      lineColor;
 
+    ctx.lineWidth = 3;
 
     ctx.stroke();
 
   }
 
 
-  line(
+  drawLine(
     "pun",
-    min1,
-    max1,
-    "pun"
+    minPun,
+    maxPun,
+    "#0b6bcb"
   );
 
 
-  line(
+  drawLine(
     "psv",
-    min2,
-    max2,
-    "psv"
+    minPsv,
+    maxPsv,
+    "#d97706"
   );
 
 
   /*
-   * Date.
+   * Date
    */
 
   ctx.fillStyle =
     "#6b7280";
-
 
   ctx.font =
     "12px Arial";
 
 
   rows.forEach(
-    function(r,i){
+    (row,index) => {
 
       if(
-        i === 0 ||
-        i === rows.length-1 ||
-        i % 2 === 0
+        index === 0 ||
+        index === rows.length - 1 ||
+        index % 2 === 0
       ){
 
         ctx.fillText(
-          r.date,
+          row.date,
           Math.max(
             0,
-            x(i)-22
+            x(index) - 22
           ),
-          h-12
+          height - 12
         );
 
       }
@@ -1350,288 +1252,383 @@ function drawChart(rows){
 
 
 /* =====================================================
-   SOCIAL CARD
-   ===================================================== */
+   TESTO VARIAZIONE
+===================================================== */
+
+function plainChange(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    isNaN(value)
+  ){
+
+    return "";
+
+  }
+
+
+  if(value > 0){
+
+    return (
+      "▲ +" +
+      Math.abs(value)
+        .toFixed(1)
+        .replace(".",",") +
+      "% vs giorno precedente"
+    );
+
+  }
+
+
+  if(value < 0){
+
+    return (
+      "▼ " +
+      Math.abs(value)
+        .toFixed(1)
+        .replace(".",",") +
+      "% vs giorno precedente"
+    );
+
+  }
+
+
+  return (
+    "= 0,0% vs giorno precedente"
+  );
+
+}
+
+
+/* =====================================================
+   NUOVA SOCIAL CARD
+===================================================== */
 
 function generateSocial(){
 
   if(!DATA){
+
     return;
+
   }
 
 
-  const c =
+  const canvas =
     document.getElementById(
       "socialCard"
     );
 
 
   const ctx =
-    c.getContext("2d");
+    canvas.getContext("2d");
+
+
+  const W = 1080;
+  const H = 1080;
 
 
   ctx.clearRect(
     0,
     0,
-    1080,
-    1080
+    W,
+    H
   );
 
 
   /*
-   * Sfondo.
+   * SFONDO
    */
 
   ctx.fillStyle =
     "#f5f7fa";
 
-
   ctx.fillRect(
     0,
     0,
-    1080,
-    1080
+    W,
+    H
   );
 
 
   /*
-   * Titolo.
+   * BARRA SUPERIORE
+   */
+
+  ctx.fillStyle =
+    "#0b6bcb";
+
+  ctx.fillRect(
+    0,
+    0,
+    W,
+    18
+  );
+
+
+  /*
+   * TITOLO
    */
 
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
-    "bold 54px Arial";
-
+    "bold 58px Arial";
 
   ctx.fillText(
     "GIORNATA ENERGETICA",
     70,
-    100
+    105
   );
-
-
-  ctx.font =
-    "28px Arial";
 
 
   ctx.fillStyle =
     "#6b7280";
 
+  ctx.font =
+    "28px Arial";
 
   ctx.fillText(
-    "GiOKri Life | Ultimo dato disponibile",
+    "GiOKri Life | PUN & PSV",
     70,
-    145
+    150
   );
 
 
   /*
-   * PUN.
+   * DATA
+   */
+
+  ctx.font =
+    "bold 26px Arial";
+
+  ctx.fillStyle =
+    "#6b7280";
+
+  ctx.fillText(
+    DATA.latest.punDate,
+    70,
+    190
+  );
+
+
+  /*
+   * BOX PUN
    */
 
   ctx.fillStyle =
     "#ffffff";
 
-
-  roundRect(
-    ctx,
+  ctx.fillRect(
     60,
-    200,
+    230,
     960,
-    245,
-    28
+    250
   );
 
 
-  ctx.fill();
+  /*
+   * INDICATORE PUN
+   */
+
+  ctx.fillStyle =
+    "#0b6bcb";
+
+  ctx.fillRect(
+    60,
+    230,
+    12,
+    250
+  );
 
 
   ctx.fillStyle =
     "#0b6bcb";
 
-
   ctx.font =
-    "bold 34px Arial";
-
+    "bold 36px Arial";
 
   ctx.fillText(
-    "⚡ PUN",
-    95,
-    260
+    "⚡ PUN INDEX GME",
+    100,
+    295
   );
 
 
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
-    "bold 70px Arial";
-
+    "bold 72px Arial";
 
   ctx.fillText(
     fmt(
       DATA.latest.pun,
-      4
+      5
     ) +
     " €/kWh",
-    95,
-    340
+    100,
+    380
   );
-
-
-  ctx.font =
-    "25px Arial";
 
 
   ctx.fillStyle =
     "#6b7280";
 
+  ctx.font =
+    "25px Arial";
 
   ctx.fillText(
-    DATA.latest.punDate,
-    95,
-    390
+    plainChange(
+      DATA.latest.punChange
+    ),
+    100,
+    430
   );
 
 
   /*
-   * PSV.
+   * BOX PSV
    */
 
   ctx.fillStyle =
     "#ffffff";
 
-
-  roundRect(
-    ctx,
+  ctx.fillRect(
     60,
-    480,
+    510,
     960,
-    245,
-    28
+    250
   );
 
 
-  ctx.fill();
+  /*
+   * INDICATORE PSV
+   */
+
+  ctx.fillStyle =
+    "#d97706";
+
+  ctx.fillRect(
+    60,
+    510,
+    12,
+    250
+  );
 
 
   ctx.fillStyle =
     "#d97706";
 
-
   ctx.font =
-    "bold 34px Arial";
-
+    "bold 36px Arial";
 
   ctx.fillText(
     "🔥 PSV",
-    95,
-    540
+    100,
+    575
   );
 
 
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
-    "bold 70px Arial";
-
+    "bold 72px Arial";
 
   ctx.fillText(
     fmt(
       DATA.latest.psv,
-      4
+      5
     ) +
     " €/Smc",
-    95,
-    620
+    100,
+    660
   );
-
-
-  ctx.font =
-    "25px Arial";
 
 
   ctx.fillStyle =
     "#6b7280";
 
+  ctx.font =
+    "25px Arial";
 
   ctx.fillText(
-    DATA.latest.psvDate,
-    95,
-    670
+    plainChange(
+      DATA.latest.psvChange
+    ),
+    100,
+    710
   );
 
 
   /*
-   * Claim.
+   * MESSAGGIO CENTRALE
    */
 
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
-    "bold 31px Arial";
-
+    "bold 34px Arial";
 
   ctx.fillText(
-    "Capire il mercato per pagare consapevolmente.",
+    "Capire il mercato",
     70,
-    820
+    840
   );
 
 
-  ctx.font =
-    "23px Arial";
+  ctx.fillText(
+    "per pagare consapevolmente.",
+    70,
+    885
+  );
 
+
+  /*
+   * FOOTER
+   */
 
   ctx.fillStyle =
     "#6b7280";
 
+  ctx.font =
+    "22px Arial";
 
   ctx.fillText(
     "Dati di mercato • aggiornamento automatico",
     70,
-    865
+    940
   );
 
-
-  /*
-   * Brand.
-   */
 
   ctx.fillStyle =
     "#0b6bcb";
 
-
   ctx.font =
     "bold 42px Arial";
-
 
   ctx.fillText(
     "GiOKri Life",
     70,
-    965
+    1000
   );
 
 
   /*
-   * Testo social.
+   * TESTO SOCIAL
    */
 
-  const text =
+  const postText =
+
 `GIORNATA ENERGETICA | ${DATA.latest.punDate}
 
-⚡ PUN: ${fmt(DATA.latest.pun,4)} €/kWh
+⚡ PUN: ${fmt(DATA.latest.pun,5)} €/kWh
 ${plainChange(DATA.latest.punChange)}
 
-🔥 PSV: ${fmt(DATA.latest.psv,4)} €/Smc
+🔥 PSV: ${fmt(DATA.latest.psv,5)} €/Smc
 ${plainChange(DATA.latest.psvChange)}
 
 Dati riferiti all'ultimo giorno disponibile.
@@ -1644,111 +1641,18 @@ Capire il mercato per pagare consapevolmente.
   document.getElementById(
     "postText"
   ).textContent =
-    text;
+    postText;
 
 }
 
 
 /* =====================================================
-   TESTO VARIAZIONE SOCIAL
-   ===================================================== */
-
-function plainChange(v){
-
-  if(
-    v === null ||
-    v === undefined ||
-    isNaN(v)
-  ){
-
-    return "";
-
-  }
-
-
-  const arrow =
-    v > 0
-      ? "▲ +"
-      : v < 0
-        ? "▼ "
-        : "= ";
-
-
-  return (
-    arrow +
-    Math.abs(v)
-      .toFixed(1)
-      .replace(".",",") +
-    "% vs giorno precedente"
-  );
-
-}
-
-
-/* =====================================================
-   ROUND RECT
-   ===================================================== */
-
-function roundRect(
-  ctx,
-  x,
-  y,
-  w,
-  h,
-  r
-){
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    x+r,
-    y
-  );
-
-  ctx.arcTo(
-    x+w,
-    y,
-    x+w,
-    y+h,
-    r
-  );
-
-  ctx.arcTo(
-    x+w,
-    y+h,
-    x,
-    y+h,
-    r
-  );
-
-  ctx.arcTo(
-    x,
-    y+h,
-    x,
-    y,
-    r
-  );
-
-  ctx.arcTo(
-    x,
-    y,
-    x+w,
-    y,
-    r
-  );
-
-  ctx.closePath();
-
-}
-
-
-/* =====================================================
-   RESIZE
-   ===================================================== */
+   RIDIMENSIONAMENTO GRAFICO
+===================================================== */
 
 window.addEventListener(
   "resize",
-  function(){
+  () => {
 
     if(DATA){
 
@@ -1764,7 +1668,7 @@ window.addEventListener(
 
 /* =====================================================
    AVVIO AUTOMATICO
-   ===================================================== */
+===================================================== */
 
 refresh();
 
