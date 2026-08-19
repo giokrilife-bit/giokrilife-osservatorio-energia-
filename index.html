@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GiOKri Life | Quotazioni PUN & PSV</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--text:#18212b;--muted:#6b7280;--line:#e5e7eb;--accent:#0b6bcb;--up:#c62828;--down:#16803c}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+.wrap{max-width:1100px;margin:auto;padding:22px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px}
+.brand{font-weight:800;font-size:24px}.brand span{font-weight:400}
+.updated{font-size:13px;color:var(--muted);text-align:right}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 5px 18px #0000000a}
+.label{font-size:14px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.value{font-size:42px;font-weight:800;margin:8px 0 4px}.unit{font-size:17px;font-weight:600}
+.change{font-size:15px;font-weight:700}.up{color:var(--up)}.down{color:var(--down)}.flat{color:var(--muted)}
+.date{font-size:13px;color:var(--muted);margin-top:12px}
+.section{margin-top:22px}.section h2{font-size:19px;margin:0 0 12px}
+.chartbox{height:310px}.legend{display:flex;gap:20px;font-size:13px;color:var(--muted);margin-top:8px}
+canvas{width:100%;height:100%}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+button{border:0;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer;background:var(--accent);color:#fff}
+button.secondary{background:#e9eef5;color:#243447}
+.social{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:22px}
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+#socialCard{width:100%;max-width:520px;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:12px}
+.posttext{white-space:pre-wrap;background:#f7f8fa;padding:16px;border-radius:12px;font-size:14px;line-height:1.55}
+.source{font-size:12px;color:var(--muted);margin-top:18px;line-height:1.45}
+.error{background:#fff3f3;color:#8b1e1e;padding:14px;border-radius:12px;margin-bottom:18px;display:none}
+@media(max-width:760px){.cards,.social-grid{grid-template-columns:1fr}.value{font-size:36px}.updated{text-align:left}header{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">GiOKri Life <span>| Energia</span></div>
+  <div class="updated" id="updated">Caricamento...</div>
+</header>
+
+<div id="error" class="error"></div>
+
+<section class="cards">
+  <article class="card">
+    <div class="label">⚡ PUN Index GME</div>
+    <div class="value" id="pun">—</div>
+    <div class="unit">€/kWh</div>
+    <div class="change" id="punChange">—</div>
+    <div class="date" id="punDate">Dato: —</div>
+  </article>
+  <article class="card">
+    <div class="label">🔥 PSV</div>
+    <div class="value" id="psv">—</div>
+    <div class="unit">€/Smc</div>
+    <div class="change" id="psvChange">—</div>
+    <div class="date" id="psvDate">Dato: —</div>
+  </article>
+</section>
+
+<section class="section card">
+  <h2>Andamento ultimi 7 giorni</h2>
+  <div class="chartbox"><canvas id="chart"></canvas></div>
+  <div class="legend"><span>● PUN €/kWh</span><span>● PSV €/Smc</span></div>
+</section>
+
+<section class="actions">
+  <button onclick="refresh()">↻ Aggiorna dati</button>
+  <button onclick="generateSocial()" class="secondary">📲 Genera Social Card</button>
+</section>
+
+<section class="social">
+  <h2>Contenuto per i social</h2>
+  <div class="social-grid">
+    <canvas id="socialCard" width="1080" height="1080"></canvas>
+    <div>
+      <div class="posttext" id="postText">Generazione...</div>
+    </div>
+  </div>
+</section>
+
+<div class="source">
+  <strong>Nota:</strong> i valori mostrati sono riferiti all'ultimo giorno disponibile.
+  Se il dato del giorno non è ancora disponibile, il sistema utilizza automaticamente l'ultimo dato disponibile.
+  Il PUN è riportato in €/kWh per facilitarne il confronto con le bollette.
+</div>
+</div>
+
+<script>
+/*
+ * DOPO IL DEPLOY DI APPS SCRIPT:
+ * sostituisci questa URL con l'URL della Web App.
+ */
+const API_URL = "INSERISCI_QUI_URL_APPS_SCRIPT";
+
+let DATA = null;
+
+async function refresh(){
+  const err=document.getElementById("error");
+  err.style.display="none";
+  if(API_URL.includes("INSERISCI_QUI")){
+    showError("Configura prima API_URL nel file index.html con l'URL della Web App Apps Script.");
+    return;
+  }
+  try{
+    const r=await fetch(API_URL+"?action=data",{cache:"no-store"});
+    const d=await r.json();
+    if(!d.ok) throw new Error(d.error||"Errore dati");
+    DATA=d;
+    render(d);
+  }catch(e){showError("Impossibile recuperare i dati: "+e.message)}
+}
+
+function showError(t){const e=document.getElementById("error");e.textContent=t;e.style.display="block"}
+
+function fmt(n,dec){return Number(n).toLocaleString("it-IT",{minimumFractionDigits:dec,maximumFractionDigits:dec})}
+function changeHtml(v){
+  if(v===null || v===undefined || isNaN(v)) return "—";
+  const cls=v>0?"up":v<0?"down":"flat";
+  const arrow=v>0?"▲":v<0?"▼":"=";
+  return `<span class="${cls}">${arrow} ${Math.abs(v).toFixed(1).replace(".",",")}% vs giorno precedente</span>`;
+}
+
+function render(d){
+  document.getElementById("pun").textContent=fmt(d.latest.pun,5);
+  document.getElementById("psv").textContent=fmt(d.latest.psv,5);
+  document.getElementById("punChange").innerHTML=changeHtml(d.latest.punChange);
+  document.getElementById("psvChange").innerHTML=changeHtml(d.latest.psvChange);
+  document.getElementById("punDate").textContent="Dato: "+d.latest.punDate;
+  document.getElementById("psvDate").textContent="Dato: "+d.latest.psvDate;
+  document.getElementById("updated").textContent="Aggiornato: "+d.generatedAt+" | Ultimo dato disponibile";
+  drawChart(d.history);
+  generateSocial();
+}
+
+function drawChart(rows){
+  const c=document.getElementById("chart"),ctx=c.getContext("2d");
+  const ratio=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;
+  c.width=w*ratio;c.height=h*ratio;ctx.setTransform(ratio,0,0,ratio,0,0);
+  ctx.clearRect(0,0,w,h);
+  if(!rows||!rows.length)return;
+  const pad={l:48,r:20,t:20,b:38}, iw=w-pad.l-pad.r, ih=h-pad.t-pad.b;
+  const pun=rows.map(x=>x.pun), psv=rows.map(x=>x.psv);
+  const min1=Math.min(...pun),max1=Math.max(...pun),min2=Math.min(...psv),max2=Math.max(...psv);
+  function x(i){return pad.l+(i/(rows.length-1||1))*iw}
+  function y(v,min,max){return pad.t+(1-(v-min)/(max-min||1))*ih}
+  ctx.strokeStyle="#e5e7eb";ctx.lineWidth=1;
+  for(let i=0;i<4;i++){let yy=pad.t+i*ih/3;ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(w-pad.r,yy);ctx.stroke()}
+  ctx.lineWidth=3;
+  function line(key,min,max,offset){
+    ctx.beginPath();
+    rows.forEach((r,i)=>{const xx=x(i),yy=y(r[key],min,max);i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});
+    ctx.strokeStyle=offset?"#d97706":"#0b6bcb";ctx.stroke();
+  }
+  line("pun",min1,max1,0);line("psv",min2,max2,1);
+  ctx.fillStyle="#6b7280";ctx.font="12px Arial";
+  rows.forEach((r,i)=>{if(i===0||i===rows.length-1||i%2===0)ctx.fillText(r.date,Math.max(0,x(i)-22),h-12)});
+}
+
+function generateSocial(){
+  if(!DATA)return;
+  const c=document.getElementById("socialCard"),ctx=c.getContext("2d");
+  ctx.clearRect(0,0,1080,1080);
+  ctx.fillStyle="#f5f7fa";ctx.fillRect(0,0,1080,1080);
+  ctx.fillStyle="#18212b";ctx.font="bold 54px Arial";ctx.fillText("GIORNATA ENERGETICA",70,100);
+  ctx.font="28px Arial";ctx.fillStyle="#6b7280";ctx.fillText("GiOKri Life | Ultimo dato disponibile",70,145);
+  ctx.fillStyle="#fff";roundRect(ctx,60,200,960,245,28);ctx.fill();
+  ctx.fillStyle="#0b6bcb";ctx.font="bold 34px Arial";ctx.fillText("⚡ PUN",95,260);
+  ctx.fillStyle="#18212b";ctx.font="bold 70px Arial";ctx.fillText(fmt(DATA.latest.pun,5)+" €/kWh",95,340);
+  ctx.font="25px Arial";ctx.fillStyle="#6b7280";ctx.fillText(DATA.latest.punDate,95,390);
+  ctx.fillStyle="#fff";roundRect(ctx,60,480,960,245,28);ctx.fill();
+  ctx.fillStyle="#d97706";ctx.font="bold 34px Arial";ctx.fillText("🔥 PSV",95,540);
+  ctx.fillStyle="#18212b";ctx.font="bold 70px Arial";ctx.fillText(fmt(DATA.latest.psv,5)+" €/Smc",95,620);
+  ctx.font="25px Arial";ctx.fillStyle="#6b7280";ctx.fillText(DATA.latest.psvDate,95,670);
+  ctx.fillStyle="#18212b";ctx.font="bold 31px Arial";ctx.fillText("Capire il mercato per pagare consapevolmente.",70,820);
+  ctx.font="23px Arial";ctx.fillStyle="#6b7280";ctx.fillText("Dati di mercato • aggiornamento automatico",70,865);
+  ctx.fillStyle="#0b6bcb";ctx.font="bold 42px Arial";ctx.fillText("GiOKri Life",70,965);
+
+  const text=`GIORNATA ENERGETICA | ${DATA.latest.punDate}
+
+⚡ PUN: ${fmt(DATA.latest.pun,5)} €/kWh
+${plainChange(DATA.latest.punChange)}
+
+🔥 PSV: ${fmt(DATA.latest.psv,5)} €/Smc
+${plainChange(DATA.latest.psvChange)}
+
+Dati riferiti all'ultimo giorno disponibile.
+Capire il mercato per pagare consapevolmente.
+
+#GiOKriLife #PUN #PSV #Energia #Risparmio`;
+  document.getElementById("postText").textContent=text;
+}
+function plainChange(v){return v==null?"":(v>0?"▲ +":"▼ ")+Math.abs(v).toFixed(1).replace(".",",")+"% vs giorno precedente"}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+window.addEventListener("resize",()=>DATA&&drawChart(DATA.history));
+refresh();
+</script>
+</body>
+</html>
