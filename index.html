@@ -1,363 +1,653 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GiOKri Life | Quotazioni PUN & PSV</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+  GiOKri Life | Quotazioni PUN & PSV
+</title>
+
 
 <style>
 
+/* =====================================================
+   VARIABILI
+===================================================== */
+
 :root{
+
   --bg:#f5f7fa;
+
   --card:#ffffff;
+
   --text:#18212b;
+
   --muted:#6b7280;
+
   --line:#e5e7eb;
+
   --accent:#0b6bcb;
+
   --gas:#d97706;
+
   --up:#c62828;
+
   --down:#16803c;
+
 }
+
+
+/* =====================================================
+   BASE
+===================================================== */
 
 *{
   box-sizing:border-box;
 }
 
+
 body{
+
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    var(--bg);
+
+  color:
+    var(--text);
+
 }
+
 
 .wrap{
+
   max-width:1100px;
+
   margin:auto;
+
   padding:22px;
+
 }
 
-/* =========================
+
+/* =====================================================
    HEADER
-========================= */
+===================================================== */
 
 header{
+
   display:flex;
-  justify-content:space-between;
+
+  justify-content:
+    space-between;
+
   align-items:center;
+
   gap:16px;
+
   margin-bottom:22px;
+
 }
+
 
 .brand{
+
   font-weight:800;
+
   font-size:24px;
+
 }
+
 
 .brand span{
+
   font-weight:400;
+
 }
+
 
 .updated{
+
   font-size:13px;
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   text-align:right;
+
 }
 
-/* =========================
+
+/* =====================================================
    ERROR
-========================= */
+===================================================== */
 
 .error{
+
   background:#fff3f3;
+
   color:#8b1e1e;
+
   padding:14px;
+
   border-radius:12px;
+
   margin-bottom:18px;
+
   display:none;
+
 }
 
-/* =========================
-   MAIN CARDS
-========================= */
+
+/* =====================================================
+   CARDS PRINCIPALI
+===================================================== */
 
 .cards{
+
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:18px;
+
 }
+
 
 .card{
-  background:var(--card);
-  border:1px solid var(--line);
+
+  background:
+    var(--card);
+
+  border:
+    1px solid var(--line);
+
   border-radius:18px;
+
   padding:22px;
-  box-shadow:0 5px 18px #0000000a;
+
+  box-shadow:
+    0 5px 18px #0000000a;
+
 }
+
 
 .label{
+
   font-size:14px;
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   font-weight:700;
-  text-transform:uppercase;
+
+  text-transform:
+    uppercase;
+
   letter-spacing:.04em;
+
 }
+
 
 .value{
+
   font-size:42px;
+
   font-weight:800;
-  margin:8px 0 4px;
+
+  margin:
+    8px 0 4px;
+
 }
+
 
 .unit{
+
   font-size:17px;
+
   font-weight:600;
+
 }
 
+
 .change{
+
   font-size:15px;
+
   font-weight:700;
+
   margin-top:8px;
+
 }
+
 
 .up{
   color:var(--up);
 }
 
+
 .down{
   color:var(--down);
 }
+
 
 .flat{
   color:var(--muted);
 }
 
+
 .date{
+
   font-size:13px;
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   margin-top:12px;
+
 }
 
-/* =========================
-   SECTION
-========================= */
+
+/* =====================================================
+   SEZIONI
+===================================================== */
 
 .section{
+
   margin-top:22px;
+
 }
+
 
 .section h2{
+
   font-size:19px;
-  margin:0 0 12px;
+
+  margin:
+    0 0 12px;
+
 }
 
-/* =========================
-   CHART
-========================= */
+
+/* =====================================================
+   GRAFICO
+===================================================== */
 
 .chartbox{
+
   height:310px;
+
 }
+
 
 canvas{
+
   width:100%;
+
   height:100%;
+
 }
+
 
 .legend{
+
   display:flex;
+
   gap:20px;
+
   font-size:13px;
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   margin-top:8px;
+
 }
 
-/* =========================
-   BUTTONS
-========================= */
+
+/* =====================================================
+   PULSANTI
+===================================================== */
 
 .actions{
+
   display:flex;
+
   flex-wrap:wrap;
+
   gap:10px;
+
   margin-top:18px;
+
 }
+
 
 button{
+
   border:0;
+
   border-radius:10px;
-  padding:12px 16px;
+
+  padding:
+    12px 16px;
+
   font-weight:700;
+
   cursor:pointer;
-  background:var(--accent);
+
+  background:
+    var(--accent);
+
   color:#fff;
+
 }
+
 
 button.secondary{
+
   background:#e9eef5;
+
   color:#243447;
+
 }
+
 
 button:hover{
+
   opacity:.9;
+
 }
 
-/* =========================
+
+/* =====================================================
    SOCIAL
-========================= */
+===================================================== */
 
 .social{
+
   background:#fff;
-  border:1px solid var(--line);
+
+  border:
+    1px solid var(--line);
+
   border-radius:18px;
+
   padding:20px;
+
   margin-top:22px;
+
 }
+
 
 .social h2{
+
   margin-top:0;
+
 }
+
 
 .social-grid{
+
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap:20px;
+
   align-items:center;
+
 }
+
 
 #socialCard{
+
   width:100%;
+
   max-width:520px;
+
   aspect-ratio:1;
+
   background:#fff;
-  border:1px solid var(--line);
+
+  border:
+    1px solid var(--line);
+
   border-radius:12px;
+
 }
+
 
 .posttext{
+
   white-space:pre-wrap;
+
   background:#f7f8fa;
+
   padding:16px;
+
   border-radius:12px;
+
   font-size:14px;
+
   line-height:1.55;
+
 }
 
-/* =========================
-   SOURCE
-========================= */
+
+/* =====================================================
+   FONTE
+===================================================== */
 
 .source{
+
   font-size:12px;
-  color:var(--muted);
+
+  color:
+    var(--muted);
+
   margin-top:18px;
+
   line-height:1.45;
+
 }
 
-/* =========================
+
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:760px){
 
   .cards,
   .social-grid{
+
     grid-template-columns:1fr;
+
   }
+
 
   .value{
+
     font-size:36px;
+
   }
+
 
   .updated{
+
     text-align:left;
+
   }
 
+
   header{
+
     align-items:flex-start;
+
     flex-direction:column;
+
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
+
 <div class="wrap">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header>
 
   <div class="brand">
-    GiOKri Life <span>| Energia</span>
+
+    GiOKri Life
+    <span>| Energia</span>
+
   </div>
 
-  <div class="updated" id="updated">
+
+  <div
+    class="updated"
+    id="updated">
+
     Caricamento...
+
   </div>
 
 </header>
 
 
-<div id="error" class="error"></div>
+<!-- =====================================================
+     ERRORE
+===================================================== -->
+
+<div
+  id="error"
+  class="error">
+</div>
 
 
 <!-- =====================================================
-     QUOTAZIONI
+     PUN / PSV
 ===================================================== -->
 
 <section class="cards">
 
+
+  <!-- PUN -->
+
   <article class="card">
 
     <div class="label">
+
       ⚡ PUN Index GME
+
     </div>
 
-    <div class="value" id="pun">
+
+    <div
+      class="value"
+      id="pun">
+
       —
+
     </div>
+
 
     <div class="unit">
+
       €/kWh
+
     </div>
 
-    <div class="change" id="punChange">
+
+    <div
+      class="change"
+      id="punChange">
+
       —
+
     </div>
 
-    <div class="date" id="punDate">
+
+    <div
+      class="date"
+      id="punDate">
+
       Dato: —
+
     </div>
 
   </article>
 
+
+  <!-- PSV -->
 
   <article class="card">
 
     <div class="label">
+
       🔥 PSV
+
     </div>
 
-    <div class="value" id="psv">
+
+    <div
+      class="value"
+      id="psv">
+
       —
+
     </div>
+
 
     <div class="unit">
+
       €/Smc
+
     </div>
 
-    <div class="change" id="psvChange">
+
+    <div
+      class="change"
+      id="psvChange">
+
       —
+
     </div>
 
-    <div class="date" id="psvDate">
+
+    <div
+      class="date"
+      id="psvDate">
+
       Dato: —
+
     </div>
 
   </article>
+
 
 </section>
 
@@ -368,15 +658,22 @@ button:hover{
 
 <section class="section card">
 
+
   <h2>
+
     Andamento ultimi 7 giorni
+
   </h2>
+
 
   <div class="chartbox">
 
-    <canvas id="chart"></canvas>
+    <canvas
+      id="chart">
+    </canvas>
 
   </div>
+
 
   <div class="legend">
 
@@ -390,6 +687,7 @@ button:hover{
 
   </div>
 
+
 </section>
 
 
@@ -399,9 +697,14 @@ button:hover{
 
 <section class="actions">
 
-  <button onclick="refresh()">
+
+  <button
+    onclick="refresh()">
+
     ↻ Aggiorna dati
+
   </button>
+
 
   <button
     onclick="generateSocial()"
@@ -410,6 +713,16 @@ button:hover{
     📲 Genera Social Card
 
   </button>
+
+
+  <button
+    onclick="downloadSocialCard()"
+    class="secondary">
+
+    ⬇️ Scarica Social Card
+
+  </button>
+
 
 </section>
 
@@ -420,11 +733,16 @@ button:hover{
 
 <section class="social">
 
+
   <h2>
+
     Contenuto per i social
+
   </h2>
 
+
   <div class="social-grid">
+
 
     <canvas
       id="socialCard"
@@ -435,6 +753,7 @@ button:hover{
 
     <div>
 
+
       <div
         class="posttext"
         id="postText">
@@ -443,9 +762,12 @@ button:hover{
 
       </div>
 
+
     </div>
 
+
   </div>
+
 
 </section>
 
@@ -455,6 +777,7 @@ button:hover{
 ===================================================== -->
 
 <div class="source">
+
 
   <strong>Nota:</strong>
 
@@ -468,12 +791,15 @@ button:hover{
   Il PUN è riportato in €/kWh per
   facilitarne il confronto con le bollette.
 
+
 </div>
+
 
 </div>
 
 
 <script>
+
 
 /* =====================================================
    API APPS SCRIPT
@@ -487,18 +813,23 @@ let DATA = null;
 
 
 /* =====================================================
-   RECUPERO DATI
+   RECUPERA DATI
 ===================================================== */
 
 async function refresh(){
 
   const err =
-    document.getElementById("error");
+    document.getElementById(
+      "error"
+    );
 
-  err.style.display = "none";
+
+  err.style.display =
+    "none";
 
 
   try{
+
 
     const response =
       await fetch(
@@ -533,17 +864,28 @@ async function refresh(){
     }
 
 
-    DATA = normalizzaDati(data);
+    DATA =
+      normalizzaDati(
+        data
+      );
 
-    render(DATA);
+
+    render(
+      DATA
+    );
 
 
-  }catch(error){
+  }
+
+
+  catch(error){
+
 
     showError(
       "Impossibile recuperare i dati: " +
       error.message
     );
+
 
   }
 
@@ -551,10 +893,11 @@ async function refresh(){
 
 
 /* =====================================================
-   NORMALIZZAZIONE DATI API
+   NORMALIZZAZIONE DATI
 ===================================================== */
 
 function normalizzaDati(data){
+
 
   if(
     !data ||
@@ -570,14 +913,18 @@ function normalizzaDati(data){
 
 
   const storico =
-    Array.isArray(data.storico)
-      ? data.storico
-      : [];
+    Array.isArray(
+      data.storico
+    )
+    ?
+    data.storico
+    :
+    [];
 
 
   /*
-   * L'API restituisce lo storico
-   * dal più recente al più vecchio.
+   * Ordina dal più vecchio
+   * al più recente.
    */
 
   const storicoOrdinato =
@@ -592,18 +939,22 @@ function normalizzaDati(data){
     data.ultimoDato;
 
 
+  let punChange =
+    null;
+
+
+  let psvChange =
+    null;
+
+
   /*
-   * Calcolo variazione PUN
+   * Calcolo variazioni.
    */
-
-  let punChange = null;
-
-  let psvChange = null;
-
 
   if(
     storicoOrdinato.length >= 2
   ){
+
 
     const precedente =
       storicoOrdinato[
@@ -614,18 +965,34 @@ function normalizzaDati(data){
     if(
       precedente.pun_kwh !== null &&
       precedente.pun_kwh !== undefined &&
-      Number(precedente.pun_kwh) !== 0
+      Number(
+        precedente.pun_kwh
+      ) !== 0
     ){
 
       punChange =
+
         (
+
           (
-            Number(ultimo.pun_kwh) -
-            Number(precedente.pun_kwh)
+            Number(
+              ultimo.pun_kwh
+            )
+            -
+            Number(
+              precedente.pun_kwh
+            )
           )
+
           /
-          Number(precedente.pun_kwh)
-        ) * 100;
+
+          Number(
+            precedente.pun_kwh
+          )
+
+        )
+        *
+        100;
 
     }
 
@@ -633,18 +1000,34 @@ function normalizzaDati(data){
     if(
       precedente.psv_smc !== null &&
       precedente.psv_smc !== undefined &&
-      Number(precedente.psv_smc) !== 0
+      Number(
+        precedente.psv_smc
+      ) !== 0
     ){
 
       psvChange =
+
         (
+
           (
-            Number(ultimo.psv_smc) -
-            Number(precedente.psv_smc)
+            Number(
+              ultimo.psv_smc
+            )
+            -
+            Number(
+              precedente.psv_smc
+            )
           )
+
           /
-          Number(precedente.psv_smc)
-        ) * 100;
+
+          Number(
+            precedente.psv_smc
+          )
+
+        )
+        *
+        100;
 
     }
 
@@ -653,22 +1036,36 @@ function normalizzaDati(data){
 
   return {
 
+
     latest:{
 
       pun:
-        Number(ultimo.pun_kwh),
+        Number(
+          ultimo.pun_kwh
+        ),
+
 
       psv:
-        Number(ultimo.psv_smc),
+        Number(
+          ultimo.psv_smc
+        ),
+
 
       punDate:
-        formatDate(ultimo.data),
+        formatDate(
+          ultimo.data
+        ),
+
 
       psvDate:
-        formatDate(ultimo.data),
+        formatDate(
+          ultimo.data
+        ),
+
 
       punChange:
         punChange,
+
 
       psvChange:
         psvChange
@@ -677,19 +1074,26 @@ function normalizzaDati(data){
 
 
     history:
+
       storicoOrdinato
         .slice(-7)
         .map(
           r => ({
 
             date:
-              formatDate(r.data),
+              formatDate(
+                r.data
+              ),
 
             pun:
-              Number(r.pun_kwh),
+              Number(
+                r.pun_kwh
+              ),
 
             psv:
-              Number(r.psv_smc)
+              Number(
+                r.psv_smc
+              )
 
           })
         ),
@@ -711,16 +1115,25 @@ function normalizzaDati(data){
 
 function formatDate(value){
 
+
   if(!value){
+
     return "—";
+
   }
 
 
   const d =
-    new Date(value);
+    new Date(
+      value
+    );
 
 
-  if(isNaN(d.getTime())){
+  if(
+    isNaN(
+      d.getTime()
+    )
+  ){
 
     return value;
 
@@ -740,21 +1153,30 @@ function formatDate(value){
 
 
 /* =====================================================
-   FORMATTA DATA E ORA
+   FORMATTA DATA + ORA
 ===================================================== */
 
 function formatDateTime(value){
 
+
   if(!value){
+
     return "—";
+
   }
 
 
   const d =
-    new Date(value);
+    new Date(
+      value
+    );
 
 
-  if(isNaN(d.getTime())){
+  if(
+    isNaN(
+      d.getTime()
+    )
+  ){
 
     return value;
 
@@ -781,8 +1203,11 @@ function formatDateTime(value){
 
 function showError(message){
 
+
   const error =
-    document.getElementById("error");
+    document.getElementById(
+      "error"
+    );
 
 
   error.textContent =
@@ -796,7 +1221,7 @@ function showError(message){
 
 
 /* =====================================================
-   FORMATTA NUMERO
+   NUMERO
 ===================================================== */
 
 function fmt(
@@ -804,26 +1229,29 @@ function fmt(
   decimals
 ){
 
-  return Number(number)
-    .toLocaleString(
-      "it-IT",
-      {
-        minimumFractionDigits:
-          decimals,
 
-        maximumFractionDigits:
-          decimals
-      }
-    );
+  return Number(
+    number
+  ).toLocaleString(
+    "it-IT",
+    {
+      minimumFractionDigits:
+        decimals,
+
+      maximumFractionDigits:
+        decimals
+    }
+  );
 
 }
 
 
 /* =====================================================
-   VARIAZIONE HTML
+   VARIAZIONE
 ===================================================== */
 
 function changeHtml(value){
+
 
   if(
     value === null ||
@@ -838,6 +1266,7 @@ function changeHtml(value){
 
   let className =
     "flat";
+
 
   let arrow =
     "=";
@@ -866,28 +1295,36 @@ function changeHtml(value){
 
 
   return `
+
     <span class="${className}">
+
       ${arrow}
+
       ${Math.abs(value)
         .toFixed(1)
         .replace(".",",")
       }%
+
       vs giorno precedente
+
     </span>
+
   `;
 
 }
 
 
 /* =====================================================
-   RENDER DASHBOARD
+   RENDER
 ===================================================== */
 
 function render(data){
 
+
   document.getElementById(
     "pun"
   ).textContent =
+
     fmt(
       data.latest.pun,
       5
@@ -897,6 +1334,7 @@ function render(data){
   document.getElementById(
     "psv"
   ).textContent =
+
     fmt(
       data.latest.psv,
       5
@@ -906,6 +1344,7 @@ function render(data){
   document.getElementById(
     "punChange"
   ).innerHTML =
+
     changeHtml(
       data.latest.punChange
     );
@@ -914,6 +1353,7 @@ function render(data){
   document.getElementById(
     "psvChange"
   ).innerHTML =
+
     changeHtml(
       data.latest.psvChange
     );
@@ -922,6 +1362,7 @@ function render(data){
   document.getElementById(
     "punDate"
   ).textContent =
+
     "Dato: " +
     data.latest.punDate;
 
@@ -929,6 +1370,7 @@ function render(data){
   document.getElementById(
     "psvDate"
   ).textContent =
+
     "Dato: " +
     data.latest.psvDate;
 
@@ -936,6 +1378,7 @@ function render(data){
   document.getElementById(
     "updated"
   ).textContent =
+
     "Aggiornato: " +
     data.generatedAt +
     " | Ultimo dato disponibile";
@@ -957,6 +1400,7 @@ function render(data){
 
 function drawChart(rows){
 
+
   const canvas =
     document.getElementById(
       "chart"
@@ -964,11 +1408,14 @@ function drawChart(rows){
 
 
   const ctx =
-    canvas.getContext("2d");
+    canvas.getContext(
+      "2d"
+    );
 
 
   const ratio =
-    window.devicePixelRatio || 1;
+    window.devicePixelRatio ||
+    1;
 
 
   const width =
@@ -1050,30 +1497,46 @@ function drawChart(rows){
 
 
   const minPun =
-    Math.min(...pun);
+    Math.min(
+      ...pun
+    );
 
 
   const maxPun =
-    Math.max(...pun);
+    Math.max(
+      ...pun
+    );
 
 
   const minPsv =
-    Math.min(...psv);
+    Math.min(
+      ...psv
+    );
 
 
   const maxPsv =
-    Math.max(...psv);
+    Math.max(
+      ...psv
+    );
 
 
   function x(index){
 
     return (
+
       pad.l +
+
       (
         index /
-        (rows.length - 1 || 1)
-      ) *
+        (
+          rows.length -
+          1 ||
+          1
+        )
+      )
+      *
       iw
+
     );
 
   }
@@ -1086,15 +1549,24 @@ function drawChart(rows){
   ){
 
     return (
+
       pad.t +
+
       (
         1 -
+
         (
           (value - min) /
-          (max - min || 1)
+          (
+            max - min ||
+            1
+          )
         )
-      ) *
+
+      )
+      *
       ih
+
     );
 
   }
@@ -1107,7 +1579,8 @@ function drawChart(rows){
   ctx.strokeStyle =
     "#e5e7eb";
 
-  ctx.lineWidth = 1;
+  ctx.lineWidth =
+    1;
 
 
   for(
@@ -1119,7 +1592,8 @@ function drawChart(rows){
     const yy =
       pad.t +
       i *
-      ih / 3;
+      ih /
+      3;
 
 
     ctx.beginPath();
@@ -1140,7 +1614,7 @@ function drawChart(rows){
 
 
   /*
-   * Disegna una linea
+   * Linea
    */
 
   function drawLine(
@@ -1150,11 +1624,13 @@ function drawChart(rows){
     lineColor
   ){
 
+
     ctx.beginPath();
 
 
     rows.forEach(
       (row,index) => {
+
 
         const xx =
           x(index);
@@ -1168,14 +1644,18 @@ function drawChart(rows){
           );
 
 
-        if(index === 0){
+        if(
+          index === 0
+        ){
 
           ctx.moveTo(
             xx,
             yy
           );
 
-        }else{
+        }
+
+        else{
 
           ctx.lineTo(
             xx,
@@ -1191,7 +1671,8 @@ function drawChart(rows){
     ctx.strokeStyle =
       lineColor;
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth =
+      3;
 
     ctx.stroke();
 
@@ -1228,9 +1709,11 @@ function drawChart(rows){
   rows.forEach(
     (row,index) => {
 
+
       if(
         index === 0 ||
-        index === rows.length - 1 ||
+        index ===
+          rows.length - 1 ||
         index % 2 === 0
       ){
 
@@ -1257,6 +1740,7 @@ function drawChart(rows){
 
 function plainChange(value){
 
+
   if(
     value === null ||
     value === undefined ||
@@ -1271,11 +1755,15 @@ function plainChange(value){
   if(value > 0){
 
     return (
+
       "▲ +" +
+
       Math.abs(value)
         .toFixed(1)
         .replace(".",",") +
+
       "% vs giorno precedente"
+
     );
 
   }
@@ -1284,11 +1772,15 @@ function plainChange(value){
   if(value < 0){
 
     return (
+
       "▼ " +
+
       Math.abs(value)
         .toFixed(1)
         .replace(".",",") +
+
       "% vs giorno precedente"
+
     );
 
   }
@@ -1302,10 +1794,11 @@ function plainChange(value){
 
 
 /* =====================================================
-   NUOVA SOCIAL CARD
+   SOCIAL CARD
 ===================================================== */
 
 function generateSocial(){
+
 
   if(!DATA){
 
@@ -1321,12 +1814,19 @@ function generateSocial(){
 
 
   const ctx =
-    canvas.getContext("2d");
+    canvas.getContext(
+      "2d"
+    );
 
 
   const W = 1080;
+
   const H = 1080;
 
+
+  /*
+   * SFONDO
+   */
 
   ctx.clearRect(
     0,
@@ -1335,10 +1835,6 @@ function generateSocial(){
     H
   );
 
-
-  /*
-   * SFONDO
-   */
 
   ctx.fillStyle =
     "#f5f7fa";
@@ -1466,7 +1962,8 @@ function generateSocial(){
     fmt(
       DATA.latest.pun,
       5
-    ) +
+    )
+    +
     " €/kWh",
     100,
     380
@@ -1541,7 +2038,8 @@ function generateSocial(){
     fmt(
       DATA.latest.psv,
       5
-    ) +
+    )
+    +
     " €/Smc",
     100,
     660
@@ -1564,7 +2062,7 @@ function generateSocial(){
 
 
   /*
-   * MESSAGGIO CENTRALE
+   * MESSAGGIO
    */
 
   ctx.fillStyle =
@@ -1647,12 +2145,115 @@ Capire il mercato per pagare consapevolmente.
 
 
 /* =====================================================
+   DOWNLOAD SOCIAL CARD
+===================================================== */
+
+function downloadSocialCard(){
+
+
+  /*
+   * Controlla che i dati
+   * siano stati caricati.
+   */
+
+  if(!DATA){
+
+    alert(
+      "Attendi il caricamento dei dati prima di scaricare la Social Card."
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * Recupera il canvas.
+   */
+
+  const canvas =
+    document.getElementById(
+      "socialCard"
+    );
+
+
+  /*
+   * Genera nuovamente la card
+   * prima del download.
+   */
+
+  generateSocial();
+
+
+  /*
+   * Data utilizzata
+   * per il nome del file.
+   */
+
+  const dataFile =
+    DATA.latest.punDate
+      .replaceAll(
+        "/",
+        "-"
+      );
+
+
+  /*
+   * Nome del file.
+   */
+
+  const fileName =
+    "GiOKri-Life-PUN-PSV-" +
+    dataFile +
+    ".png";
+
+
+  /*
+   * Crea il link temporaneo.
+   */
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  link.download =
+    fileName;
+
+
+  link.href =
+    canvas.toDataURL(
+      "image/png"
+    );
+
+
+  /*
+   * Avvia il download.
+   */
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  document.body.removeChild(
+    link
+  );
+
+}
+
+
+/* =====================================================
    RIDIMENSIONAMENTO GRAFICO
 ===================================================== */
 
 window.addEventListener(
   "resize",
-  () => {
+  function(){
 
     if(DATA){
 
@@ -1672,7 +2273,10 @@ window.addEventListener(
 
 refresh();
 
+
 </script>
 
+
 </body>
+
 </html>
