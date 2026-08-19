@@ -1,679 +1,567 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>
-  GiOKri Life | Quotazioni PUN & PSV
-</title>
-
+<title>GiOKri Life | Quotazioni PUN & PSV</title>
 
 <style>
 
-/* =====================================================
-   VARIABILI
-===================================================== */
-
 :root{
-
   --bg:#f5f7fa;
-
   --card:#ffffff;
-
   --text:#18212b;
-
   --muted:#6b7280;
-
   --line:#e5e7eb;
-
   --accent:#0b6bcb;
-
   --gas:#d97706;
-
   --up:#c62828;
-
   --down:#16803c;
-
 }
-
-
-/* =====================================================
-   BASE
-===================================================== */
 
 *{
   box-sizing:border-box;
 }
 
-
 body{
-
   margin:0;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  background:
-    var(--bg);
-
-  color:
-    var(--text);
-
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
-
 
 .wrap{
-
   max-width:1100px;
-
   margin:auto;
-
   padding:22px;
-
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
+/* HEADER */
 
 header{
-
   display:flex;
-
-  justify-content:
-    space-between;
-
+  justify-content:space-between;
   align-items:center;
-
   gap:16px;
-
   margin-bottom:22px;
-
 }
-
 
 .brand{
-
   font-weight:800;
-
   font-size:24px;
-
 }
-
 
 .brand span{
-
   font-weight:400;
-
 }
-
 
 .updated{
-
   font-size:13px;
-
-  color:
-    var(--muted);
-
+  color:var(--muted);
   text-align:right;
-
 }
 
-
-/* =====================================================
-   ERROR
-===================================================== */
+/* ERROR */
 
 .error{
-
   background:#fff3f3;
-
   color:#8b1e1e;
-
   padding:14px;
-
   border-radius:12px;
-
   margin-bottom:18px;
-
   display:none;
-
 }
 
-
-/* =====================================================
-   CARDS PRINCIPALI
-===================================================== */
+/* CARDS */
 
 .cards{
-
   display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
+  grid-template-columns:repeat(2,1fr);
   gap:18px;
-
 }
-
 
 .card{
-
-  background:
-    var(--card);
-
-  border:
-    1px solid var(--line);
-
+  background:var(--card);
+  border:1px solid var(--line);
   border-radius:18px;
-
   padding:22px;
-
-  box-shadow:
-    0 5px 18px #0000000a;
-
+  box-shadow:0 5px 18px #0000000a;
 }
-
 
 .label{
-
   font-size:14px;
-
-  color:
-    var(--muted);
-
+  color:var(--muted);
   font-weight:700;
-
-  text-transform:
-    uppercase;
-
+  text-transform:uppercase;
   letter-spacing:.04em;
-
 }
-
 
 .value{
-
   font-size:42px;
-
   font-weight:800;
-
-  margin:
-    8px 0 4px;
-
+  margin:8px 0 4px;
 }
-
 
 .unit{
-
   font-size:17px;
-
   font-weight:600;
-
 }
-
 
 .change{
-
   font-size:15px;
-
   font-weight:700;
-
   margin-top:8px;
-
 }
-
 
 .up{
   color:var(--up);
 }
 
-
 .down{
   color:var(--down);
 }
-
 
 .flat{
   color:var(--muted);
 }
 
-
 .date{
-
   font-size:13px;
-
-  color:
-    var(--muted);
-
+  color:var(--muted);
   margin-top:12px;
-
 }
 
-
-/* =====================================================
-   SEZIONI
-===================================================== */
+/* SECTIONS */
 
 .section{
-
   margin-top:22px;
-
 }
-
 
 .section h2{
-
   font-size:19px;
-
-  margin:
-    0 0 12px;
-
+  margin:0 0 12px;
 }
 
+/* GUIDE */
 
-/* =====================================================
-   GRAFICO
-===================================================== */
+.guide{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.guide-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+}
+
+.guide-title{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.guide-step{
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+  line-height:1.45;
+}
+
+.step-number{
+  flex:none;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#e9eef5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  color:var(--accent);
+}
+
+.guide-note{
+  margin-top:18px;
+  padding:14px;
+  background:#f7f8fa;
+  border-radius:12px;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+/* CHART */
 
 .chartbox{
-
   height:310px;
-
 }
-
-
-canvas{
-
-  width:100%;
-
-  height:100%;
-
-}
-
 
 .legend{
-
   display:flex;
-
   gap:20px;
-
   font-size:13px;
-
-  color:
-    var(--muted);
-
+  color:var(--muted);
   margin-top:8px;
-
 }
 
+canvas{
+  width:100%;
+  height:100%;
+}
 
-/* =====================================================
-   PULSANTI
-===================================================== */
+/* ACTIONS */
 
 .actions{
-
   display:flex;
-
   flex-wrap:wrap;
-
   gap:10px;
-
   margin-top:18px;
-
 }
-
 
 button{
-
   border:0;
-
   border-radius:10px;
-
-  padding:
-    12px 16px;
-
+  padding:12px 16px;
   font-weight:700;
-
   cursor:pointer;
-
-  background:
-    var(--accent);
-
+  background:var(--accent);
   color:#fff;
-
 }
-
 
 button.secondary{
-
   background:#e9eef5;
-
   color:#243447;
-
 }
 
-
-button:hover{
-
-  opacity:.9;
-
+button.gas{
+  background:var(--gas);
+  color:#fff;
 }
 
-
-/* =====================================================
-   SOCIAL
-===================================================== */
+/* SOCIAL */
 
 .social{
-
   background:#fff;
-
-  border:
-    1px solid var(--line);
-
+  border:1px solid var(--line);
   border-radius:18px;
-
   padding:20px;
-
   margin-top:22px;
-
 }
-
-
-.social h2{
-
-  margin-top:0;
-
-}
-
 
 .social-grid{
-
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:20px;
-
   align-items:center;
-
 }
-
 
 #socialCard{
-
   width:100%;
-
   max-width:520px;
-
   aspect-ratio:1;
-
   background:#fff;
-
-  border:
-    1px solid var(--line);
-
+  border:1px solid var(--line);
   border-radius:12px;
-
 }
-
 
 .posttext{
-
   white-space:pre-wrap;
-
   background:#f7f8fa;
-
   padding:16px;
-
   border-radius:12px;
-
   font-size:14px;
-
   line-height:1.55;
-
 }
 
+.social-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
 
-/* =====================================================
-   FONTE
-===================================================== */
+/* SOURCE */
 
 .source{
-
   font-size:12px;
-
-  color:
-    var(--muted);
-
+  color:var(--muted);
   margin-top:18px;
-
   line-height:1.45;
-
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
+/* MOBILE */
 
 @media(max-width:760px){
 
   .cards,
+  .guide,
   .social-grid{
-
     grid-template-columns:1fr;
-
   }
-
 
   .value{
-
     font-size:36px;
-
   }
-
 
   .updated{
-
     text-align:left;
-
   }
 
-
   header{
-
     align-items:flex-start;
-
     flex-direction:column;
+  }
 
+  #socialCard{
+    max-width:100%;
   }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="wrap">
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header>
 
   <div class="brand">
-
-    GiOKri Life
-    <span>| Energia</span>
-
+    GiOKri Life <span>| Energia</span>
   </div>
 
-
-  <div
-    class="updated"
-    id="updated">
-
+  <div class="updated" id="updated">
     Caricamento...
-
   </div>
 
 </header>
 
 
-<!-- =====================================================
-     ERRORE
-===================================================== -->
-
-<div
-  id="error"
-  class="error">
-</div>
+<div id="error" class="error"></div>
 
 
-<!-- =====================================================
-     PUN / PSV
-===================================================== -->
+<!-- =========================================
+     QUOTAZIONI
+========================================= -->
 
 <section class="cards">
 
-
-  <!-- PUN -->
-
   <article class="card">
 
     <div class="label">
-
       ⚡ PUN Index GME
-
     </div>
 
-
-    <div
-      class="value"
-      id="pun">
-
+    <div class="value" id="pun">
       —
-
     </div>
-
 
     <div class="unit">
-
       €/kWh
-
     </div>
 
-
-    <div
-      class="change"
-      id="punChange">
-
+    <div class="change" id="punChange">
       —
-
     </div>
 
-
-    <div
-      class="date"
-      id="punDate">
-
+    <div class="date" id="punDate">
       Dato: —
-
     </div>
 
   </article>
 
-
-  <!-- PSV -->
 
   <article class="card">
 
     <div class="label">
-
       🔥 PSV
-
     </div>
 
-
-    <div
-      class="value"
-      id="psv">
-
+    <div class="value" id="psv">
       —
-
     </div>
-
 
     <div class="unit">
-
       €/Smc
-
     </div>
 
-
-    <div
-      class="change"
-      id="psvChange">
-
+    <div class="change" id="psvChange">
       —
-
     </div>
 
-
-    <div
-      class="date"
-      id="psvDate">
-
+    <div class="date" id="psvDate">
       Dato: —
-
     </div>
 
   </article>
-
 
 </section>
 
 
-<!-- =====================================================
-     GRAFICO
-===================================================== -->
+<!-- =========================================
+     COME LEGGERE IL DATO
+========================================= -->
 
-<section class="section card">
-
+<section class="section">
 
   <h2>
-
-    Andamento ultimi 7 giorni
-
+    🔎 Come leggere il dato
   </h2>
 
+  <div class="guide">
 
-  <div class="chartbox">
 
-    <canvas
-      id="chart">
-    </canvas>
+    <article class="guide-card">
+
+      <div class="guide-title">
+        ⚡ Se vuoi controllare la luce
+      </div>
+
+      <div class="guide-step">
+
+        <div class="step-number">
+          1
+        </div>
+
+        <div>
+          Prendi la tua bolletta e cerca il
+          <strong>prezzo dell'energia in €/kWh</strong>.
+        </div>
+
+      </div>
+
+
+      <div class="guide-step">
+
+        <div class="step-number">
+          2
+        </div>
+
+        <div>
+          Confrontalo con il
+          <strong>PUN</strong>
+          riportato qui sopra.
+        </div>
+
+      </div>
+
+
+      <div class="guide-step">
+
+        <div class="step-number">
+          3
+        </div>
+
+        <div>
+          La differenza ti permette di capire
+          come il prezzo del tuo contratto si
+          posiziona rispetto al riferimento
+          di mercato.
+        </div>
+
+      </div>
+
+
+      <div class="guide-note">
+
+        <strong>Attenzione:</strong>
+        il confronto deve essere fatto sulla
+        stessa componente di prezzo e nella
+        stessa unità di misura. Il PUN è un
+        riferimento di mercato e non coincide
+        necessariamente con il prezzo finale
+        riportato in bolletta.
+
+      </div>
+
+    </article>
+
+
+    <article class="guide-card">
+
+      <div class="guide-title">
+        🔥 Se vuoi controllare il gas
+      </div>
+
+      <div class="guide-step">
+
+        <div class="step-number">
+          1
+        </div>
+
+        <div>
+          Cerca nella bolletta il
+          <strong>prezzo del gas in €/Smc</strong>.
+        </div>
+
+      </div>
+
+
+      <div class="guide-step">
+
+        <div class="step-number">
+          2
+        </div>
+
+        <div>
+          Confrontalo con il
+          <strong>PSV</strong>
+          riportato qui sopra.
+        </div>
+
+      </div>
+
+
+      <div class="guide-step">
+
+        <div class="step-number">
+          3
+        </div>
+
+        <div>
+          Lo scostamento ti aiuta a capire
+          come il prezzo applicato dal tuo
+          contratto si posiziona rispetto al
+          riferimento di mercato.
+        </div>
+
+      </div>
+
+
+      <div class="guide-note">
+
+        Il confronto serve a
+        <strong>capire il proprio contratto</strong>,
+        non a stabilire automaticamente se
+        una bolletta è corretta o conveniente.
+
+      </div>
+
+    </article>
 
   </div>
 
+</section>
+
+
+<!-- =========================================
+     GRAFICO
+========================================= -->
+
+<section class="section card">
+
+  <h2>
+    Andamento ultimi 7 giorni
+  </h2>
+
+  <div class="chartbox">
+    <canvas id="chart"></canvas>
+  </div>
 
   <div class="legend">
 
@@ -687,62 +575,40 @@ button:hover{
 
   </div>
 
-
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      AZIONI
-===================================================== -->
+========================================= -->
 
 <section class="actions">
 
-
-  <button
-    onclick="refresh()">
-
+  <button onclick="refresh()">
     ↻ Aggiorna dati
-
   </button>
-
 
   <button
     onclick="generateSocial()"
     class="secondary">
-
     📲 Genera Social Card
-
   </button>
-
-
-  <button
-    onclick="downloadSocialCard()"
-    class="secondary">
-
-    ⬇️ Scarica Social Card
-
-  </button>
-
 
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      SOCIAL CARD
-===================================================== -->
+========================================= -->
 
 <section class="social">
 
-
   <h2>
-
-    Contenuto per i social
-
+    📲 Social Card del giorno
   </h2>
 
 
   <div class="social-grid">
-
 
     <canvas
       id="socialCard"
@@ -753,44 +619,56 @@ button:hover{
 
     <div>
 
-
       <div
         class="posttext"
         id="postText">
-
         Generazione...
-
       </div>
 
 
+      <div class="social-actions">
+
+        <button onclick="downloadSocialCard()">
+          ⬇ Scarica Social Card
+        </button>
+
+        <button
+          onclick="copyPostText()"
+          class="secondary">
+          📋 Copia testo post
+        </button>
+
+      </div>
+
     </div>
 
-
   </div>
-
 
 </section>
 
 
-<!-- =====================================================
-     NOTE
-===================================================== -->
+<!-- =========================================
+     NOTA
+========================================= -->
 
 <div class="source">
 
-
   <strong>Nota:</strong>
 
-  i valori mostrati sono riferiti
-  all'ultimo giorno disponibile.
+  i valori mostrati sono riferiti all'ultimo
+  giorno disponibile.
 
-  Se il dato del giorno non è ancora
-  disponibile, il sistema utilizza
-  automaticamente l'ultimo dato disponibile.
+  Se il dato del giorno non è ancora disponibile,
+  il sistema utilizza automaticamente l'ultimo
+  dato disponibile.
 
-  Il PUN è riportato in €/kWh per
-  facilitarne il confronto con le bollette.
+  Il PUN è riportato in €/kWh per facilitarne
+  il confronto con le bollette.
 
+  <br><br>
+
+  <strong>Fonti:</strong>
+  GME per il PUN e filiera gas / SNAM per il PSV.
 
 </div>
 
@@ -800,10 +678,21 @@ button:hover{
 
 <script>
 
+/*
+====================================================
+ API APPS SCRIPT
+====================================================
 
-/* =====================================================
-   API APPS SCRIPT
-===================================================== */
+IMPORTANTE:
+
+Questa è la Web App Apps Script che abbiamo
+verificato e che restituisce correttamente:
+
+success
+ultimoDato
+storico
+
+*/
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
@@ -812,28 +701,25 @@ const API_URL =
 let DATA = null;
 
 
-/* =====================================================
-   RECUPERA DATI
-===================================================== */
+/*
+====================================================
+ AGGIORNAMENTO DATI
+====================================================
+*/
 
 async function refresh(){
 
   const err =
-    document.getElementById(
-      "error"
-    );
+    document.getElementById("error");
 
-
-  err.style.display =
-    "none";
+  err.style.display = "none";
 
 
   try{
 
-
     const response =
       await fetch(
-        API_URL,
+        API_URL + "?t=" + Date.now(),
         {
           cache:"no-store"
         }
@@ -850,149 +736,106 @@ async function refresh(){
     }
 
 
-    const data =
+    const d =
       await response.json();
 
 
-    if(!data.success){
+    if(!d.success){
 
       throw new Error(
-        data.error ||
+        d.error ||
         "Errore dati"
       );
 
     }
 
 
-    DATA =
-      normalizzaDati(
-        data
+    if(!d.ultimoDato){
+
+      throw new Error(
+        "Nessun ultimo dato disponibile."
       );
 
-
-    render(
-      DATA
-    );
+    }
 
 
-  }
+    DATA = normalizzaDati(d);
 
 
-  catch(error){
+    render(DATA);
 
+
+  }catch(e){
 
     showError(
       "Impossibile recuperare i dati: " +
-      error.message
+      e.message
     );
-
 
   }
 
 }
 
 
-/* =====================================================
-   NORMALIZZAZIONE DATI
-===================================================== */
+/*
+====================================================
+ NORMALIZZAZIONE DATI API
+====================================================
+*/
 
-function normalizzaDati(data){
+function normalizzaDati(d){
 
-
-  if(
-    !data ||
-    !data.success ||
-    !data.ultimoDato
-  ){
-
-    throw new Error(
-      "Struttura dati API non valida"
-    );
-
-  }
+  const ultimo =
+    d.ultimoDato;
 
 
   const storico =
-    Array.isArray(
-      data.storico
-    )
-    ?
-    data.storico
-    :
-    [];
+    Array.isArray(d.storico)
+      ? d.storico
+      : [];
 
 
   /*
-   * Ordina dal più vecchio
+   * Ordiniamo lo storico dal più vecchio
    * al più recente.
    */
 
-  const storicoOrdinato =
-    [...storico].sort(
-      (a,b) =>
-        new Date(a.data) -
-        new Date(b.data)
-    );
-
-
-  const ultimo =
-    data.ultimoDato;
-
-
-  let punChange =
-    null;
-
-
-  let psvChange =
-    null;
+  storico.sort(
+    (a,b)=>
+      new Date(a.data) -
+      new Date(b.data)
+  );
 
 
   /*
-   * Calcolo variazioni.
+   * Calcolo variazioni
    */
 
-  if(
-    storicoOrdinato.length >= 2
-  ){
+  let punChange = null;
+  let psvChange = null;
 
+
+  if(storico.length >= 2){
 
     const precedente =
-      storicoOrdinato[
-        storicoOrdinato.length - 2
-      ];
+      storico[storico.length - 2];
 
 
     if(
       precedente.pun_kwh !== null &&
       precedente.pun_kwh !== undefined &&
-      Number(
-        precedente.pun_kwh
-      ) !== 0
+      Number(precedente.pun_kwh) !== 0
     ){
 
       punChange =
-
         (
-
           (
-            Number(
-              ultimo.pun_kwh
-            )
-            -
-            Number(
-              precedente.pun_kwh
-            )
+            Number(ultimo.pun_kwh) -
+            Number(precedente.pun_kwh)
           )
-
           /
-
-          Number(
-            precedente.pun_kwh
-          )
-
-        )
-        *
-        100;
+          Number(precedente.pun_kwh)
+        ) * 100;
 
     }
 
@@ -1000,34 +843,18 @@ function normalizzaDati(data){
     if(
       precedente.psv_smc !== null &&
       precedente.psv_smc !== undefined &&
-      Number(
-        precedente.psv_smc
-      ) !== 0
+      Number(precedente.psv_smc) !== 0
     ){
 
       psvChange =
-
         (
-
           (
-            Number(
-              ultimo.psv_smc
-            )
-            -
-            Number(
-              precedente.psv_smc
-            )
+            Number(ultimo.psv_smc) -
+            Number(precedente.psv_smc)
           )
-
           /
-
-          Number(
-            precedente.psv_smc
-          )
-
-        )
-        *
-        100;
+          Number(precedente.psv_smc)
+        ) * 100;
 
     }
 
@@ -1036,72 +863,57 @@ function normalizzaDati(data){
 
   return {
 
+    generatedAt:
+      formatDateTime(
+        d.aggiornato
+      ),
 
     latest:{
 
       pun:
-        Number(
-          ultimo.pun_kwh
-        ),
-
+        Number(ultimo.pun_kwh),
 
       psv:
-        Number(
-          ultimo.psv_smc
-        ),
+        Number(ultimo.psv_smc),
 
+      punChange:
+        punChange,
+
+      psvChange:
+        psvChange,
 
       punDate:
         formatDate(
           ultimo.data
         ),
 
-
       psvDate:
         formatDate(
           ultimo.data
-        ),
-
-
-      punChange:
-        punChange,
-
-
-      psvChange:
-        psvChange
+        )
 
     },
 
-
     history:
+      storico.slice(-7).map(
+        function(r){
 
-      storicoOrdinato
-        .slice(-7)
-        .map(
-          r => ({
+          return {
 
             date:
-              formatDate(
+              formatDateShort(
                 r.data
               ),
 
             pun:
-              Number(
-                r.pun_kwh
-              ),
+              Number(r.pun_kwh),
 
             psv:
-              Number(
-                r.psv_smc
-              )
+              Number(r.psv_smc)
 
-          })
-        ),
+          };
 
-
-    generatedAt:
-      formatDateTime(
-        data.aggiornato
+        }
       )
 
   };
@@ -1109,35 +921,56 @@ function normalizzaDati(data){
 }
 
 
-/* =====================================================
-   FORMATTA DATA
-===================================================== */
+/*
+====================================================
+ ERRORI
+====================================================
+*/
+
+function showError(t){
+
+  const e =
+    document.getElementById("error");
+
+  e.textContent = t;
+
+  e.style.display = "block";
+
+}
+
+
+/*
+====================================================
+ FORMATTAZIONE
+====================================================
+*/
+
+function fmt(n,dec){
+
+  return Number(n)
+    .toLocaleString(
+      "it-IT",
+      {
+        minimumFractionDigits:dec,
+        maximumFractionDigits:dec
+      }
+    );
+
+}
+
 
 function formatDate(value){
 
-
-  if(!value){
-
+  if(!value)
     return "—";
-
-  }
 
 
   const d =
-    new Date(
-      value
-    );
+    new Date(value);
 
 
-  if(
-    isNaN(
-      d.getTime()
-    )
-  ){
-
+  if(isNaN(d))
     return value;
-
-  }
 
 
   return d.toLocaleDateString(
@@ -1152,35 +985,43 @@ function formatDate(value){
 }
 
 
-/* =====================================================
-   FORMATTA DATA + ORA
-===================================================== */
+function formatDateShort(value){
 
-function formatDateTime(value){
-
-
-  if(!value){
-
+  if(!value)
     return "—";
-
-  }
 
 
   const d =
-    new Date(
-      value
-    );
+    new Date(value);
 
 
-  if(
-    isNaN(
-      d.getTime()
-    )
-  ){
-
+  if(isNaN(d))
     return value;
 
-  }
+
+  return d.toLocaleDateString(
+    "it-IT",
+    {
+      day:"2-digit",
+      month:"2-digit"
+    }
+  );
+
+}
+
+
+function formatDateTime(value){
+
+  if(!value)
+    return "—";
+
+
+  const d =
+    new Date(value);
+
+
+  if(isNaN(d))
+    return value;
 
 
   return d.toLocaleString(
@@ -1197,66 +1038,18 @@ function formatDateTime(value){
 }
 
 
-/* =====================================================
-   ERRORE
-===================================================== */
+/*
+====================================================
+ VARIAZIONE
+====================================================
+*/
 
-function showError(message){
-
-
-  const error =
-    document.getElementById(
-      "error"
-    );
-
-
-  error.textContent =
-    message;
-
-
-  error.style.display =
-    "block";
-
-}
-
-
-/* =====================================================
-   NUMERO
-===================================================== */
-
-function fmt(
-  number,
-  decimals
-){
-
-
-  return Number(
-    number
-  ).toLocaleString(
-    "it-IT",
-    {
-      minimumFractionDigits:
-        decimals,
-
-      maximumFractionDigits:
-        decimals
-    }
-  );
-
-}
-
-
-/* =====================================================
-   VARIAZIONE
-===================================================== */
-
-function changeHtml(value){
-
+function changeHtml(v){
 
   if(
-    value === null ||
-    value === undefined ||
-    isNaN(value)
+    v === null ||
+    v === undefined ||
+    isNaN(v)
   ){
 
     return "—";
@@ -1264,128 +1057,100 @@ function changeHtml(value){
   }
 
 
-  let className =
-    "flat";
+  const cls =
+    v > 0
+      ? "up"
+      : v < 0
+        ? "down"
+        : "flat";
 
 
-  let arrow =
-    "=";
+  const arrow =
+    v > 0
+      ? "▲"
+      : v < 0
+        ? "▼"
+        : "=";
 
 
-  if(value > 0){
-
-    className =
-      "up";
-
-    arrow =
-      "▲";
-
-  }
-
-
-  if(value < 0){
-
-    className =
-      "down";
-
-    arrow =
-      "▼";
-
-  }
+  const sign =
+    v > 0
+      ? "+"
+      : "";
 
 
   return `
-
-    <span class="${className}">
-
+    <span class="${cls}">
       ${arrow}
-
-      ${Math.abs(value)
+      ${sign}${Math.abs(v)
         .toFixed(1)
-        .replace(".",",")
-      }%
-
+        .replace(".",",")}%
       vs giorno precedente
-
     </span>
-
   `;
 
 }
 
 
-/* =====================================================
-   RENDER
-===================================================== */
+/*
+====================================================
+ RENDER
+====================================================
+*/
 
-function render(data){
+function render(d){
 
-
-  document.getElementById(
-    "pun"
-  ).textContent =
-
-    fmt(
-      data.latest.pun,
-      5
-    );
-
-
-  document.getElementById(
-    "psv"
-  ).textContent =
-
-    fmt(
-      data.latest.psv,
-      5
-    );
+  document.getElementById("pun")
+    .textContent =
+      fmt(
+        d.latest.pun,
+        4
+      );
 
 
-  document.getElementById(
-    "punChange"
-  ).innerHTML =
-
-    changeHtml(
-      data.latest.punChange
-    );
-
-
-  document.getElementById(
-    "psvChange"
-  ).innerHTML =
-
-    changeHtml(
-      data.latest.psvChange
-    );
+  document.getElementById("psv")
+    .textContent =
+      fmt(
+        d.latest.psv,
+        4
+      );
 
 
-  document.getElementById(
-    "punDate"
-  ).textContent =
-
-    "Dato: " +
-    data.latest.punDate;
-
-
-  document.getElementById(
-    "psvDate"
-  ).textContent =
-
-    "Dato: " +
-    data.latest.psvDate;
+  document.getElementById("punChange")
+    .innerHTML =
+      changeHtml(
+        d.latest.punChange
+      );
 
 
-  document.getElementById(
-    "updated"
-  ).textContent =
+  document.getElementById("psvChange")
+    .innerHTML =
+      changeHtml(
+        d.latest.psvChange
+      );
 
-    "Aggiornato: " +
-    data.generatedAt +
-    " | Ultimo dato disponibile";
+
+  document.getElementById("punDate")
+    .textContent =
+      "Dato: " +
+      d.latest.punDate;
+
+
+  document.getElementById("psvDate")
+    .textContent =
+      "Dato: " +
+      d.latest.psvDate;
+
+
+  document.getElementById("updated")
+    .textContent =
+      "Aggiornato: " +
+      d.generatedAt +
+      " | Ultimo dato disponibile";
 
 
   drawChart(
-    data.history
+    d.history
   );
 
 
@@ -1394,44 +1159,42 @@ function render(data){
 }
 
 
-/* =====================================================
-   GRAFICO
-===================================================== */
+/*
+====================================================
+ GRAFICO
+====================================================
+*/
 
 function drawChart(rows){
 
-
-  const canvas =
+  const c =
     document.getElementById(
       "chart"
     );
 
 
   const ctx =
-    canvas.getContext(
-      "2d"
-    );
+    c.getContext("2d");
 
 
   const ratio =
-    window.devicePixelRatio ||
-    1;
+    window.devicePixelRatio || 1;
 
 
-  const width =
-    canvas.clientWidth;
+  const w =
+    c.clientWidth;
 
 
-  const height =
-    canvas.clientHeight;
+  const h =
+    c.clientHeight;
 
 
-  canvas.width =
-    width * ratio;
+  c.width =
+    w * ratio;
 
 
-  canvas.height =
-    height * ratio;
+  c.height =
+    h * ratio;
 
 
   ctx.setTransform(
@@ -1447,8 +1210,8 @@ function drawChart(rows){
   ctx.clearRect(
     0,
     0,
-    width,
-    height
+    w,
+    h
   );
 
 
@@ -1463,23 +1226,21 @@ function drawChart(rows){
 
 
   const pad = {
-
     l:48,
     r:20,
     t:20,
     b:38
-
   };
 
 
   const iw =
-    width -
+    w -
     pad.l -
     pad.r;
 
 
   const ih =
-    height -
+    h -
     pad.t -
     pad.b;
 
@@ -1496,91 +1257,62 @@ function drawChart(rows){
     );
 
 
-  const minPun =
-    Math.min(
-      ...pun
-    );
+  const min1 =
+    Math.min(...pun);
 
 
-  const maxPun =
-    Math.max(
-      ...pun
-    );
+  const max1 =
+    Math.max(...pun);
 
 
-  const minPsv =
-    Math.min(
-      ...psv
-    );
+  const min2 =
+    Math.min(...psv);
 
 
-  const maxPsv =
-    Math.max(
-      ...psv
-    );
+  const max2 =
+    Math.max(...psv);
 
 
-  function x(index){
+  function x(i){
 
     return (
-
       pad.l +
-
       (
-        index /
-        (
-          rows.length -
-          1 ||
-          1
-        )
-      )
-      *
+        i /
+        (rows.length - 1 || 1)
+      ) *
       iw
-
     );
 
   }
 
 
   function y(
-    value,
+    v,
     min,
     max
   ){
 
     return (
-
       pad.t +
-
       (
         1 -
-
         (
-          (value - min) /
-          (
-            max - min ||
-            1
-          )
+          (v - min) /
+          (max - min || 1)
         )
-
-      )
-      *
+      ) *
       ih
-
     );
 
   }
 
 
-  /*
-   * Griglia
-   */
-
   ctx.strokeStyle =
     "#e5e7eb";
 
-  ctx.lineWidth =
-    1;
+
+  ctx.lineWidth = 1;
 
 
   for(
@@ -1604,7 +1336,7 @@ function drawChart(rows){
     );
 
     ctx.lineTo(
-      width - pad.r,
+      w - pad.r,
       yy
     );
 
@@ -1613,51 +1345,44 @@ function drawChart(rows){
   }
 
 
-  /*
-   * Linea
-   */
+  ctx.lineWidth = 3;
 
-  function drawLine(
+
+  function line(
     key,
     min,
     max,
-    lineColor
+    gas
   ){
-
 
     ctx.beginPath();
 
 
     rows.forEach(
-      (row,index) => {
-
+      (r,i)=>{
 
         const xx =
-          x(index);
+          x(i);
 
 
         const yy =
           y(
-            row[key],
+            r[key],
             min,
             max
           );
 
 
-        if(
-          index === 0
-        ){
+        if(i){
 
-          ctx.moveTo(
+          ctx.lineTo(
             xx,
             yy
           );
 
-        }
+        }else{
 
-        else{
-
-          ctx.lineTo(
+          ctx.moveTo(
             xx,
             yy
           );
@@ -1669,61 +1394,56 @@ function drawChart(rows){
 
 
     ctx.strokeStyle =
-      lineColor;
+      gas
+        ? "#d97706"
+        : "#0b6bcb";
 
-    ctx.lineWidth =
-      3;
 
     ctx.stroke();
 
   }
 
 
-  drawLine(
+  line(
     "pun",
-    minPun,
-    maxPun,
-    "#0b6bcb"
+    min1,
+    max1,
+    false
   );
 
 
-  drawLine(
+  line(
     "psv",
-    minPsv,
-    maxPsv,
-    "#d97706"
+    min2,
+    max2,
+    true
   );
 
-
-  /*
-   * Date
-   */
 
   ctx.fillStyle =
     "#6b7280";
+
 
   ctx.font =
     "12px Arial";
 
 
   rows.forEach(
-    (row,index) => {
-
+    (r,i)=>{
 
       if(
-        index === 0 ||
-        index ===
-          rows.length - 1 ||
-        index % 2 === 0
+        i === 0 ||
+        i === rows.length - 1 ||
+        i % 2 === 0
       ){
 
         ctx.fillText(
-          row.date,
+          r.date,
           Math.max(
             0,
-            x(index) - 22
+            x(i)-22
           ),
-          height - 12
+          h-12
         );
 
       }
@@ -1734,99 +1454,31 @@ function drawChart(rows){
 }
 
 
-/* =====================================================
-   TESTO VARIAZIONE
-===================================================== */
-
-function plainChange(value){
-
-
-  if(
-    value === null ||
-    value === undefined ||
-    isNaN(value)
-  ){
-
-    return "";
-
-  }
-
-
-  if(value > 0){
-
-    return (
-
-      "▲ +" +
-
-      Math.abs(value)
-        .toFixed(1)
-        .replace(".",",") +
-
-      "% vs giorno precedente"
-
-    );
-
-  }
-
-
-  if(value < 0){
-
-    return (
-
-      "▼ " +
-
-      Math.abs(value)
-        .toFixed(1)
-        .replace(".",",") +
-
-      "% vs giorno precedente"
-
-    );
-
-  }
-
-
-  return (
-    "= 0,0% vs giorno precedente"
-  );
-
-}
-
-
-/* =====================================================
-   SOCIAL CARD
-===================================================== */
+/*
+====================================================
+ SOCIAL CARD
+====================================================
+*/
 
 function generateSocial(){
 
-
-  if(!DATA){
-
+  if(!DATA)
     return;
 
-  }
 
-
-  const canvas =
+  const c =
     document.getElementById(
       "socialCard"
     );
 
 
   const ctx =
-    canvas.getContext(
-      "2d"
-    );
+    c.getContext("2d");
 
 
   const W = 1080;
-
   const H = 1080;
 
-
-  /*
-   * SFONDO
-   */
 
   ctx.clearRect(
     0,
@@ -1835,6 +1487,10 @@ function generateSocial(){
     H
   );
 
+
+  /*
+   * SFONDO
+   */
 
   ctx.fillStyle =
     "#f5f7fa";
@@ -1848,265 +1504,266 @@ function generateSocial(){
 
 
   /*
-   * BARRA SUPERIORE
-   */
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-  ctx.fillRect(
-    0,
-    0,
-    W,
-    18
-  );
-
-
-  /*
    * TITOLO
    */
 
   ctx.fillStyle =
     "#18212b";
 
+
   ctx.font =
-    "bold 58px Arial";
+    "bold 52px Arial";
+
 
   ctx.fillText(
     "GIORNATA ENERGETICA",
     70,
-    105
+    90
   );
+
+
+  ctx.font =
+    "27px Arial";
 
 
   ctx.fillStyle =
     "#6b7280";
 
-  ctx.font =
-    "28px Arial";
 
   ctx.fillText(
-    "GiOKri Life | PUN & PSV",
+    "GiOKri Life | Ultimo dato disponibile",
     70,
-    150
+    135
   );
 
 
   /*
-   * DATA
+   * PUN
    */
 
-  ctx.font =
-    "bold 26px Arial";
-
   ctx.fillStyle =
-    "#6b7280";
+    "#ffffff";
 
-  ctx.fillText(
-    DATA.latest.punDate,
-    70,
+
+  ctx.fillRect(
+    60,
+    180,
+    960,
     190
   );
 
 
-  /*
-   * BOX PUN
-   */
-
-  ctx.fillStyle =
-    "#ffffff";
-
-  ctx.fillRect(
-    60,
-    230,
-    960,
-    250
-  );
-
-
-  /*
-   * INDICATORE PUN
-   */
-
   ctx.fillStyle =
     "#0b6bcb";
 
-  ctx.fillRect(
-    60,
-    230,
-    12,
-    250
-  );
-
-
-  ctx.fillStyle =
-    "#0b6bcb";
 
   ctx.font =
-    "bold 36px Arial";
+    "bold 32px Arial";
+
 
   ctx.fillText(
-    "⚡ PUN INDEX GME",
-    100,
-    295
+    "⚡ PUN",
+    95,
+    235
   );
 
 
   ctx.fillStyle =
     "#18212b";
 
+
   ctx.font =
-    "bold 72px Arial";
+    "bold 66px Arial";
+
 
   ctx.fillText(
-    fmt(
-      DATA.latest.pun,
-      5
-    )
-    +
+    fmt(DATA.latest.pun,4) +
     " €/kWh",
-    100,
-    380
+    95,
+    305
   );
 
 
   ctx.fillStyle =
     "#6b7280";
 
+
   ctx.font =
-    "25px Arial";
+    "24px Arial";
+
 
   ctx.fillText(
-    plainChange(
-      DATA.latest.punChange
-    ),
-    100,
-    430
+    DATA.latest.punDate,
+    95,
+    345
   );
 
 
   /*
-   * BOX PSV
+   * PSV
    */
 
   ctx.fillStyle =
     "#ffffff";
 
+
   ctx.fillRect(
     60,
-    510,
+    395,
     960,
-    250
-  );
-
-
-  /*
-   * INDICATORE PSV
-   */
-
-  ctx.fillStyle =
-    "#d97706";
-
-  ctx.fillRect(
-    60,
-    510,
-    12,
-    250
+    190
   );
 
 
   ctx.fillStyle =
     "#d97706";
+
 
   ctx.font =
-    "bold 36px Arial";
+    "bold 32px Arial";
+
 
   ctx.fillText(
     "🔥 PSV",
-    100,
-    575
+    95,
+    450
   );
 
 
   ctx.fillStyle =
     "#18212b";
 
+
   ctx.font =
-    "bold 72px Arial";
+    "bold 66px Arial";
+
 
   ctx.fillText(
-    fmt(
-      DATA.latest.psv,
-      5
-    )
-    +
+    fmt(DATA.latest.psv,4) +
     " €/Smc",
-    100,
-    660
+    95,
+    520
   );
 
 
   ctx.fillStyle =
     "#6b7280";
 
+
   ctx.font =
-    "25px Arial";
+    "24px Arial";
+
 
   ctx.fillText(
-    plainChange(
-      DATA.latest.psvChange
-    ),
-    100,
-    710
+    DATA.latest.psvDate,
+    95,
+    560
   );
 
 
   /*
-   * MESSAGGIO
+   * MINI GUIDA
    */
 
   ctx.fillStyle =
     "#18212b";
 
+
   ctx.font =
-    "bold 34px Arial";
+    "bold 30px Arial";
+
 
   ctx.fillText(
-    "Capire il mercato",
+    "COME LEGGERE IL DATO",
     70,
-    840
+    645
+  );
+
+
+  ctx.font =
+    "24px Arial";
+
+
+  ctx.fillStyle =
+    "#18212b";
+
+
+  ctx.fillText(
+    "1. Prendi la tua bolletta.",
+    70,
+    690
   );
 
 
   ctx.fillText(
-    "per pagare consapevolmente.",
+    "2. Cerca il prezzo energia €/kWh o €/Smc.",
     70,
-    885
+    730
   );
 
 
-  /*
-   * FOOTER
-   */
+  ctx.fillText(
+    "3. Confrontalo con PUN o PSV.",
+    70,
+    770
+  );
+
 
   ctx.fillStyle =
     "#6b7280";
 
+
   ctx.font =
-    "22px Arial";
+    "21px Arial";
+
 
   ctx.fillText(
-    "Dati di mercato • aggiornamento automatico",
+    "La differenza ti aiuta a capire",
     70,
-    940
+    815
   );
 
+
+  ctx.fillText(
+    "come si posiziona il tuo contratto",
+    70,
+    845
+  );
+
+
+  ctx.fillText(
+    "rispetto al riferimento di mercato.",
+    70,
+    875
+  );
+
+
+  /*
+   * CTA
+   */
 
   ctx.fillStyle =
     "#0b6bcb";
 
+
   ctx.font =
-    "bold 42px Arial";
+    "bold 31px Arial";
+
+
+  ctx.fillText(
+    "Vuoi capire meglio la tua bolletta?",
+    70,
+    945
+  );
+
+
+  ctx.fillStyle =
+    "#18212b";
+
+
+  ctx.font =
+    "bold 35px Arial";
+
 
   ctx.fillText(
     "GiOKri Life",
@@ -2119,47 +1776,102 @@ function generateSocial(){
    * TESTO SOCIAL
    */
 
-  const postText =
+  const text =
 
 `GIORNATA ENERGETICA | ${DATA.latest.punDate}
 
-⚡ PUN: ${fmt(DATA.latest.pun,5)} €/kWh
+⚡ PUN: ${fmt(DATA.latest.pun,4)} €/kWh
 ${plainChange(DATA.latest.punChange)}
 
-🔥 PSV: ${fmt(DATA.latest.psv,5)} €/Smc
+🔥 PSV: ${fmt(DATA.latest.psv,4)} €/Smc
 ${plainChange(DATA.latest.psvChange)}
 
-Dati riferiti all'ultimo giorno disponibile.
+🔎 COME LEGGERE IL DATO
 
-Capire il mercato per pagare consapevolmente.
+Prendi la tua bolletta e cerca il prezzo dell'energia espresso in €/kWh per la luce o in €/Smc per il gas.
 
-#GiOKriLife #PUN #PSV #Energia #Risparmio`;
+Confrontalo con il PUN o il PSV riportato oggi.
+
+Lo scostamento ti aiuta a capire come il prezzo del tuo contratto si posiziona rispetto al riferimento di mercato.
+
+Non sai dove trovare questi valori nella tua bolletta?
+
+GiOKri Life può aiutarti a leggerla e a capire cosa stai realmente pagando.
+
+#GiOKriLife #PUN #PSV #Energia #Risparmio #Bollette`;
 
 
   document.getElementById(
     "postText"
-  ).textContent =
-    postText;
+  ).textContent = text;
 
 }
 
 
-/* =====================================================
-   DOWNLOAD SOCIAL CARD
-===================================================== */
+/*
+====================================================
+ TESTO VARIAZIONE
+====================================================
+*/
+
+function plainChange(v){
+
+  if(
+    v === null ||
+    v === undefined ||
+    isNaN(v)
+  ){
+
+    return "";
+
+  }
+
+
+  if(v > 0){
+
+    return (
+      "▲ +" +
+      Math.abs(v)
+        .toFixed(1)
+        .replace(".",",") +
+      "% vs giorno precedente"
+    );
+
+  }
+
+
+  if(v < 0){
+
+    return (
+      "▼ -" +
+      Math.abs(v)
+        .toFixed(1)
+        .replace(".",",") +
+      "% vs giorno precedente"
+    );
+
+  }
+
+
+  return (
+    "= 0,0% vs giorno precedente"
+  );
+
+}
+
+
+/*
+====================================================
+ SCARICA SOCIAL CARD
+====================================================
+*/
 
 function downloadSocialCard(){
-
-
-  /*
-   * Controlla che i dati
-   * siano stati caricati.
-   */
 
   if(!DATA){
 
     alert(
-      "Attendi il caricamento dei dati prima di scaricare la Social Card."
+      "Attendi il caricamento dei dati."
     );
 
     return;
@@ -2167,50 +1879,11 @@ function downloadSocialCard(){
   }
 
 
-  /*
-   * Recupera il canvas.
-   */
-
   const canvas =
     document.getElementById(
       "socialCard"
     );
 
-
-  /*
-   * Genera nuovamente la card
-   * prima del download.
-   */
-
-  generateSocial();
-
-
-  /*
-   * Data utilizzata
-   * per il nome del file.
-   */
-
-  const dataFile =
-    DATA.latest.punDate
-      .replaceAll(
-        "/",
-        "-"
-      );
-
-
-  /*
-   * Nome del file.
-   */
-
-  const fileName =
-    "GiOKri-Life-PUN-PSV-" +
-    dataFile +
-    ".png";
-
-
-  /*
-   * Crea il link temporaneo.
-   */
 
   const link =
     document.createElement(
@@ -2218,8 +1891,15 @@ function downloadSocialCard(){
     );
 
 
+  const date =
+    DATA.latest.punDate
+      .replaceAll("/","-");
+
+
   link.download =
-    fileName;
+    "GiOKri-Life-PUN-PSV-" +
+    date +
+    ".png";
 
 
   link.href =
@@ -2228,28 +1908,53 @@ function downloadSocialCard(){
     );
 
 
-  /*
-   * Avvia il download.
-   */
-
-  document.body.appendChild(
-    link
-  );
-
-
   link.click();
-
-
-  document.body.removeChild(
-    link
-  );
 
 }
 
 
-/* =====================================================
-   RIDIMENSIONAMENTO GRAFICO
-===================================================== */
+/*
+====================================================
+ COPIA TESTO POST
+====================================================
+*/
+
+async function copyPostText(){
+
+  const text =
+    document.getElementById(
+      "postText"
+    ).textContent;
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+
+    alert(
+      "Testo del post copiato."
+    );
+
+
+  }catch(e){
+
+    alert(
+      "Impossibile copiare automaticamente il testo."
+    );
+
+  }
+
+}
+
+
+/*
+====================================================
+ RESIZE
+====================================================
+*/
 
 window.addEventListener(
   "resize",
@@ -2267,16 +1972,15 @@ window.addEventListener(
 );
 
 
-/* =====================================================
-   AVVIO AUTOMATICO
-===================================================== */
+/*
+====================================================
+ AVVIO
+====================================================
+*/
 
 refresh();
 
-
 </script>
 
-
 </body>
-
 </html>
