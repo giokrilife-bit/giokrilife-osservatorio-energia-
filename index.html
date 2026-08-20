@@ -1,488 +1,920 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GiOKri Life | Quotazioni PUN & PSV</title>
+  <title>Osservatorio Energia | GiOKri Life</title>
 
-<style>
-:root{
-  --bg:#f5f7fa;
-  --card:#ffffff;
-  --text:#18212b;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-  --accent:#0b6bcb;
-  --accent-dark:#084f96;
-  --up:#c62828;
-  --down:#16803c;
-}
+  <meta name="description"
+        content="Osservatorio Energia GiOKri Life: andamento giornaliero del PUN e del PSV, dati energetici aggiornati e storico dei prezzi.">
 
-*{
-  box-sizing:border-box;
-}
+  <meta name="theme-color" content="#0b132b">
 
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #6b7280;
+      --primary: #0b132b;
+      --primary-2: #162447;
+      --accent: #1d9bf0;
+      --green: #159957;
+      --red: #d64545;
+      --border: #e5e9f0;
+      --shadow: 0 10px 30px rgba(11, 19, 43, 0.08);
+      --radius: 18px;
+    }
 
-.wrap{
-  max-width:1100px;
-  margin:auto;
-  padding:22px;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  margin-bottom:22px;
-}
+    body {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-.brand{
-  font-weight:800;
-  font-size:24px;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.brand span{
-  font-weight:400;
-}
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
 
-.updated{
-  font-size:13px;
-  color:var(--muted);
-  text-align:right;
-}
+    /* =========================
+       HEADER
+    ========================= */
 
-.cards{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
+    header {
+      background:
+        linear-gradient(135deg, #0b132b 0%, #162447 55%, #203a67 100%);
+      color: #fff;
+      padding: 22px 0 42px;
+    }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 18px #0000000a;
-}
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-.label{
-  font-size:14px;
-  color:var(--muted);
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.value{
-  font-size:42px;
-  font-weight:800;
-  margin:8px 0 4px;
-}
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+    }
 
-.unit{
-  font-size:17px;
-  font-weight:600;
-}
+    .brand-text strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
 
-.change{
-  font-size:15px;
-  font-weight:700;
-  margin-top:8px;
-}
+    .brand-text span {
+      display: block;
+      font-size: 12px;
+      opacity: .72;
+      margin-top: 1px;
+    }
 
-.up{
-  color:var(--up);
-}
+    .back-link {
+      font-size: 13px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 10px;
+      background: rgba(255,255,255,.06);
+      transition: .2s;
+    }
 
-.down{
-  color:var(--down);
-}
+    .back-link:hover {
+      background: rgba(255,255,255,.13);
+    }
 
-.flat{
-  color:var(--muted);
-}
+    .hero {
+      margin-top: 34px;
+      max-width: 760px;
+    }
 
-.date{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:12px;
-}
+    .hero .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 11px;
+      font-weight: 700;
+      opacity: .7;
+      margin-bottom: 8px;
+    }
 
-.section{
-  margin-top:22px;
-}
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
 
-.section h2{
-  font-size:19px;
-  margin:0 0 12px;
-}
+    .hero p {
+      color: rgba(255,255,255,.78);
+      max-width: 700px;
+      font-size: 16px;
+    }
 
-.chartbox{
-  height:310px;
-}
+    /* =========================
+       MAIN
+    ========================= */
 
-.legend{
-  display:flex;
-  gap:20px;
-  font-size:13px;
-  color:var(--muted);
-  margin-top:8px;
-}
+    main {
+      margin-top: -22px;
+      padding-bottom: 60px;
+    }
 
-canvas{
-  width:100%;
-  height:100%;
-}
+    .status-bar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 14px;
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 22px;
+      font-size: 13px;
+    }
 
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:18px;
-}
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
 
-button{
-  border:0;
-  border-radius:10px;
-  padding:12px 16px;
-  font-weight:700;
-  cursor:pointer;
-  background:var(--accent);
-  color:#fff;
-  transition:.2s;
-}
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      flex: 0 0 auto;
+    }
 
-button:hover{
-  background:var(--accent-dark);
-}
+    .status-dot.loading {
+      background: #f2a900;
+      animation: pulse 1s infinite;
+    }
 
-button.secondary{
-  background:#e9eef5;
-  color:#243447;
-}
+    .status-dot.error {
+      background: var(--red);
+    }
 
-button.secondary:hover{
-  background:#dbe3ed;
-}
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: .35; }
+    }
 
-button.green{
-  background:#16803c;
-}
+    .status-text {
+      color: var(--muted);
+    }
 
-button.green:hover{
-  background:#11632f;
-}
+    .update-button {
+      border: 0;
+      background: var(--primary);
+      color: white;
+      padding: 9px 15px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: .2s;
+    }
 
-.social{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:20px;
-  margin-top:22px;
-}
+    .update-button:hover {
+      background: var(--primary-2);
+      transform: translateY(-1px);
+    }
 
-.social h2{
-  margin-top:0;
-}
+    .update-button:disabled {
+      opacity: .55;
+      cursor: wait;
+      transform: none;
+    }
 
-.social-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  align-items:center;
-}
+    /* =========================
+       PRICE CARDS
+    ========================= */
 
-#socialCard{
-  width:100%;
-  max-width:520px;
-  aspect-ratio:1;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:12px;
-}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-bottom: 22px;
+    }
 
-.posttext{
-  white-space:pre-wrap;
-  background:#f7f8fa;
-  padding:16px;
-  border-radius:12px;
-  font-size:14px;
-  line-height:1.55;
-}
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 25px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
 
-.social-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:14px;
-}
+    .price-card::after {
+      content: "";
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      right: -55px;
+      top: -55px;
+      background: rgba(29,155,240,.06);
+    }
 
-.booking-box{
-  background:#eef6ff;
-  border:1px solid #cfe4fa;
-  border-radius:14px;
-  padding:18px;
-  margin-top:18px;
-}
+    .price-card.psv::after {
+      background: rgba(21,153,87,.06);
+    }
 
-.booking-box h3{
-  margin:0 0 8px;
-  font-size:18px;
-}
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
 
-.booking-box p{
-  margin:0 0 14px;
-  color:#405163;
-  line-height:1.5;
-}
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
 
-.source{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:18px;
-  line-height:1.45;
-}
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #edf6ff;
+      color: var(--accent);
+      font-size: 21px;
+      font-weight: 800;
+    }
 
-.error{
-  background:#fff3f3;
-  color:#8b1e1e;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:18px;
-  display:none;
-}
+    .psv .icon {
+      background: #eefaf4;
+      color: var(--green);
+    }
 
-.loading{
-  opacity:.6;
-}
+    .card-title strong {
+      font-size: 17px;
+    }
 
-@media(max-width:760px){
+    .card-title span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 1px;
+    }
 
-  .cards,
-  .social-grid{
-    grid-template-columns:1fr;
-  }
+    .date-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      background: #f4f6f9;
+      padding: 6px 8px;
+      border-radius: 7px;
+      white-space: nowrap;
+    }
 
-  .value{
-    font-size:36px;
-  }
+    .price {
+      font-size: clamp(36px, 5vw, 52px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 7px;
+    }
 
-  .updated{
-    text-align:left;
-  }
+    .unit {
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-  header{
-    align-items:flex-start;
-    flex-direction:column;
-  }
+    .price-description {
+      margin-top: 17px;
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
 
-  .chartbox{
-    height:260px;
-  }
+    /* =========================
+       INFO
+    ========================= */
 
-}
-</style>
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h2 {
+      font-size: 17px;
+      margin-bottom: 9px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .highlight {
+      margin-top: 14px;
+      padding: 13px;
+      border-radius: 10px;
+      background: #f7f9fc;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    /* =========================
+       CHART
+    ========================= */
+
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+      font-size: 19px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .legend span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend i {
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .legend .pun-dot {
+      background: var(--accent);
+    }
+
+    .legend .psv-dot {
+      background: var(--green);
+    }
+
+    .chart-wrapper {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    canvas {
+      width: 100%;
+      height: 330px;
+      display: block;
+    }
+
+    .no-history {
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 0 35px;
+      background: #fff;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    footer strong {
+      font-size: 14px;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .footer-note {
+      text-align: right;
+      color: var(--muted);
+      font-size: 11px;
+      max-width: 380px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 760px) {
+
+      .container {
+        width: min(100% - 22px, 1180px);
+      }
+
+      header {
+        padding-top: 15px;
+        padding-bottom: 35px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .back-link {
+        font-size: 11px;
+        padding: 8px 10px;
+      }
+
+      .hero {
+        margin-top: 28px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      main {
+        margin-top: -15px;
+      }
+
+      .status-bar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .status-bar .update-button {
+        width: 100%;
+      }
+
+      .cards,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        padding: 21px;
+      }
+
+      .chart-card {
+        padding: 18px;
+      }
+
+      .section-header {
+        flex-direction: column;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-note {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .brand-text strong {
+        font-size: 15px;
+      }
+
+      .brand-text span {
+        font-size: 10px;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+
+      .card-header {
+        align-items: flex-start;
+      }
+
+      .date-badge {
+        font-size: 9px;
+      }
+
+      .price {
+        font-size: 42px;
+      }
+
+      canvas {
+        height: 280px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="wrap">
-
 <header>
 
-  <div class="brand">
-    GiOKri Life <span>| Energia</span>
-  </div>
+  <div class="container">
 
-  <div class="updated" id="updated">
-    Caricamento...
+    <div class="topbar">
+
+      <div class="brand">
+        <div class="brand-mark">G</div>
+
+        <div class="brand-text">
+          <strong>GiOKri Life</strong>
+          <span>Consulenza &amp; Risparmio</span>
+        </div>
+      </div>
+
+      <a
+        class="back-link"
+        href="https://giokrilife-bit.github.io/giokrilife/"
+      >
+        ← Torna a GiOKri Life
+      </a>
+
+    </div>
+
+    <div class="hero">
+
+      <div class="eyebrow">
+        Osservatorio Energia
+      </div>
+
+      <h1>
+        PUN &amp; PSV
+      </h1>
+
+      <p>
+        L'andamento quotidiano dei principali indici di riferimento
+        dell'energia elettrica e del gas naturale in Italia.
+      </p>
+
+    </div>
+
   </div>
 
 </header>
 
 
-<div id="error" class="error"></div>
+<main>
 
+  <div class="container">
 
-<!-- =========================
-     QUOTAZIONI
-========================= -->
+    <!-- STATUS -->
 
-<section class="cards">
+    <div class="status-bar">
 
-  <article class="card">
+      <div class="status-left">
 
-    <div class="label">
-      ⚡ PUN Index GME
-    </div>
+        <span
+          id="statusDot"
+          class="status-dot loading"
+        ></span>
 
-    <div class="value" id="pun">
-      —
-    </div>
-
-    <div class="unit">
-      €/kWh
-    </div>
-
-    <div class="change" id="punChange">
-      —
-    </div>
-
-    <div class="date" id="punDate">
-      Dato: —
-    </div>
-
-  </article>
-
-
-  <article class="card">
-
-    <div class="label">
-      🔥 PSV
-    </div>
-
-    <div class="value" id="psv">
-      —
-    </div>
-
-    <div class="unit">
-      €/Smc
-    </div>
-
-    <div class="change" id="psvChange">
-      —
-    </div>
-
-    <div class="date" id="psvDate">
-      Dato: —
-    </div>
-
-  </article>
-
-</section>
-
-
-<!-- =========================
-     GRAFICO
-========================= -->
-
-<section class="section card">
-
-  <h2>
-    Andamento ultimi 7 giorni
-  </h2>
-
-  <div class="chartbox">
-    <canvas id="chart"></canvas>
-  </div>
-
-  <div class="legend">
-    <span>● PUN €/kWh</span>
-    <span>● PSV €/Smc</span>
-  </div>
-
-</section>
-
-
-<!-- =========================
-     AZIONI
-========================= -->
-
-<section class="actions">
-
-  <button onclick="refresh()">
-    ↻ Aggiorna dati
-  </button>
-
-  <button
-    onclick="generateSocial()"
-    class="secondary">
-    📲 Genera Social Card
-  </button>
-
-  <button
-    onclick="downloadSocialCard()"
-    class="secondary">
-    ⬇ Scarica Social Card
-  </button>
-
-</section>
-
-
-<!-- =========================
-     SOCIAL CARD
-========================= -->
-
-<section class="social">
-
-  <h2>
-    Contenuto per i social
-  </h2>
-
-  <div class="social-grid">
-
-    <canvas
-      id="socialCard"
-      width="1080"
-      height="1080">
-    </canvas>
-
-
-    <div>
-
-      <div
-        class="posttext"
-        id="postText">
-        Generazione...
-      </div>
-
-
-      <div class="social-actions">
-
-        <button
-          onclick="copyPost()"
-          class="secondary">
-          📋 Copia testo
-        </button>
-
-        <button
-          onclick="downloadSocialCard()"
-          class="secondary">
-          ⬇ Scarica Social Card
-        </button>
+        <span
+          id="statusText"
+          class="status-text"
+        >
+          Recupero degli ultimi dati...
+        </span>
 
       </div>
 
+      <button
+        id="refreshButton"
+        class="update-button"
+        type="button"
+        onclick="caricaDati()"
+      >
+        ↻ Aggiorna dati
+      </button>
 
-      <!-- =========================
-           PRENOTAZIONE
-      ========================= -->
+    </div>
 
-      <div class="booking-box">
 
-        <h3>
-          Vuoi capire quanto stai realmente pagando?
-        </h3>
+    <!-- PRICES -->
+
+    <section class="cards">
+
+      <!-- PUN -->
+
+      <article class="price-card">
+
+        <div class="card-header">
+
+          <div class="card-title">
+
+            <div class="icon">
+              ⚡
+            </div>
+
+            <div>
+              <strong>PUN</strong>
+              <span>Prezzo Unico Nazionale</span>
+            </div>
+
+          </div>
+
+          <span
+            id="punDate"
+            class="date-badge"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div
+          id="punValue"
+          class="price"
+        >
+          —
+        </div>
+
+        <div class="unit">
+          €/MWh
+        </div>
+
+        <div class="price-description">
+          Prezzo medio giornaliero dell'energia elettrica
+          sul mercato all'ingrosso italiano.
+        </div>
+
+      </article>
+
+
+      <!-- PSV -->
+
+      <article class="price-card psv">
+
+        <div class="card-header">
+
+          <div class="card-title">
+
+            <div class="icon">
+              🔥
+            </div>
+
+            <div>
+              <strong>PSV</strong>
+              <span>Punto di Scambio Virtuale</span>
+            </div>
+
+          </div>
+
+          <span
+            id="psvDate"
+            class="date-badge"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div
+          id="psvValue"
+          class="price"
+        >
+          —
+        </div>
+
+        <div class="unit">
+          €/Smc
+        </div>
+
+        <div class="price-description">
+          Prezzo di riferimento del gas naturale
+          sul mercato italiano.
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- INFO -->
+
+    <section class="info-grid">
+
+      <article class="info-card">
+
+        <h2>
+          ⚡ Che cos'è il PUN?
+        </h2>
 
         <p>
-          Porta la tua bolletta e analizziamo insieme
-          il prezzo dell'energia, le quote fisse e
-          le principali condizioni del contratto.
+          Il PUN rappresenta il riferimento del prezzo
+          dell'energia elettrica acquistata sul mercato
+          all'ingrosso italiano.
         </p>
 
-        <button
-          onclick="goToBooking()"
-          class="green">
-          📅 Prenota una verifica gratuita
-        </button>
+        <div class="highlight">
+          È particolarmente importante per le offerte
+          di energia elettrica a prezzo variabile indicizzato.
+        </div>
+
+      </article>
+
+
+      <article class="info-card">
+
+        <h2>
+          🔥 Che cos'è il PSV?
+        </h2>
+
+        <p>
+          Il PSV è il principale punto virtuale di scambio
+          del gas naturale in Italia e rappresenta un
+          riferimento fondamentale per le offerte gas indicizzate.
+        </p>
+
+        <div class="highlight">
+          Il prezzo riportato è il valore dell'indice
+          utilizzato come riferimento per il mercato del gas.
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- CHART -->
+
+    <section class="chart-card">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            Andamento recente
+          </h2>
+
+          <p>
+            Evoluzione degli indici disponibili nel database.
+          </p>
+
+        </div>
+
+        <div class="legend">
+
+          <span>
+            <i class="pun-dot"></i>
+            PUN
+          </span>
+
+          <span>
+            <i class="psv-dot"></i>
+            PSV
+          </span>
+
+        </div>
+
+      </div>
+
+      <div
+        id="chartContainer"
+        class="chart-wrapper"
+      >
+
+        <canvas
+          id="energyChart"
+          width="1100"
+          height="330"
+        ></canvas>
+
+      </div>
+
+      <div
+        id="noHistory"
+        class="no-history"
+        style="display:none;"
+      >
+        Non sono ancora disponibili sufficienti dati
+        storici per visualizzare il grafico.
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-content">
+
+      <div>
+
+        <strong>
+          GiOKri Life
+        </strong>
+
+        <p>
+          Osservatorio Energia
+        </p>
+
+      </div>
+
+      <div class="footer-note">
+
+        I dati sono pubblicati a scopo informativo.
+        PUN e PSV sono valori di mercato e possono variare
+        quotidianamente.
 
       </div>
 
@@ -490,1242 +922,1422 @@ button.green:hover{
 
   </div>
 
-</section>
-
-
-<!-- =========================
-     NOTA
-========================= -->
-
-<div class="source">
-
-  <strong>Nota:</strong>
-  i valori mostrati sono riferiti all'ultimo giorno disponibile.
-
-  Se il dato del giorno non è ancora disponibile,
-  il sistema utilizza automaticamente l'ultimo dato disponibile.
-
-  Il PUN è riportato in €/kWh per facilitarne
-  il confronto con le bollette.
-
-  Il confronto tra PUN/PSV e il prezzo riportato
-  in bolletta è indicativo: il prezzo effettivamente
-  applicato può comprendere spread, quote fisse,
-  perdite di rete, componenti contrattuali e altre voci.
-
-</div>
-
-</div>
+</footer>
 
 
 <script>
 
-/* =====================================================
-   CONFIGURAZIONE
-===================================================== */
+  /* =========================================================
+     CONFIGURAZIONE
+  ========================================================= */
+
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
 
 
-/*
- * Web App Apps Script funzionante.
- */
+  /* =========================================================
+     UTILITÀ
+  ========================================================= */
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
+  function formatNumber(value, decimals = 2) {
 
-
-/*
- * Pagina prenotazioni GiOKri Life.
- */
-
-const BOOKING_URL =
-"https://giokrilife-bit.github.io/giokrilife-booking/";
-
-
-let DATA = null;
-
-
-
-/* =====================================================
-   RECUPERO DATI
-===================================================== */
-
-async function refresh(){
-
-  const err =
-    document.getElementById("error");
-
-  err.style.display =
-    "none";
-
-
-  try{
-
-    const response =
-      await fetch(
-        API_URL,
-        {
-          cache:"no-store"
-        }
-      );
-
-
-    if(!response.ok){
-
-      throw new Error(
-        "Errore HTTP " +
-        response.status
-      );
-
+    if (
+      value === null ||
+      value === undefined ||
+      value === "" ||
+      isNaN(Number(value))
+    ) {
+      return "—";
     }
 
-
-    const d =
-      await response.json();
-
-
-    if(!d.success){
-
-      throw new Error(
-        d.error ||
-        "Errore dati"
-      );
-
-    }
-
-
-    DATA =
-      convertAPIData(d);
-
-
-    render(DATA);
-
-
-  }catch(e){
-
-    showError(
-      "Impossibile recuperare i dati: " +
-      e.message
-    );
-
-  }
-
-}
-
-
-
-/* =====================================================
-   CONVERSIONE API
-===================================================== */
-
-function convertAPIData(api){
-
-  const storico =
-    api.storico || [];
-
-
-  const history =
-    storico
-      .slice()
-      .reverse()
-      .slice(-7)
-      .map(function(r){
-
-        return {
-
-          date:formatDate(r.data),
-
-          pun:Number(r.pun_kwh),
-
-          psv:Number(r.psv_smc)
-
-        };
-
-      });
-
-
-  const latest =
-    api.ultimoDato;
-
-
-  let previous =
-    null;
-
-
-  if(
-    storico.length > 1
-  ){
-
-    previous =
-      storico[1];
-
-  }
-
-
-  let punChange =
-    null;
-
-  let psvChange =
-    null;
-
-
-  if(previous){
-
-    if(
-      Number(previous.pun_kwh) !== 0
-    ){
-
-      punChange =
-        (
-          (
-            Number(latest.pun_kwh) -
-            Number(previous.pun_kwh)
-          ) /
-          Number(previous.pun_kwh)
-        ) * 100;
-
-    }
-
-
-    if(
-      Number(previous.psv_smc) !== 0
-    ){
-
-      psvChange =
-        (
-          (
-            Number(latest.psv_smc) -
-            Number(previous.psv_smc)
-          ) /
-          Number(previous.psv_smc)
-        ) * 100;
-
-    }
-
-  }
-
-
-  return {
-
-    latest:{
-
-      pun:
-        Number(latest.pun_kwh),
-
-      psv:
-        Number(latest.psv_smc),
-
-      punChange:
-        punChange,
-
-      psvChange:
-        psvChange,
-
-      punDate:
-        formatDate(latest.data),
-
-      psvDate:
-        formatDate(latest.data)
-
-    },
-
-    history:
-      history,
-
-    generatedAt:
-      formatDateTime(api.aggiornato)
-
-  };
-
-}
-
-
-
-/* =====================================================
-   FORMATTAZIONE
-===================================================== */
-
-function formatDate(value){
-
-  if(!value)
-    return "—";
-
-
-  const parts =
-    value.split("-");
-
-
-  if(parts.length !== 3)
-    return value;
-
-
-  return (
-    parts[2] +
-    "/" +
-    parts[1] +
-    "/" +
-    parts[0]
-  );
-
-}
-
-
-function formatDateTime(value){
-
-  if(!value)
-    return "—";
-
-
-  const d =
-    new Date(value);
-
-
-  if(isNaN(d.getTime()))
-    return value;
-
-
-  return d.toLocaleString(
-    "it-IT",
-    {
-      dateStyle:"short",
-      timeStyle:"short"
-    }
-  );
-
-}
-
-
-function fmt(n,dec){
-
-  return Number(n)
-    .toLocaleString(
+    return Number(value).toLocaleString(
       "it-IT",
       {
-        minimumFractionDigits:dec,
-        maximumFractionDigits:dec
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
       }
     );
-
-}
-
-
-
-/* =====================================================
-   VARIAZIONE
-===================================================== */
-
-function changeHtml(v){
-
-  if(
-    v === null ||
-    v === undefined ||
-    isNaN(v)
-  ){
-
-    return "—";
-
   }
 
 
-  const cls =
-    v > 0
-      ? "up"
-      : v < 0
-        ? "down"
-        : "flat";
+  function formatDate(value) {
+
+    if (!value) {
+      return "—";
+    }
+
+    const text = String(value);
+
+    /*
+      Se arriva già YYYY-MM-DD
+    */
+
+    const match =
+      text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+    if (match) {
+
+      return (
+        match[3] +
+        "/" +
+        match[2] +
+        "/" +
+        match[1]
+      );
+
+    }
 
 
-  const arrow =
-    v > 0
-      ? "▲"
-      : v < 0
-        ? "▼"
-        : "=";
+    /*
+      Tentativo generico
+    */
 
+    const date = new Date(value);
 
-  const sign =
-    v > 0
-      ? "+"
-      : "";
+    if (!isNaN(date.getTime())) {
 
+      return date.toLocaleDateString(
+        "it-IT"
+      );
 
-  return `
-    <span class="${cls}">
-      ${arrow} ${sign}${Math.abs(v)
-        .toFixed(1)
-        .replace(".",",")}% vs giorno precedente
-    </span>
-  `;
+    }
 
-}
-
-
-function plainChange(v){
-
-  if(
-    v === null ||
-    v === undefined ||
-    isNaN(v)
-  ){
-
-    return "";
-
+    return text;
   }
 
 
-  if(v > 0){
+  function numeric(value) {
 
-    return (
-      "▲ +" +
-      v.toFixed(1).replace(".",",") +
-      "% vs giorno precedente"
-    );
+    if (
+      value === null ||
+      value === undefined ||
+      value === ""
+    ) {
+      return null;
+    }
 
+    if (typeof value === "number") {
+      return value;
+    }
+
+    let text =
+      String(value)
+        .trim()
+        .replace(/\s/g, "");
+
+    /*
+      Gestione numeri italiani:
+      123,45
+      1.234,56
+    */
+
+    if (
+      text.includes(",") &&
+      text.includes(".")
+    ) {
+
+      text =
+        text
+          .replace(/\./g, "")
+          .replace(",", ".");
+
+    } else if (
+      text.includes(",")
+    ) {
+
+      text =
+        text.replace(",", ".");
+
+    }
+
+    const result =
+      parseFloat(text);
+
+    return isNaN(result)
+      ? null
+      : result;
   }
 
 
-  if(v < 0){
+  function getFirst(obj, keys) {
 
-    return (
-      "▼ " +
-      Math.abs(v)
-        .toFixed(1)
-        .replace(".",",") +
-      "% vs giorno precedente"
-    );
+    if (!obj || typeof obj !== "object") {
+      return null;
+    }
 
+    for (const key of keys) {
+
+      if (
+        Object.prototype.hasOwnProperty.call(
+          obj,
+          key
+        ) &&
+        obj[key] !== null &&
+        obj[key] !== undefined &&
+        obj[key] !== ""
+      ) {
+
+        return obj[key];
+
+      }
+
+    }
+
+    return null;
   }
 
 
-  return "=";
+  /* =========================================================
+     ESTRAZIONE DATI
+  ========================================================= */
 
-}
+  function normalizzaRisposta(raw) {
 
-
-
-/* =====================================================
-   RENDER
-===================================================== */
-
-function render(d){
-
-  document.getElementById("pun")
-    .textContent =
-      fmt(d.latest.pun,5);
+    let data = raw;
 
 
-  document.getElementById("psv")
-    .textContent =
-      fmt(d.latest.psv,5);
+    /*
+      Alcune versioni dello script possono restituire:
+      {
+        success:true,
+        data:{...}
+      }
+    */
+
+    if (
+      data &&
+      typeof data === "object" &&
+      data.data &&
+      typeof data.data === "object"
+    ) {
+
+      /*
+        Manteniamo però anche i dati esterni
+      */
+
+      data = {
+        ...data,
+        ...data.data
+      };
+
+    }
 
 
-  document.getElementById("punChange")
-    .innerHTML =
-      changeHtml(
-        d.latest.punChange
+    /*
+      Individuazione dell'ultimo dato
+    */
+
+    let ultimo =
+      getFirst(
+        data,
+        [
+          "ultimoDato",
+          "ultimo",
+          "latest",
+          "latestData",
+          "ultimoRecord"
+        ]
       );
 
 
-  document.getElementById("psvChange")
-    .innerHTML =
-      changeHtml(
-        d.latest.psvChange
+    /*
+      Se ultimoDato è un array
+      prendiamo l'ultimo elemento
+    */
+
+    if (Array.isArray(ultimo)) {
+
+      ultimo =
+        ultimo.length
+          ? ultimo[ultimo.length - 1]
+          : null;
+
+    }
+
+
+    /*
+      Se non esiste un oggetto ultimoDato,
+      proviamo direttamente la risposta.
+    */
+
+    if (
+      !ultimo ||
+      typeof ultimo !== "object"
+    ) {
+
+      ultimo = data;
+
+    }
+
+
+    /*
+      Storico
+    */
+
+    let storico =
+      getFirst(
+        data,
+        [
+          "storico",
+          "history",
+          "dati",
+          "records",
+          "serie",
+          "series"
+        ]
       );
 
 
-  document.getElementById("punDate")
-    .textContent =
-      "Dato: " +
-      d.latest.punDate;
+    if (!Array.isArray(storico)) {
+
+      storico = [];
+
+    }
 
 
-  document.getElementById("psvDate")
-    .textContent =
-      "Dato: " +
-      d.latest.psvDate;
+    /*
+      Se storico non esiste ma la risposta
+      è un array
+    */
+
+    if (
+      !storico.length &&
+      Array.isArray(raw)
+    ) {
+
+      storico = raw;
+
+      ultimo =
+        raw.length
+          ? raw[raw.length - 1]
+          : {};
+
+    }
 
 
-  document.getElementById("updated")
-    .textContent =
-      "Aggiornato: " +
-      d.generatedAt +
-      " | Ultimo dato disponibile";
+    /*
+      Individuazione data
+    */
+
+    const dataUltimo =
+      getFirst(
+        ultimo,
+        [
+          "data",
+          "date",
+          "giorno",
+          "giornata",
+          "ultimoDato"
+        ]
+      ) ||
+      getFirst(
+        data,
+        [
+          "data",
+          "date"
+        ]
+      );
 
 
-  drawChart(
-    d.history
-  );
+    /*
+      PUN
+    */
+
+    let pun =
+      getFirst(
+        ultimo,
+        [
+          "pun_mwh",
+          "punMwh",
+          "pun",
+          "PUN",
+          "pun_kwh",
+          "punKwh"
+        ]
+      );
 
 
-  generateSocial();
+    /*
+      PSV
+    */
 
-}
+    let psv =
+      getFirst(
+        ultimo,
+        [
+          "psv_smc",
+          "psvSmc",
+          "psv",
+          "PSV"
+        ]
+      );
 
 
+    pun = numeric(pun);
+    psv = numeric(psv);
 
-/* =====================================================
-   GRAFICO
-===================================================== */
 
-function drawChart(rows){
+    /*
+      Se abbiamo ricevuto PUN in €/kWh,
+      lo trasformiamo in €/MWh.
 
-  const c =
-    document.getElementById(
-      "chart"
+      ATTENZIONE:
+      se è presente esplicitamente pun_mwh
+      viene utilizzato quello.
+    */
+
+    const punMwhExplicit =
+      getFirst(
+        ultimo,
+        [
+          "pun_mwh",
+          "punMwh"
+        ]
+      );
+
+    if (
+      pun === null
+    ) {
+
+      const punKwh =
+        numeric(
+          getFirst(
+            ultimo,
+            [
+              "pun_kwh",
+              "punKwh"
+            ]
+          )
+        );
+
+      if (
+        punKwh !== null
+      ) {
+
+        pun =
+          punKwh * 1000;
+
+      }
+
+    } else if (
+      punMwhExplicit === null &&
+      pun < 5
+    ) {
+
+      /*
+        Valori inferiori a 5 sono quasi certamente
+        €/kWh e non €/MWh.
+      */
+
+      pun *= 1000;
+
+    }
+
+
+    /*
+      Costruiamo storico normalizzato
+    */
+
+    const history =
+      storico
+        .map(item => {
+
+          if (
+            !item ||
+            typeof item !== "object"
+          ) {
+            return null;
+          }
+
+          let itemPun =
+            getFirst(
+              item,
+              [
+                "pun_mwh",
+                "punMwh",
+                "pun",
+                "PUN"
+              ]
+            );
+
+          const explicitItemPun =
+            getFirst(
+              item,
+              [
+                "pun_mwh",
+                "punMwh"
+              ]
+            );
+
+          if (
+            itemPun === null
+          ) {
+
+            const kwh =
+              numeric(
+                getFirst(
+                  item,
+                  [
+                    "pun_kwh",
+                    "punKwh"
+                  ]
+                )
+              );
+
+            if (
+              kwh !== null
+            ) {
+              itemPun = kwh * 1000;
+            }
+
+          } else {
+
+            itemPun =
+              numeric(itemPun);
+
+            if (
+              explicitItemPun === null &&
+              itemPun !== null &&
+              itemPun < 5
+            ) {
+              itemPun *= 1000;
+            }
+
+          }
+
+
+          let itemPsv =
+            numeric(
+              getFirst(
+                item,
+                [
+                  "psv_smc",
+                  "psvSmc",
+                  "psv",
+                  "PSV"
+                ]
+              )
+            );
+
+
+          return {
+
+            date:
+              getFirst(
+                item,
+                [
+                  "data",
+                  "date",
+                  "giorno"
+                ]
+              ),
+
+            pun:
+              numeric(itemPun),
+
+            psv:
+              itemPsv
+
+          };
+
+        })
+        .filter(Boolean);
+
+
+    /*
+      Se lo storico non contiene l'ultimo dato,
+      lo aggiungiamo.
+    */
+
+    if (
+      dataUltimo
+    ) {
+
+      const exists =
+        history.some(
+          x =>
+            String(x.date) ===
+            String(dataUltimo)
+        );
+
+      if (!exists) {
+
+        history.push({
+
+          date:
+            dataUltimo,
+
+          pun:
+            pun,
+
+          psv:
+            psv
+
+        });
+
+      }
+
+    }
+
+
+    /*
+      Ordinamento cronologico
+    */
+
+    history.sort(
+      (a, b) =>
+        new Date(a.date) -
+        new Date(b.date)
     );
 
 
-  const ctx =
-    c.getContext("2d");
+    return {
 
+      success:
+        data &&
+        data.success !== false,
 
-  const ratio =
-    window.devicePixelRatio || 1;
+      data:
+        dataUltimo,
 
+      pun,
+      psv,
 
-  const w =
-    c.clientWidth;
+      history
 
-
-  const h =
-    c.clientHeight;
-
-
-  c.width =
-    w * ratio;
-
-
-  c.height =
-    h * ratio;
-
-
-  ctx.setTransform(
-    ratio,
-    0,
-    0,
-    ratio,
-    0,
-    0
-  );
-
-
-  ctx.clearRect(
-    0,
-    0,
-    w,
-    h
-  );
-
-
-  if(
-    !rows ||
-    !rows.length
-  ){
-
-    return;
+    };
 
   }
 
 
-  const pad = {
-    l:48,
-    r:20,
-    t:20,
-    b:38
-  };
+  /* =========================================================
+     CARICAMENTO DATI
+  ========================================================= */
+
+  async function caricaDati() {
+
+    const button =
+      document.getElementById(
+        "refreshButton"
+      );
+
+    const statusDot =
+      document.getElementById(
+        "statusDot"
+      );
+
+    const statusText =
+      document.getElementById(
+        "statusText"
+      );
 
 
-  const iw =
-    w -
-    pad.l -
-    pad.r;
+    button.disabled = true;
+
+    statusDot.className =
+      "status-dot loading";
+
+    statusText.textContent =
+      "Recupero degli ultimi dati...";
 
 
-  const ih =
-    h -
-    pad.t -
-    pad.b;
+    try {
 
+      /*
+        Cache busting.
+        Evita che browser o proxy
+        restituiscano una vecchia risposta.
+      */
 
-  const pun =
-    rows.map(
-      x => x.pun
-    );
-
-
-  const psv =
-    rows.map(
-      x => x.psv
-    );
-
-
-  const min1 =
-    Math.min(...pun);
-
-
-  const max1 =
-    Math.max(...pun);
-
-
-  const min2 =
-    Math.min(...psv);
-
-
-  const max2 =
-    Math.max(...psv);
-
-
-  function x(i){
-
-    return (
-      pad.l +
-      (
-        i /
-        (rows.length - 1 || 1)
-      ) *
-      iw
-    );
-
-  }
-
-
-  function y(
-    v,
-    min,
-    max
-  ){
-
-    return (
-      pad.t +
-      (
-        1 -
+      const url =
+        API_URL +
         (
-          (v - min) /
-          (max - min || 1)
-        )
-      ) *
-      ih
-    );
-
-  }
+          API_URL.includes("?")
+            ? "&"
+            : "?"
+        ) +
+        "t=" +
+        Date.now();
 
 
-  ctx.strokeStyle =
-    "#e5e7eb";
+      const response =
+        await fetch(
+          url,
+          {
+            method: "GET",
+            cache: "no-store"
+          }
+        );
 
 
-  ctx.lineWidth = 1;
+      if (!response.ok) {
 
-
-  for(
-    let i=0;
-    i<4;
-    i++
-  ){
-
-    const yy =
-      pad.t +
-      i *
-      ih /
-      3;
-
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-      pad.l,
-      yy
-    );
-
-    ctx.lineTo(
-      w - pad.r,
-      yy
-    );
-
-    ctx.stroke();
-
-  }
-
-
-  ctx.lineWidth = 3;
-
-
-  function line(
-    key,
-    min,
-    max,
-    isPSV
-  ){
-
-    ctx.beginPath();
-
-
-    rows.forEach(
-      function(r,i){
-
-        const xx =
-          x(i);
-
-
-        const yy =
-          y(
-            r[key],
-            min,
-            max
-          );
-
-
-        if(i){
-
-          ctx.lineTo(
-            xx,
-            yy
-          );
-
-        }else{
-
-          ctx.moveTo(
-            xx,
-            yy
-          );
-
-        }
-
-      }
-    );
-
-
-    ctx.strokeStyle =
-      isPSV
-        ? "#d97706"
-        : "#0b6bcb";
-
-
-    ctx.stroke();
-
-  }
-
-
-  line(
-    "pun",
-    min1,
-    max1,
-    false
-  );
-
-
-  line(
-    "psv",
-    min2,
-    max2,
-    true
-  );
-
-
-  ctx.fillStyle =
-    "#6b7280";
-
-
-  ctx.font =
-    "12px Arial";
-
-
-  rows.forEach(
-    function(r,i){
-
-      if(
-        i === 0 ||
-        i === rows.length - 1 ||
-        i % 2 === 0
-      ){
-
-        ctx.fillText(
-          r.date,
-          Math.max(
-            0,
-            x(i) - 22
-          ),
-          h - 12
+        throw new Error(
+          "HTTP " +
+          response.status
         );
 
       }
 
+
+      const raw =
+        await response.json();
+
+
+      console.log(
+        "Risposta Apps Script:",
+        raw
+      );
+
+
+      const data =
+        normalizzaRisposta(raw);
+
+
+      aggiornaInterfaccia(
+        data
+      );
+
+
+      statusDot.className =
+        "status-dot";
+
+      statusText.textContent =
+        "Dati aggiornati";
+
+
+    } catch (error) {
+
+      console.error(
+        "Errore caricamento dati:",
+        error
+      );
+
+
+      statusDot.className =
+        "status-dot error";
+
+      statusText.textContent =
+        "Impossibile recuperare i dati. Riprova tra qualche secondo.";
+
+
+      /*
+        Non cancelliamo eventuali dati
+        già presenti nella pagina.
+      */
+
+    } finally {
+
+      button.disabled = false;
+
     }
-  );
-
-}
-
-
-
-/* =====================================================
-   SOCIAL CARD
-===================================================== */
-
-function generateSocial(){
-
-  if(!DATA)
-    return;
-
-
-  const c =
-    document.getElementById(
-      "socialCard"
-    );
-
-
-  const ctx =
-    c.getContext("2d");
-
-
-  ctx.clearRect(
-    0,
-    0,
-    1080,
-    1080
-  );
-
-
-  /*
-   * Sfondo
-   */
-
-  ctx.fillStyle =
-    "#f5f7fa";
-
-  ctx.fillRect(
-    0,
-    0,
-    1080,
-    1080
-  );
-
-
-  /*
-   * Titolo
-   */
-
-  ctx.fillStyle =
-    "#18212b";
-
-  ctx.font =
-    "bold 50px Arial";
-
-  ctx.fillText(
-    "GIORNATA ENERGETICA",
-    65,
-    90
-  );
-
-
-  ctx.font =
-    "26px Arial";
-
-  ctx.fillStyle =
-    "#6b7280";
-
-  ctx.fillText(
-    "GiOKri Life | Ultimo dato disponibile",
-    65,
-    132
-  );
-
-
-  /*
-   * PUN
-   */
-
-  ctx.fillStyle =
-    "#ffffff";
-
-  ctx.fillRect(
-    55,
-    175,
-    970,
-    205
-  );
-
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-  ctx.font =
-    "bold 32px Arial";
-
-  ctx.fillText(
-    "⚡ PUN",
-    85,
-    225
-  );
-
-
-  ctx.fillStyle =
-    "#18212b";
-
-  ctx.font =
-    "bold 64px Arial";
-
-  ctx.fillText(
-    fmt(DATA.latest.pun,5) +
-    " €/kWh",
-    85,
-    300
-  );
-
-
-  ctx.font =
-    "23px Arial";
-
-  ctx.fillStyle =
-    "#6b7280";
-
-  ctx.fillText(
-    DATA.latest.punDate,
-    85,
-    345
-  );
-
-
-  /*
-   * PSV
-   */
-
-  ctx.fillStyle =
-    "#ffffff";
-
-  ctx.fillRect(
-    55,
-    405,
-    970,
-    205
-  );
-
-
-  ctx.fillStyle =
-    "#d97706";
-
-  ctx.font =
-    "bold 32px Arial";
-
-  ctx.fillText(
-    "🔥 PSV",
-    85,
-    455
-  );
-
-
-  ctx.fillStyle =
-    "#18212b";
-
-  ctx.font =
-    "bold 64px Arial";
-
-  ctx.fillText(
-    fmt(DATA.latest.psv,5) +
-    " €/Smc",
-    85,
-    530
-  );
-
-
-  ctx.font =
-    "23px Arial";
-
-  ctx.fillStyle =
-    "#6b7280";
-
-  ctx.fillText(
-    DATA.latest.psvDate,
-    85,
-    575
-  );
-
-
-  /*
-   * MINI GUIDA
-   */
-
-  ctx.fillStyle =
-    "#18212b";
-
-  ctx.font =
-    "bold 31px Arial";
-
-  ctx.fillText(
-    "COME LEGGERE LA TUA BOLLETTA",
-    65,
-    675
-  );
-
-
-  ctx.font =
-    "24px Arial";
-
-  ctx.fillStyle =
-    "#18212b";
-
-
-  ctx.fillText(
-    "1. Prendi la tua bolletta",
-    75,
-    725
-  );
-
-
-  ctx.fillText(
-    "2. Cerca il prezzo €/kWh o €/Smc",
-    75,
-    765
-  );
-
-
-  ctx.fillText(
-    "3. Confrontalo con PUN o PSV",
-    75,
-    805
-  );
-
-
-  ctx.font =
-    "20px Arial";
-
-  ctx.fillStyle =
-    "#6b7280";
-
-
-  ctx.fillText(
-    "Il confronto aiuta a capire quanto pesa",
-    75,
-    845
-  );
-
-
-  ctx.fillText(
-    "il prezzo applicato dal tuo fornitore.",
-    75,
-    875
-  );
-
-
-  /*
-   * CTA
-   */
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-  ctx.fillRect(
-    65,
-    915,
-    950,
-    72
-  );
-
-
-  ctx.fillStyle =
-    "#ffffff";
-
-  ctx.font =
-    "bold 27px Arial";
-
-  ctx.fillText(
-    "PRENOTA UNA VERIFICA GRATUITA",
-    300,
-    960
-  );
-
-
-  /*
-   * Testo social
-   */
-
-  const text =
-`GIORNATA ENERGETICA | ${DATA.latest.punDate}
-
-⚡ PUN: ${fmt(DATA.latest.pun,5)} €/kWh
-${plainChange(DATA.latest.punChange)}
-
-🔥 PSV: ${fmt(DATA.latest.psv,5)} €/Smc
-${plainChange(DATA.latest.psvChange)}
-
-COME LEGGERE LA TUA BOLLETTA
-
-1️⃣ Prendi la tua bolletta.
-2️⃣ Cerca il prezzo dell'energia in €/kWh o €/Smc.
-3️⃣ Confrontalo con il PUN o il PSV del periodo.
-
-La differenza può aiutarti a capire quanto pesa il prezzo applicato dal tuo fornitore.
-
-⚠️ Il confronto è indicativo: il prezzo finale può comprendere spread, quote fisse, perdite di rete e altre componenti contrattuali.
-
-Vuoi capire davvero quanto stai pagando?
-
-📅 Prenota una verifica gratuita con GiOKri Life:
-${BOOKING_URL}
-
-#GiOKriLife #PUN #PSV #Energia #Bollette #Risparmio`;
-
-
-  document.getElementById(
-    "postText"
-  ).textContent =
-    text;
-
-}
-
-
-
-/* =====================================================
-   SCARICA SOCIAL CARD
-===================================================== */
-
-function downloadSocialCard(){
-
-  if(!DATA){
-
-    alert(
-      "Attendi il caricamento dei dati."
-    );
-
-    return;
 
   }
 
 
-  const canvas =
-    document.getElementById(
-      "socialCard"
-    );
+  /* =========================================================
+     AGGIORNAMENTO INTERFACCIA
+  ========================================================= */
+
+  function aggiornaInterfaccia(data) {
+
+    const punElement =
+      document.getElementById(
+        "punValue"
+      );
+
+    const psvElement =
+      document.getElementById(
+        "psvValue"
+      );
+
+    const punDate =
+      document.getElementById(
+        "punDate"
+      );
+
+    const psvDate =
+      document.getElementById(
+        "psvDate"
+      );
 
 
-  const link =
-    document.createElement(
-      "a"
-    );
+    /*
+      PUN
+    */
+
+    if (
+      data.pun !== null &&
+      data.pun !== undefined
+    ) {
+
+      punElement.textContent =
+        formatNumber(
+          data.pun,
+          2
+        );
+
+    } else {
+
+      punElement.textContent =
+        "—";
+
+    }
 
 
-  const data =
-    DATA.latest.punDate
-      .replaceAll("/","-");
+    /*
+      PSV
+    */
+
+    if (
+      data.psv !== null &&
+      data.psv !== undefined
+    ) {
+
+      psvElement.textContent =
+        formatNumber(
+          data.psv,
+          3
+        );
+
+    } else {
+
+      psvElement.textContent =
+        "—";
+
+    }
 
 
-  link.download =
-    "GiOKri-Life-Giornata-Energetica-" +
-    data +
-    ".png";
+    /*
+      Date
+    */
+
+    const dateText =
+      formatDate(
+        data.data
+      );
+
+    punDate.textContent =
+      dateText;
+
+    psvDate.textContent =
+      dateText;
 
 
-  link.href =
-    canvas.toDataURL(
-      "image/png"
-    );
+    /*
+      Grafico
+    */
 
-
-  link.click();
-
-}
-
-
-
-/* =====================================================
-   COPIA TESTO SOCIAL
-===================================================== */
-
-async function copyPost(){
-
-  const text =
-    document.getElementById(
-      "postText"
-    ).textContent;
-
-
-  try{
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-
-    alert(
-      "Testo del post copiato negli appunti."
-    );
-
-  }catch(e){
-
-    alert(
-      "Non è stato possibile copiare automaticamente il testo."
+    disegnaGrafico(
+      data.history
     );
 
   }
 
-}
+
+  /* =========================================================
+     GRAFICO
+  ========================================================= */
+
+  function disegnaGrafico(history) {
+
+    const canvas =
+      document.getElementById(
+        "energyChart"
+      );
+
+    const noHistory =
+      document.getElementById(
+        "noHistory"
+      );
+
+    const ctx =
+      canvas.getContext(
+        "2d"
+      );
 
 
+    if (
+      !history ||
+      history.length < 2
+    ) {
 
-/* =====================================================
-   PRENOTAZIONE
-===================================================== */
+      canvas.style.display =
+        "none";
 
-function goToBooking(){
+      noHistory.style.display =
+        "flex";
 
-  window.open(
-    BOOKING_URL,
-    "_blank"
-  );
+      return;
 
-}
+    }
 
 
+    canvas.style.display =
+      "block";
 
-/* =====================================================
-   ERRORE
-===================================================== */
+    noHistory.style.display =
+      "none";
 
-function showError(text){
 
-  const e =
-    document.getElementById(
-      "error"
+    /*
+      Manteniamo gli ultimi 30 valori.
+    */
+
+    const data =
+      history.slice(-30);
+
+
+    /*
+      Dimensioni reali del canvas.
+    */
+
+    const rect =
+      canvas.getBoundingClientRect();
+
+    const dpr =
+      window.devicePixelRatio || 1;
+
+    const width =
+      Math.max(
+        700,
+        rect.width
+      );
+
+    const height =
+      330;
+
+
+    canvas.width =
+      width * dpr;
+
+    canvas.height =
+      height * dpr;
+
+    ctx.setTransform(
+      dpr,
+      0,
+      0,
+      dpr,
+      0,
+      0
     );
 
 
-  e.textContent =
-    text;
+    /*
+      Area grafico
+    */
+
+    const padding = {
+
+      top: 25,
+      right: 30,
+      bottom: 48,
+      left: 58
+
+    };
 
 
-  e.style.display =
-    "block";
+    const chartWidth =
+      width -
+      padding.left -
+      padding.right;
 
-}
+    const chartHeight =
+      height -
+      padding.top -
+      padding.bottom;
 
 
+    /*
+      Valori
+    */
 
-/* =====================================================
-   RESIZE
-===================================================== */
+    const punValues =
+      data
+        .map(x => x.pun)
+        .filter(
+          x =>
+            x !== null &&
+            !isNaN(x)
+        );
 
-window.addEventListener(
-  "resize",
-  function(){
+    const psvValues =
+      data
+        .map(x => x.psv)
+        .filter(
+          x =>
+            x !== null &&
+            !isNaN(x)
+        );
 
-    if(DATA){
 
-      drawChart(
-        DATA.history
+    /*
+      Per PUN e PSV le scale sono molto diverse.
+      Utilizziamo una normalizzazione grafica
+      indipendente per rendere leggibili entrambe
+      le serie.
+    */
+
+    function range(values) {
+
+      if (!values.length) {
+
+        return {
+          min: 0,
+          max: 1
+        };
+
+      }
+
+      let min =
+        Math.min(...values);
+
+      let max =
+        Math.max(...values);
+
+      if (min === max) {
+
+        min -= 1;
+        max += 1;
+
+      }
+
+      const margin =
+        (max - min) * .12;
+
+      return {
+
+        min:
+          min - margin,
+
+        max:
+          max + margin
+
+      };
+
+    }
+
+
+    const punRange =
+      range(punValues);
+
+    const psvRange =
+      range(psvValues);
+
+
+    /*
+      Sfondo
+    */
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    /*
+      Griglia
+    */
+
+    ctx.strokeStyle =
+      "#e9edf3";
+
+    ctx.lineWidth =
+      1;
+
+    const gridLines = 5;
+
+
+    for (
+      let i = 0;
+      i <= gridLines;
+      i++
+    ) {
+
+      const y =
+        padding.top +
+        (
+          chartHeight /
+          gridLines
+        ) * i;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        padding.left,
+        y
+      );
+
+      ctx.lineTo(
+        width -
+        padding.right,
+        y
+      );
+
+      ctx.stroke();
+
+    }
+
+
+    /*
+      Funzione punto
+    */
+
+    function getX(index) {
+
+      if (data.length === 1) {
+        return padding.left;
+      }
+
+      return (
+        padding.left +
+        (
+          index /
+          (data.length - 1)
+        ) *
+        chartWidth
       );
 
     }
 
+
+    function getY(value, rangeObj) {
+
+      if (
+        value === null ||
+        value === undefined ||
+        isNaN(value)
+      ) {
+
+        return null;
+
+      }
+
+      return (
+        padding.top +
+        (
+          1 -
+          (
+            (value - rangeObj.min) /
+            (rangeObj.max - rangeObj.min)
+          )
+        ) *
+        chartHeight
+      );
+
+    }
+
+
+    /*
+      Disegna serie
+    */
+
+    function drawSeries(
+      field,
+      rangeObj,
+      lineColor
+    ) {
+
+      let started =
+        false;
+
+
+      ctx.beginPath();
+
+
+      data.forEach(
+        (item, index) => {
+
+          const value =
+            item[field];
+
+          const y =
+            getY(
+              value,
+              rangeObj
+            );
+
+          if (y === null) {
+            return;
+          }
+
+          const x =
+            getX(index);
+
+
+          if (!started) {
+
+            ctx.moveTo(
+              x,
+              y
+            );
+
+            started = true;
+
+          } else {
+
+            ctx.lineTo(
+              x,
+              y
+            );
+
+          }
+
+        }
+      );
+
+
+      ctx.strokeStyle =
+        lineColor;
+
+      ctx.lineWidth =
+        2.5;
+
+      ctx.lineJoin =
+        "round";
+
+      ctx.lineCap =
+        "round";
+
+      ctx.stroke();
+
+
+      /*
+        Punti
+      */
+
+      data.forEach(
+        (item, index) => {
+
+          const value =
+            item[field];
+
+          const y =
+            getY(
+              value,
+              rangeObj
+            );
+
+          if (y === null) {
+            return;
+          }
+
+          const x =
+            getX(index);
+
+          ctx.beginPath();
+
+          ctx.arc(
+            x,
+            y,
+            3,
+            0,
+            Math.PI * 2
+          );
+
+          ctx.fillStyle =
+            lineColor;
+
+          ctx.fill();
+
+        }
+      );
+
+    }
+
+
+    /*
+      Colori grafico
+    */
+
+    drawSeries(
+      "pun",
+      punRange,
+      "#1d9bf0"
+    );
+
+
+    drawSeries(
+      "psv",
+      psvRange,
+      "#159957"
+    );
+
+
+    /*
+      Etichette date
+    */
+
+    ctx.fillStyle =
+      "#7a8394";
+
+    ctx.font =
+      "10px system-ui";
+
+
+    data.forEach(
+      (item, index) => {
+
+        /*
+          Mostriamo circa 6 etichette
+        */
+
+        const step =
+          Math.max(
+            1,
+            Math.ceil(
+              data.length / 6
+            )
+          );
+
+        if (
+          index % step !== 0 &&
+          index !== data.length - 1
+        ) {
+          return;
+        }
+
+
+        const x =
+          getX(index);
+
+
+        const label =
+          formatDate(
+            item.date
+          );
+
+
+        ctx.textAlign =
+          "center";
+
+        ctx.fillText(
+          label,
+          x,
+          height - 18
+        );
+
+      }
+    );
+
+
+    /*
+      Indicazione scala PUN
+    */
+
+    ctx.textAlign =
+      "right";
+
+    ctx.fillStyle =
+      "#1d9bf0";
+
+    ctx.font =
+      "10px system-ui";
+
+    ctx.fillText(
+      "PUN €/MWh",
+      width - padding.right,
+      padding.top - 8
+    );
+
+
+    /*
+      Indicazione scala PSV
+    */
+
+    ctx.fillStyle =
+      "#159957";
+
+    ctx.fillText(
+      "PSV €/Smc",
+      width - padding.right,
+      padding.top + 7
+    );
+
   }
-);
 
 
+  /* =========================================================
+     RESPONSIVE REDRAW
+  ========================================================= */
 
-/* =====================================================
-   AVVIO
-===================================================== */
+  let resizeTimer;
 
-refresh();
+  window.addEventListener(
+    "resize",
+    function() {
+
+      clearTimeout(
+        resizeTimer
+      );
+
+      resizeTimer =
+        setTimeout(
+          () => {
+
+            /*
+              Ricarichiamo soltanto i dati
+              già presenti nella pagina.
+            */
+
+            if (
+              window.__energyHistory
+            ) {
+
+              disegnaGrafico(
+                window.__energyHistory
+              );
+
+            }
+
+          },
+          200
+        );
+
+    }
+  );
+
+
+  /*
+    Wrapper per conservare lo storico
+    utilizzato dal resize.
+  */
+
+  const oldAggiorna =
+    aggiornaInterfaccia;
+
+
+  aggiornaInterfaccia =
+    function(data) {
+
+      window.__energyHistory =
+        data.history || [];
+
+      oldAggiorna(
+        data
+      );
+
+    };
+
+
+  /* =========================================================
+     AVVIO AUTOMATICO
+  ========================================================= */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+      caricaDati();
+
+    }
+  );
 
 </script>
 
 </body>
 </html>
+```
