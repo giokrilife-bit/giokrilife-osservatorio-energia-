@@ -7,7 +7,6 @@
 <title>GiOKri Life | Quotazioni PUN & PSV</title>
 
 <style>
-
 :root{
   --bg:#f5f7fa;
   --card:#ffffff;
@@ -16,12 +15,18 @@
   --line:#e5e7eb;
   --accent:#0b6bcb;
   --accent-dark:#084f96;
+  --gas:#d97706;
   --up:#c62828;
   --down:#16803c;
+  --flat:#6b7280;
 }
 
 *{
   box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
@@ -37,9 +42,9 @@ body{
   padding:22px;
 }
 
-/* ==============================
+/* =====================================================
    HEADER
-============================== */
+===================================================== */
 
 header{
   display:flex;
@@ -62,11 +67,26 @@ header{
   font-size:13px;
   color:var(--muted);
   text-align:right;
+  line-height:1.45;
 }
 
-/* ==============================
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error{
+  background:#fff3f3;
+  color:#8b1e1e;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:18px;
+  display:none;
+  line-height:1.45;
+}
+
+/* =====================================================
    CARDS
-============================== */
+===================================================== */
 
 .cards{
   display:grid;
@@ -105,6 +125,7 @@ header{
   font-size:15px;
   font-weight:700;
   margin-top:8px;
+  min-height:20px;
 }
 
 .up{
@@ -116,7 +137,7 @@ header{
 }
 
 .flat{
-  color:var(--muted);
+  color:var(--flat);
 }
 
 .date{
@@ -125,9 +146,47 @@ header{
   margin-top:12px;
 }
 
-/* ==============================
-   SEZIONI
-============================== */
+/* =====================================================
+   MONTHLY SUMMARY
+===================================================== */
+
+.month-summary{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+.month-box{
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:15px 18px;
+}
+
+.month-title{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.month-value{
+  font-size:24px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.month-detail{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
 
 .section{
   margin-top:22px;
@@ -138,26 +197,68 @@ header{
   margin:0 0 12px;
 }
 
-.chartbox{
-  height:310px;
+/* =====================================================
+   CHART
+===================================================== */
+
+.chart-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 5px 18px #0000000a;
 }
 
-.legend{
+.chartbox{
+  height:330px;
+  position:relative;
+}
+
+#chart{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+.chart-legend{
   display:flex;
+  flex-wrap:wrap;
   gap:20px;
   font-size:13px;
   color:var(--muted);
   margin-top:8px;
 }
 
-canvas{
-  width:100%;
-  height:100%;
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
 }
 
-/* ==============================
-   BUTTON
-============================== */
+.legend-line{
+  width:24px;
+  height:3px;
+  border-radius:3px;
+}
+
+.legend-pun{
+  background:var(--accent);
+}
+
+.legend-psv{
+  background:var(--gas);
+}
+
+.chart-note{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.45;
+}
+
+/* =====================================================
+   ACTIONS
+===================================================== */
 
 .actions{
   display:flex;
@@ -175,6 +276,7 @@ button{
   background:var(--accent);
   color:#fff;
   transition:.2s;
+  font-size:14px;
 }
 
 button:hover{
@@ -198,9 +300,14 @@ button.green:hover{
   background:#11632f;
 }
 
-/* ==============================
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+/* =====================================================
    SOCIAL
-============================== */
+===================================================== */
 
 .social{
   background:#fff;
@@ -228,6 +335,7 @@ button.green:hover{
   background:#fff;
   border:1px solid var(--line);
   border-radius:12px;
+  display:block;
 }
 
 .posttext{
@@ -237,6 +345,7 @@ button.green:hover{
   border-radius:12px;
   font-size:14px;
   line-height:1.55;
+  min-height:250px;
 }
 
 .social-actions{
@@ -246,9 +355,9 @@ button.green:hover{
   margin-top:14px;
 }
 
-/* ==============================
+/* =====================================================
    BOOKING
-============================== */
+===================================================== */
 
 .booking-box{
   background:#eef6ff;
@@ -269,38 +378,38 @@ button.green:hover{
   line-height:1.5;
 }
 
-/* ==============================
-   SOURCE / ERROR
-============================== */
+/* =====================================================
+   SOURCE
+===================================================== */
 
 .source{
   font-size:12px;
   color:var(--muted);
   margin-top:18px;
-  line-height:1.45;
+  line-height:1.55;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px;
 }
 
-.error{
-  background:#fff3f3;
-  color:#8b1e1e;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:18px;
-  display:none;
-}
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading{
   opacity:.6;
 }
 
-/* ==============================
-   MOBILE
-============================== */
+/* =====================================================
+   RESPONSIVE
+===================================================== */
 
 @media(max-width:760px){
 
   .cards,
-  .social-grid{
+  .social-grid,
+  .month-summary{
     grid-template-columns:1fr;
   }
 
@@ -318,11 +427,14 @@ button.green:hover{
   }
 
   .chartbox{
-    height:260px;
+    height:290px;
+  }
+
+  .wrap{
+    padding:15px;
   }
 
 }
-
 </style>
 </head>
 
@@ -346,9 +458,9 @@ button.green:hover{
 <div id="error" class="error"></div>
 
 
-<!-- ==========================================
+<!-- ===================================================
      QUOTAZIONI
-========================================== -->
+=================================================== -->
 
 <section class="cards">
 
@@ -404,74 +516,132 @@ button.green:hover{
 </section>
 
 
-<!-- ==========================================
-     GRAFICO
-========================================== -->
+<!-- ===================================================
+     MEDIA MENSILE
+=================================================== -->
 
-<section class="section card">
+<section
+  class="month-summary"
+  id="monthSummary"
+  style="display:none;"
+>
 
-  <h2>
-    Andamento ultimi 7 giorni
-  </h2>
+  <div class="month-box">
 
-  <div class="chartbox">
+    <div class="month-title">
+      Media PUN del mese
+    </div>
 
-    <canvas id="chart"></canvas>
+    <div
+      class="month-value"
+      id="punMonthAverage">
+      —
+    </div>
+
+    <div
+      class="month-detail"
+      id="punMonthDetail">
+      —
+    </div>
 
   </div>
 
-  <div class="legend">
 
-    <span>
-      ● PUN €/kWh
-    </span>
+  <div class="month-box">
 
-    <span>
-      ● PSV €/Smc
-    </span>
+    <div class="month-title">
+      Media PSV del mese
+    </div>
+
+    <div
+      class="month-value"
+      id="psvMonthAverage">
+      —
+    </div>
+
+    <div
+      class="month-detail"
+      id="psvMonthDetail">
+      —
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- ==========================================
+<!-- ===================================================
+     GRAFICO
+=================================================== -->
+
+<section class="section">
+
+  <div class="chart-card">
+
+    <h2>
+      Andamento ultimi 7 giorni
+    </h2>
+
+    <div class="chartbox">
+
+      <canvas id="chart"></canvas>
+
+    </div>
+
+    <div class="chart-legend">
+
+      <div class="legend-item">
+        <span class="legend-line legend-pun"></span>
+        <span>PUN €/kWh</span>
+      </div>
+
+      <div class="legend-item">
+        <span class="legend-line legend-psv"></span>
+        <span>PSV €/Smc</span>
+      </div>
+
+    </div>
+
+    <div class="chart-note">
+      Il grafico utilizza due scale verticali indipendenti:
+      una per il PUN e una per il PSV. Questo permette di
+      rappresentare correttamente l'andamento dei due indicatori
+      senza alterarne il confronto visivo.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ===================================================
      AZIONI
-========================================== -->
+=================================================== -->
 
 <section class="actions">
 
-  <button
-    onclick="refresh()">
-
+  <button onclick="refresh()">
     ↻ Aggiorna dati
-
   </button>
-
 
   <button
     onclick="generateSocial()"
     class="secondary">
-
     📲 Genera Social Card
-
   </button>
-
 
   <button
     onclick="downloadSocialCard()"
     class="secondary">
-
     ⬇ Scarica Social Card
-
   </button>
 
 </section>
 
 
-<!-- ==========================================
+<!-- ===================================================
      SOCIAL
-========================================== -->
+=================================================== -->
 
 <section class="social">
 
@@ -479,9 +649,7 @@ button.green:hover{
     Contenuto per i social
   </h2>
 
-
   <div class="social-grid">
-
 
     <canvas
       id="socialCard"
@@ -495,9 +663,7 @@ button.green:hover{
       <div
         class="posttext"
         id="postText">
-
-        Caricamento contenuto...
-
+        Generazione...
       </div>
 
 
@@ -506,22 +672,21 @@ button.green:hover{
         <button
           onclick="copyPost()"
           class="secondary">
-
           📋 Copia testo
-
         </button>
-
 
         <button
           onclick="downloadSocialCard()"
           class="secondary">
-
           ⬇ Scarica Social Card
-
         </button>
 
       </div>
 
+
+      <!-- =============================================
+           BOOKING
+      ============================================== -->
 
       <div class="booking-box">
 
@@ -538,9 +703,7 @@ button.green:hover{
         <button
           onclick="goToBooking()"
           class="green">
-
           📅 Prenota una verifica gratuita
-
         </button>
 
       </div>
@@ -552,20 +715,17 @@ button.green:hover{
 </section>
 
 
-<!-- ==========================================
-     NOTA
-========================================== -->
+<!-- ===================================================
+     NOTE
+=================================================== -->
 
 <div class="source">
 
   <strong>Nota:</strong>
-
-  i valori mostrati sono riferiti
-  all'ultimo giorno disponibile.
+  i valori mostrati sono riferiti all'ultimo giorno disponibile.
 
   Se il dato del giorno non è ancora disponibile,
-  il sistema utilizza automaticamente
-  l'ultimo dato disponibile.
+  il sistema utilizza automaticamente l'ultimo dato disponibile.
 
   Il PUN è riportato in €/kWh per facilitarne
   il confronto con le bollette.
@@ -573,8 +733,7 @@ button.green:hover{
   Il confronto tra PUN/PSV e il prezzo riportato
   in bolletta è indicativo: il prezzo effettivamente
   applicato può comprendere spread, quote fisse,
-  perdite di rete, componenti contrattuali
-  e altre voci.
+  perdite di rete, componenti contrattuali e altre voci.
 
 </div>
 
@@ -590,10 +749,8 @@ button.green:hover{
 const API_URL =
 "https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
 
-
 const BOOKING_URL =
 "https://giokrilife-bit.github.io/giokrilife-booking/";
-
 
 let DATA = null;
 
@@ -606,8 +763,7 @@ let refreshCounter = 0;
    CALLBACK JSONP
 ===================================================== */
 
-window.giokriEnergyCallback =
-function(api){
+window.giokriEnergyCallback = function(d){
 
   if(jsonpScript){
 
@@ -618,7 +774,7 @@ function(api){
   }
 
 
-  if(!api){
+  if(!d){
 
     showError(
       "Il server non ha restituito dati."
@@ -629,10 +785,10 @@ function(api){
   }
 
 
-  if(api.success === false){
+  if(!d.success){
 
     showError(
-      api.error ||
+      d.error ||
       "Errore restituito dal server."
     );
 
@@ -643,24 +799,15 @@ function(api){
 
   try{
 
-    DATA =
-      convertAPIData(api);
-
+    DATA = convertAPIData(d);
 
     render(DATA);
 
-
-  }catch(error){
-
-    console.error(
-      "Errore conversione dati:",
-      error
-    );
-
+  }catch(e){
 
     showError(
       "Errore nella lettura dei dati: " +
-      error.message
+      e.message
     );
 
   }
@@ -669,7 +816,7 @@ function(api){
 
 
 /* =====================================================
-   REFRESH
+   RECUPERO DATI
 ===================================================== */
 
 function refresh(){
@@ -678,7 +825,6 @@ function refresh(){
 
 
   refreshCounter++;
-
 
   const requestId =
     refreshCounter;
@@ -741,7 +887,8 @@ function refresh(){
 
 
       showError(
-        "Impossibile recuperare i dati dal server."
+        "Impossibile recuperare i dati dal server. " +
+        "Verifica il deployment Apps Script."
       );
 
     };
@@ -755,7 +902,7 @@ function refresh(){
 
 
 /* =====================================================
-   CONVERSIONE DATI API
+   CONVERSIONE API
 ===================================================== */
 
 function convertAPIData(api){
@@ -766,154 +913,38 @@ function convertAPIData(api){
       : [];
 
 
-  if(!api.ultimoDato){
+  const latest =
+    api.ultimoDato;
+
+
+  if(!latest){
 
     throw new Error(
-      "ultimoDato non presente nella risposta."
+      "Il server non ha restituito ultimoDato."
     );
 
   }
 
 
   /*
-   * Ordiniamo lo storico
+   * Lo storico arriva dal server
    * dal più recente al più vecchio.
    */
 
-  const ordinato =
-    storico
-      .filter(function(r){
-
-        return r &&
-               r.data &&
-               isFinite(Number(r.pun_kwh)) &&
-               isFinite(Number(r.psv_smc));
-
-      })
-      .sort(function(a,b){
-
-        return String(b.data)
-          .localeCompare(
-            String(a.data)
-          );
-
-      });
-
-
-  /*
-   * Ultimo dato.
-   */
-
-  const latest =
-    api.ultimoDato;
-
-
-  /*
-   * Cerchiamo il giorno
-   * immediatamente precedente.
-   */
-
-  let previous = null;
-
-
-  for(
-    let i = 0;
-    i < ordinato.length;
-    i++
-  ){
-
-    if(
-      ordinato[i].data !==
-      latest.data
-    ){
-
-      previous =
-        ordinato[i];
-
-      break;
-
-    }
-
-  }
-
-
-  /*
-   * Variazioni.
-   */
-
-  let punChange = null;
-
-  let psvChange = null;
-
-
-  if(previous){
-
-    const punPrev =
-      Number(previous.pun_kwh);
-
-
-    const psvPrev =
-      Number(previous.psv_smc);
-
-
-    const punNow =
-      Number(latest.pun_kwh);
-
-
-    const psvNow =
-      Number(latest.psv_smc);
-
-
-    if(
-      punPrev !== 0
-    ){
-
-      punChange =
-        (
-          (
-            punNow -
-            punPrev
-          ) /
-          punPrev
-        ) *
-        100;
-
-    }
-
-
-    if(
-      psvPrev !== 0
-    ){
-
-      psvChange =
-        (
-          (
-            psvNow -
-            psvPrev
-          ) /
-          psvPrev
-        ) *
-        100;
-
-    }
-
-  }
-
-
-  /*
-   * Ultimi 7 giorni.
-   */
-
   const history =
-    ordinato
-      .slice(0,7)
+    storico
+      .slice()
       .reverse()
+      .slice(-7)
       .map(function(r){
 
         return {
 
           date:
             formatDate(r.data),
+
+          rawDate:
+            r.data,
 
           pun:
             Number(r.pun_kwh),
@@ -924,6 +955,80 @@ function convertAPIData(api){
         };
 
       });
+
+
+  /*
+   * Il secondo elemento dello storico
+   * rappresenta il giorno precedente.
+   */
+
+  let previous = null;
+
+
+  if(storico.length > 1){
+
+    previous =
+      storico[1];
+
+  }
+
+
+  let punChange = null;
+  let psvChange = null;
+
+
+  if(previous){
+
+    const currentPun =
+      Number(latest.pun_kwh);
+
+    const previousPun =
+      Number(previous.pun_kwh);
+
+
+    const currentPsv =
+      Number(latest.psv_smc);
+
+    const previousPsv =
+      Number(previous.psv_smc);
+
+
+    if(
+      isFinite(previousPun) &&
+      previousPun !== 0
+    ){
+
+      punChange =
+        (
+          (
+            currentPun -
+            previousPun
+          ) /
+          previousPun
+        ) *
+        100;
+
+    }
+
+
+    if(
+      isFinite(previousPsv) &&
+      previousPsv !== 0
+    ){
+
+      psvChange =
+        (
+          (
+            currentPsv -
+            previousPsv
+          ) /
+          previousPsv
+        ) *
+        100;
+
+    }
+
+  }
 
 
   return {
@@ -950,55 +1055,47 @@ function convertAPIData(api){
 
     },
 
-
     history:
       history,
-
-
-    generatedAt:
-      formatDateTime(
-        api.aggiornato
-      ),
-
 
     monthly:{
 
       pun:
-        api.mediaMensile &&
-        isFinite(
-          Number(
-            api.mediaMensile.pun_kwh
-          )
-        )
-        ?
         Number(
+          api.mediaMensile &&
           api.mediaMensile.pun_kwh
-        )
-        :
-        null,
+        ) || 0,
 
       psv:
-        api.mediaMensile &&
-        isFinite(
-          Number(
-            api.mediaMensile.psv_smc
-          )
-        )
-        ?
         Number(
+          api.mediaMensile &&
           api.mediaMensile.psv_smc
-        )
-        :
-        null,
+        ) || 0,
 
-      days:
-        api.mediaMensile
-          ? Number(
-              api.mediaMensile.giorni
-            )
-          : null
+      giorni:
+        Number(
+          api.mediaMensile &&
+          api.mediaMensile.giorni
+        ) || 0,
 
-    }
+      mese:
+        api.mediaMensile &&
+        api.mediaMensile.mese
+          ? api.mediaMensile.mese
+          : "",
+
+      anno:
+        api.mediaMensile &&
+        api.mediaMensile.anno
+          ? api.mediaMensile.anno
+          : ""
+
+    },
+
+    generatedAt:
+      formatDateTime(
+        api.aggiornato
+      )
 
   };
 
@@ -1006,7 +1103,7 @@ function convertAPIData(api){
 
 
 /* =====================================================
-   FORMATTA DATA
+   DATE
 ===================================================== */
 
 function formatDate(value){
@@ -1018,35 +1115,37 @@ function formatDate(value){
   }
 
 
+  /*
+   * Gestione YYYY-MM-DD
+   */
+
   const text =
     String(value);
 
 
-  const parts =
-    text.split("-");
+  const match =
+    text.match(
+      /^(\d{4})-(\d{2})-(\d{2})/
+    );
 
 
-  if(parts.length !== 3){
+  if(match){
 
-    return text;
+    return (
+      match[3] +
+      "/" +
+      match[2] +
+      "/" +
+      match[1]
+    );
 
   }
 
 
-  return (
-    parts[2] +
-    "/" +
-    parts[1] +
-    "/" +
-    parts[0]
-  );
+  return text;
 
 }
 
-
-/* =====================================================
-   FORMATTA DATA + ORA
-===================================================== */
 
 function formatDateTime(value){
 
@@ -1061,11 +1160,7 @@ function formatDateTime(value){
     new Date(value);
 
 
-  if(
-    isNaN(
-      d.getTime()
-    )
-  ){
+  if(isNaN(d.getTime())){
 
     return String(value);
 
@@ -1084,18 +1179,15 @@ function formatDateTime(value){
 
 
 /* =====================================================
-   FORMATTA NUMERO
+   NUMERI
 ===================================================== */
 
-function fmt(
-  number,
-  decimals
-){
+function fmt(n,dec){
 
   if(
-    number === null ||
-    number === undefined ||
-    !isFinite(Number(number))
+    n === null ||
+    n === undefined ||
+    !isFinite(Number(n))
   ){
 
     return "—";
@@ -1103,15 +1195,12 @@ function fmt(
   }
 
 
-  return Number(number)
+  return Number(n)
     .toLocaleString(
       "it-IT",
       {
-        minimumFractionDigits:
-          decimals,
-
-        maximumFractionDigits:
-          decimals
+        minimumFractionDigits:dec,
+        maximumFractionDigits:dec
       }
     );
 
@@ -1119,15 +1208,15 @@ function fmt(
 
 
 /* =====================================================
-   VARIAZIONE HTML
+   VARIAZIONE
 ===================================================== */
 
-function changeHtml(value){
+function changeHtml(v){
 
   if(
-    value === null ||
-    value === undefined ||
-    !isFinite(Number(value))
+    v === null ||
+    v === undefined ||
+    !isFinite(Number(v))
   ){
 
     return "—";
@@ -1135,16 +1224,17 @@ function changeHtml(value){
   }
 
 
-  const v =
-    Number(value);
+  v = Number(v);
 
 
   let cls =
     "flat";
 
-
   let arrow =
     "=";
+
+  let sign =
+    "";
 
 
   if(v > 0){
@@ -1154,6 +1244,9 @@ function changeHtml(value){
 
     arrow =
       "▲";
+
+    sign =
+      "+";
 
   }
 
@@ -1169,18 +1262,12 @@ function changeHtml(value){
   }
 
 
-  const sign =
-    v > 0
-      ? "+"
-      : "";
-
-
   return `
     <span class="${cls}">
       ${arrow}
       ${sign}${Math.abs(v)
         .toFixed(1)
-        .replace(".",",")}% 
+        .replace(".",",")}%
       vs giorno precedente
     </span>
   `;
@@ -1188,16 +1275,12 @@ function changeHtml(value){
 }
 
 
-/* =====================================================
-   VARIAZIONE TESTO
-===================================================== */
-
-function plainChange(value){
+function plainChange(v){
 
   if(
-    value === null ||
-    value === undefined ||
-    !isFinite(Number(value))
+    v === null ||
+    v === undefined ||
+    !isFinite(Number(v))
   ){
 
     return "";
@@ -1205,16 +1288,15 @@ function plainChange(value){
   }
 
 
-  const v =
-    Number(value);
+  v =
+    Number(v);
 
 
   if(v > 0){
 
     return (
       "▲ +" +
-      v.toFixed(1)
-        .replace(".",",") +
+      v.toFixed(1).replace(".",",") +
       "% vs giorno precedente"
     );
 
@@ -1243,70 +1325,146 @@ function plainChange(value){
    RENDER
 ===================================================== */
 
-function render(data){
+function render(d){
 
-  document
-    .getElementById("pun")
+  document.getElementById("pun")
     .textContent =
-      fmt(
-        data.latest.pun,
-        5
-      );
+      fmt(d.latest.pun,5);
 
 
-  document
-    .getElementById("psv")
+  document.getElementById("psv")
     .textContent =
-      fmt(
-        data.latest.psv,
-        5
-      );
+      fmt(d.latest.psv,5);
 
 
-  document
-    .getElementById("punChange")
+  document.getElementById("punChange")
     .innerHTML =
       changeHtml(
-        data.latest.punChange
+        d.latest.punChange
       );
 
 
-  document
-    .getElementById("psvChange")
+  document.getElementById("psvChange")
     .innerHTML =
       changeHtml(
-        data.latest.psvChange
+        d.latest.psvChange
       );
 
 
-  document
-    .getElementById("punDate")
+  document.getElementById("punDate")
     .textContent =
       "Dato: " +
-      data.latest.punDate;
+      d.latest.punDate;
 
 
-  document
-    .getElementById("psvDate")
+  document.getElementById("psvDate")
     .textContent =
       "Dato: " +
-      data.latest.psvDate;
+      d.latest.psvDate;
 
 
-  document
-    .getElementById("updated")
-    .textContent =
+  document.getElementById("updated")
+    .innerHTML =
       "Aggiornato: " +
-      data.generatedAt +
-      " | Ultimo dato disponibile";
+      d.generatedAt +
+      "<br>Ultimo dato disponibile";
+
+
+  renderMonthlyAverage(d);
 
 
   drawChart(
-    data.history
+    d.history
   );
 
 
   generateSocial();
+
+}
+
+
+/* =====================================================
+   MEDIA MENSILE
+===================================================== */
+
+function renderMonthlyAverage(d){
+
+  const box =
+    document.getElementById(
+      "monthSummary"
+    );
+
+
+  const m =
+    d.monthly;
+
+
+  if(
+    !m ||
+    (
+      !m.pun &&
+      !m.psv
+    )
+  ){
+
+    box.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  box.style.display =
+    "grid";
+
+
+  const mese =
+    m.mese
+      ? m.mese
+      : "";
+
+
+  const anno =
+    m.anno
+      ? " " + m.anno
+      : "";
+
+
+  document.getElementById(
+    "punMonthAverage"
+  ).textContent =
+    fmt(m.pun,5) +
+    " €/kWh";
+
+
+  document.getElementById(
+    "psvMonthAverage"
+  ).textContent =
+    fmt(m.psv,5) +
+    " €/Smc";
+
+
+  document.getElementById(
+    "punMonthDetail"
+  ).textContent =
+    "Media " +
+    mese +
+    anno +
+    " · " +
+    m.giorni +
+    " giorni disponibili";
+
+
+  document.getElementById(
+    "psvMonthDetail"
+  ).textContent =
+    "Media " +
+    mese +
+    anno +
+    " · " +
+    m.giorni +
+    " giorni disponibili";
 
 }
 
@@ -1317,13 +1475,13 @@ function render(data){
 
 function drawChart(rows){
 
-  const canvas =
+  const c =
     document.getElementById(
       "chart"
     );
 
 
-  if(!canvas){
+  if(!c){
 
     return;
 
@@ -1331,24 +1489,24 @@ function drawChart(rows){
 
 
   const ctx =
-    canvas.getContext("2d");
+    c.getContext("2d");
 
 
   const ratio =
     window.devicePixelRatio || 1;
 
 
-  const width =
-    canvas.clientWidth;
+  const w =
+    c.clientWidth;
 
 
-  const height =
-    canvas.clientHeight;
+  const h =
+    c.clientHeight;
 
 
   if(
-    width <= 0 ||
-    height <= 0
+    !w ||
+    !h
   ){
 
     return;
@@ -1356,12 +1514,12 @@ function drawChart(rows){
   }
 
 
-  canvas.width =
-    width * ratio;
+  c.width =
+    Math.round(w * ratio);
 
 
-  canvas.height =
-    height * ratio;
+  c.height =
+    Math.round(h * ratio);
 
 
   ctx.setTransform(
@@ -1377,8 +1535,8 @@ function drawChart(rows){
   ctx.clearRect(
     0,
     0,
-    width,
-    height
+    w,
+    h
   );
 
 
@@ -1394,75 +1552,132 @@ function drawChart(rows){
 
   const pad = {
 
-    l:48,
-    r:20,
-    t:20,
-    b:38
+    l:58,
+    r:58,
+    t:25,
+    b:45
 
   };
 
 
-  const innerWidth =
-    width -
+  const iw =
+    w -
     pad.l -
     pad.r;
 
 
-  const innerHeight =
-    height -
+  const ih =
+    h -
     pad.t -
     pad.b;
 
 
   const pun =
     rows.map(
-      function(row){
-
-        return row.pun;
-
-      }
+      r => Number(r.pun)
     );
 
 
   const psv =
     rows.map(
-      function(row){
-
-        return row.psv;
-
-      }
+      r => Number(r.psv)
     );
 
 
-  const minPun =
+  /*
+   * Scala PUN.
+   */
+
+  const punMin =
     Math.min(...pun);
 
 
-  const maxPun =
+  const punMax =
     Math.max(...pun);
 
 
-  const minPsv =
+  /*
+   * Scala PSV.
+   */
+
+  const psvMin =
     Math.min(...psv);
 
 
-  const maxPsv =
+  const psvMax =
     Math.max(...psv);
 
 
-  function x(index){
+  /*
+   * Aggiungiamo un piccolo margine
+   * sopra e sotto le linee.
+   */
+
+  function range(min,max){
+
+    const r =
+      max - min;
+
+
+    if(r === 0){
+
+      return {
+
+        min:min - 0.01,
+
+        max:max + 0.01
+
+      };
+
+    }
+
+
+    return {
+
+      min:
+        min - r * 0.12,
+
+      max:
+        max + r * 0.12
+
+    };
+
+  }
+
+
+  const pr =
+    range(
+      punMin,
+      punMax
+    );
+
+
+  const gr =
+    range(
+      psvMin,
+      psvMax
+    );
+
+
+  function x(i){
+
+    if(rows.length === 1){
+
+      return (
+        pad.l +
+        iw / 2
+      );
+
+    }
+
 
     return (
       pad.l +
       (
-        index /
-        (
-          rows.length -
-          1 ||
-          1
-        )
+        i /
+        (rows.length - 1)
       ) *
-      innerWidth
+      iw
     );
 
   }
@@ -1474,120 +1689,231 @@ function drawChart(rows){
     max
   ){
 
-    const range =
-      max -
-      min;
-
-
-    /*
-     * Evitiamo che una serie
-     * piatta diventi invisibile.
-     */
-
-    if(range === 0){
-
-      return (
-        pad.t +
-        innerHeight / 2
-      );
-
-    }
-
-
     return (
       pad.t +
       (
         1 -
         (
-          (
-            value -
-            min
-          ) /
-          range
+          (value - min) /
+          (max - min)
         )
       ) *
-      innerHeight
+      ih
     );
 
   }
 
 
-  /*
-   * Griglia.
-   */
+  /* ===================================================
+     GRIGLIA
+  =================================================== */
 
   ctx.strokeStyle =
     "#e5e7eb";
-
 
   ctx.lineWidth =
     1;
 
 
   for(
-    let i = 0;
-    i < 4;
+    let i=0;
+    i<5;
     i++
   ){
 
     const yy =
       pad.t +
-      i *
-      innerHeight /
-      3;
+      (
+        i /
+        4
+      ) *
+      ih;
 
 
     ctx.beginPath();
-
 
     ctx.moveTo(
       pad.l,
       yy
     );
 
-
     ctx.lineTo(
-      width -
-      pad.r,
+      w - pad.r,
       yy
     );
-
 
     ctx.stroke();
 
   }
 
 
-  /*
-   * Disegna una linea.
-   */
+  /* ===================================================
+     ASSI VERTICALI
+  =================================================== */
+
+  ctx.strokeStyle =
+    "#cbd5e1";
+
+  ctx.lineWidth =
+    1;
+
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    pad.l,
+    pad.t
+  );
+
+  ctx.lineTo(
+    pad.l,
+    h - pad.b
+  );
+
+  ctx.stroke();
+
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    w - pad.r,
+    pad.t
+  );
+
+  ctx.lineTo(
+    w - pad.r,
+    h - pad.b
+  );
+
+  ctx.stroke();
+
+
+  /* ===================================================
+     ETICHETTE ASSE PUN
+  =================================================== */
+
+  ctx.fillStyle =
+    "#0b6bcb";
+
+  ctx.font =
+    "11px Arial";
+
+  ctx.textAlign =
+    "right";
+
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    const value =
+      pr.max -
+      (
+        i /
+        4
+      ) *
+      (
+        pr.max -
+        pr.min
+      );
+
+
+    const yy =
+      pad.t +
+      (
+        i /
+        4
+      ) *
+      ih;
+
+
+    ctx.fillText(
+      fmt(value,3),
+      pad.l - 8,
+      yy + 4
+    );
+
+  }
+
+
+  /* ===================================================
+     ETICHETTE ASSE PSV
+  =================================================== */
+
+  ctx.fillStyle =
+    "#d97706";
+
+  ctx.textAlign =
+    "left";
+
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    const value =
+      gr.max -
+      (
+        i /
+        4
+      ) *
+      (
+        gr.max -
+        gr.min
+      );
+
+
+    const yy =
+      pad.t +
+      (
+        i /
+        4
+      ) *
+      ih;
+
+
+    ctx.fillText(
+      fmt(value,3),
+      w - pad.r + 8,
+      yy + 4
+    );
+
+  }
+
+
+  /* ===================================================
+     FUNZIONE LINEA
+  =================================================== */
 
   function drawLine(
     key,
-    min,
-    max,
-    color
+    scale,
+    stroke
   ){
 
     ctx.beginPath();
 
 
     rows.forEach(
-      function(row,index){
+      function(row,i){
 
         const xx =
-          x(index);
+          x(i);
 
 
         const yy =
           y(
-            row[key],
-            min,
-            max
+            Number(row[key]),
+            scale.min,
+            scale.max
           );
 
 
-        if(index === 0){
+        if(i === 0){
 
           ctx.moveTo(
             xx,
@@ -1608,12 +1934,16 @@ function drawChart(rows){
 
 
     ctx.strokeStyle =
-      color;
-
+      stroke;
 
     ctx.lineWidth =
       3;
 
+    ctx.lineJoin =
+      "round";
+
+    ctx.lineCap =
+      "round";
 
     ctx.stroke();
 
@@ -1623,22 +1953,21 @@ function drawChart(rows){
      */
 
     rows.forEach(
-      function(row,index){
+      function(row,i){
 
         const xx =
-          x(index);
+          x(i);
 
 
         const yy =
           y(
-            row[key],
-            min,
-            max
+            Number(row[key]),
+            scale.min,
+            scale.max
           );
 
 
         ctx.beginPath();
-
 
         ctx.arc(
           xx,
@@ -1648,10 +1977,8 @@ function drawChart(rows){
           Math.PI * 2
         );
 
-
         ctx.fillStyle =
-          color;
-
+          stroke;
 
         ctx.fill();
 
@@ -1663,54 +1990,93 @@ function drawChart(rows){
 
   drawLine(
     "pun",
-    minPun,
-    maxPun,
+    pr,
     "#0b6bcb"
   );
 
 
   drawLine(
     "psv",
-    minPsv,
-    maxPsv,
+    gr,
     "#d97706"
   );
 
 
-  /*
-   * Date.
-   */
+  /* ===================================================
+     DATE
+  =================================================== */
 
   ctx.fillStyle =
     "#6b7280";
 
-
   ctx.font =
-    "12px Arial";
+    "11px Arial";
+
+  ctx.textAlign =
+    "center";
 
 
   rows.forEach(
-    function(row,index){
+    function(row,i){
+
+      /*
+       * Mostriamo poche date
+       * per evitare sovrapposizioni.
+       */
 
       if(
-        index === 0 ||
-        index === rows.length - 1 ||
-        index % 2 === 0
+        i === 0 ||
+        i === rows.length - 1 ||
+        i % 2 === 0
       ){
 
         ctx.fillText(
           row.date,
-          Math.max(
-            0,
-            x(index) - 22
-          ),
-          height - 12
+          x(i),
+          h - 15
         );
 
       }
 
     }
   );
+
+
+  /* ===================================================
+     TITOLI ASSI
+  =================================================== */
+
+  ctx.save();
+
+  ctx.fillStyle =
+    "#0b6bcb";
+
+  ctx.font =
+    "bold 11px Arial";
+
+  ctx.textAlign =
+    "left";
+
+  ctx.fillText(
+    "PUN €/kWh",
+    pad.l,
+    14
+  );
+
+
+  ctx.fillStyle =
+    "#d97706";
+
+  ctx.textAlign =
+    "right";
+
+  ctx.fillText(
+    "PSV €/Smc",
+    w - pad.r,
+    14
+  );
+
+  ctx.restore();
 
 }
 
@@ -1728,15 +2094,19 @@ function generateSocial(){
   }
 
 
-  const canvas =
+  const c =
     document.getElementById(
       "socialCard"
     );
 
 
   const ctx =
-    canvas.getContext("2d");
+    c.getContext("2d");
 
+
+  /*
+   * Sfondo.
+   */
 
   ctx.clearRect(
     0,
@@ -1746,13 +2116,8 @@ function generateSocial(){
   );
 
 
-  /*
-   * Sfondo.
-   */
-
   ctx.fillStyle =
     "#f5f7fa";
-
 
   ctx.fillRect(
     0,
@@ -1762,17 +2127,15 @@ function generateSocial(){
   );
 
 
-  /*
-   * Titolo.
-   */
+  /* ===================================================
+     TITOLO
+  =================================================== */
 
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
     "bold 50px Arial";
-
 
   ctx.fillText(
     "GIORNATA ENERGETICA",
@@ -1784,10 +2147,8 @@ function generateSocial(){
   ctx.font =
     "26px Arial";
 
-
   ctx.fillStyle =
     "#6b7280";
-
 
   ctx.fillText(
     "GiOKri Life | Ultimo dato disponibile",
@@ -1796,13 +2157,12 @@ function generateSocial(){
   );
 
 
-  /*
-   * PUN.
-   */
+  /* ===================================================
+     PUN
+  =================================================== */
 
   ctx.fillStyle =
     "#ffffff";
-
 
   ctx.fillRect(
     55,
@@ -1815,13 +2175,11 @@ function generateSocial(){
   ctx.fillStyle =
     "#0b6bcb";
 
-
   ctx.font =
     "bold 32px Arial";
 
-
   ctx.fillText(
-    "⚡ PUN",
+    "PUN",
     85,
     225
   );
@@ -1830,16 +2188,11 @@ function generateSocial(){
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
     "bold 64px Arial";
 
-
   ctx.fillText(
-    fmt(
-      DATA.latest.pun,
-      5
-    ) +
+    fmt(DATA.latest.pun,5) +
     " €/kWh",
     85,
     300
@@ -1849,10 +2202,8 @@ function generateSocial(){
   ctx.font =
     "23px Arial";
 
-
   ctx.fillStyle =
     "#6b7280";
-
 
   ctx.fillText(
     DATA.latest.punDate,
@@ -1861,13 +2212,12 @@ function generateSocial(){
   );
 
 
-  /*
-   * PSV.
-   */
+  /* ===================================================
+     PSV
+  =================================================== */
 
   ctx.fillStyle =
     "#ffffff";
-
 
   ctx.fillRect(
     55,
@@ -1880,13 +2230,11 @@ function generateSocial(){
   ctx.fillStyle =
     "#d97706";
 
-
   ctx.font =
     "bold 32px Arial";
 
-
   ctx.fillText(
-    "🔥 PSV",
+    "PSV",
     85,
     455
   );
@@ -1895,16 +2243,11 @@ function generateSocial(){
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
     "bold 64px Arial";
 
-
   ctx.fillText(
-    fmt(
-      DATA.latest.psv,
-      5
-    ) +
+    fmt(DATA.latest.psv,5) +
     " €/Smc",
     85,
     530
@@ -1914,10 +2257,8 @@ function generateSocial(){
   ctx.font =
     "23px Arial";
 
-
   ctx.fillStyle =
     "#6b7280";
-
 
   ctx.fillText(
     DATA.latest.psvDate,
@@ -1926,17 +2267,15 @@ function generateSocial(){
   );
 
 
-  /*
-   * Istruzioni.
-   */
+  /* ===================================================
+     SPIEGAZIONE
+  =================================================== */
 
   ctx.fillStyle =
     "#18212b";
 
-
   ctx.font =
     "bold 31px Arial";
-
 
   ctx.fillText(
     "COME LEGGERE LA TUA BOLLETTA",
@@ -1947,7 +2286,6 @@ function generateSocial(){
 
   ctx.font =
     "24px Arial";
-
 
   ctx.fillStyle =
     "#18212b";
@@ -1977,7 +2315,6 @@ function generateSocial(){
   ctx.font =
     "20px Arial";
 
-
   ctx.fillStyle =
     "#6b7280";
 
@@ -1996,13 +2333,12 @@ function generateSocial(){
   );
 
 
-  /*
-   * CTA.
-   */
+  /* ===================================================
+     CTA
+  =================================================== */
 
   ctx.fillStyle =
     "#0b6bcb";
-
 
   ctx.fillRect(
     65,
@@ -2015,21 +2351,26 @@ function generateSocial(){
   ctx.fillStyle =
     "#ffffff";
 
-
   ctx.font =
     "bold 27px Arial";
 
+  ctx.textAlign =
+    "center";
 
   ctx.fillText(
     "PRENOTA UNA VERIFICA GRATUITA",
-    300,
+    540,
     960
   );
 
 
-  /*
-   * Testo social.
-   */
+  ctx.textAlign =
+    "left";
+
+
+  /* ===================================================
+     TESTO SOCIAL
+  =================================================== */
 
   const text =
 `GIORNATA ENERGETICA | ${DATA.latest.punDate}
@@ -2058,10 +2399,10 @@ ${BOOKING_URL}
 #GiOKriLife #PUN #PSV #Energia #Bollette #Risparmio`;
 
 
-  document
-    .getElementById("postText")
-    .textContent =
-      text;
+  document.getElementById(
+    "postText"
+  ).textContent =
+    text;
 
 }
 
@@ -2095,14 +2436,14 @@ function downloadSocialCard(){
     );
 
 
-  const date =
+  const data =
     DATA.latest.punDate
-      .replace(/\//g,"-");
+      .replaceAll("/","-");
 
 
   link.download =
     "GiOKri-Life-Giornata-Energetica-" +
-    date +
+    data +
     ".png";
 
 
@@ -2118,40 +2459,33 @@ function downloadSocialCard(){
 
 
 /* =====================================================
-   COPIA POST
+   COPIA TESTO
 ===================================================== */
 
 async function copyPost(){
 
-  const element =
+  const text =
     document.getElementById(
       "postText"
-    );
-
-
-  const text =
-    element.textContent;
+    ).textContent;
 
 
   try{
 
-    await navigator
-      .clipboard
-      .writeText(
-        text
-      );
+    await navigator.clipboard.writeText(
+      text
+    );
 
 
     alert(
       "Testo del post copiato negli appunti."
     );
 
-
-  }catch(error){
+  }catch(e){
 
     /*
-     * Fallback per browser
-     * che bloccano clipboard API.
+     * Fallback per browser che non
+     * consentono navigator.clipboard.
      */
 
     const area =
@@ -2183,8 +2517,7 @@ async function copyPost(){
         "Testo del post copiato negli appunti."
       );
 
-
-    }catch(e){
+    }catch(err){
 
       alert(
         "Non è stato possibile copiare automaticamente il testo."
@@ -2201,14 +2534,15 @@ async function copyPost(){
 
 
 /* =====================================================
-   BOOKING
+   PRENOTAZIONE
 ===================================================== */
 
 function goToBooking(){
 
   window.open(
     BOOKING_URL,
-    "_blank"
+    "_blank",
+    "noopener,noreferrer"
   );
 
 }
@@ -2218,19 +2552,19 @@ function goToBooking(){
    ERRORI
 ===================================================== */
 
-function showError(message){
+function showError(text){
 
-  const element =
+  const e =
     document.getElementById(
       "error"
     );
 
 
-  element.textContent =
-    message;
+  e.textContent =
+    text;
 
 
-  element.style.display =
+  e.style.display =
     "block";
 
 }
@@ -2238,17 +2572,13 @@ function showError(message){
 
 function hideError(){
 
-  const element =
+  const e =
     document.getElementById(
       "error"
     );
 
 
-  element.textContent =
-    "";
-
-
-  element.style.display =
+  e.style.display =
     "none";
 
 }
@@ -2275,7 +2605,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   AVVIO AUTOMATICO
+   AVVIO
 ===================================================== */
 
 refresh();
