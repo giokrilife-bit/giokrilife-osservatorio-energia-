@@ -758,12 +758,19 @@ let jsonpScript = null;
 
 let refreshCounter = 0;
 
+let fetchController = null;
+
 
 /* =====================================================
    CALLBACK JSONP
 ===================================================== */
 
 window.giokriEnergyCallback = function(d){
+
+  /*
+   * Il callback viene utilizzato come fallback
+   * quando fetch() non è disponibile o viene bloccato.
+   */
 
   if(jsonpScript){
 
@@ -817,9 +824,10 @@ window.giokriEnergyCallback = function(d){
 
 /* =====================================================
    RECUPERO DATI
+   SISTEMA IBRIDO FETCH + JSONP
 ===================================================== */
 
-function refresh(){
+async function refresh(){
 
   hideError();
 
@@ -828,6 +836,23 @@ function refresh(){
 
   const requestId =
     refreshCounter;
+
+
+  /*
+   * Elimina eventuali richieste precedenti.
+   */
+
+  if(fetchController){
+
+    try{
+
+      fetchController.abort();
+
+    }catch(e){}
+
+    fetchController = null;
+
+  }
 
 
   if(jsonpScript){
@@ -841,6 +866,251 @@ function refresh(){
 
   const cacheBuster =
     Date.now();
+
+
+  /*
+   * Prima tentiamo FETCH.
+   *
+   * Questo è il metodo preferito per Chrome,
+   * Edge e Firefox.
+   */
+
+  try{
+
+    if(
+      typeof window.fetch !==
+      "function"
+    ){
+
+      throw new Error(
+        "FETCH non disponibile"
+      );
+
+    }
+
+
+    fetchController =
+      new AbortController();
+
+
+    const timeout =
+      setTimeout(
+        function(){
+
+          try{
+
+            fetchController.abort();
+
+          }catch(e){}
+
+        },
+        10000
+      );
+
+
+    const url =
+      API_URL +
+      "?_=" +
+      cacheBuster;
+
+
+    const response =
+      await fetch(
+        url,
+        {
+          method:"GET",
+
+          cache:"no-store",
+
+          redirect:"follow",
+
+          signal:
+            fetchController.signal
+        }
+      );
+
+
+    clearTimeout(timeout);
+
+
+    if(
+      requestId !==
+      refreshCounter
+    ){
+
+      return;
+
+    }
+
+
+    if(!response.ok){
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const contentType =
+      response.headers.get(
+        "content-type"
+      ) || "";
+
+
+    /*
+     * Apps Script dovrebbe restituire JSON.
+     * Se il deployment restituisce qualcosa
+     * di diverso, passiamo automaticamente
+     * al fallback JSONP.
+     */
+
+    if(
+      contentType &&
+      !contentType.includes(
+        "application/json"
+      ) &&
+      !contentType.includes(
+        "text/javascript"
+      ) &&
+      !contentType.includes(
+        "text/plain"
+      )
+    ){
+
+      throw new Error(
+        "Risposta non JSON"
+      );
+
+    }
+
+
+    const text =
+      await response.text();
+
+
+    if(
+      requestId !==
+      refreshCounter
+    ){
+
+      return;
+
+    }
+
+
+    let data;
+
+
+    try{
+
+      data =
+        JSON.parse(text);
+
+    }catch(e){
+
+      /*
+       * Se la risposta non è JSON puro,
+       * lasciamo lavorare il fallback JSONP.
+       */
+
+      throw new Error(
+        "Risposta non interpretabile come JSON"
+      );
+
+    }
+
+
+    if(!data){
+
+      throw new Error(
+        "Risposta vuota"
+      );
+
+    }
+
+
+    if(!data.success){
+
+      showError(
+        data.error ||
+        "Errore restituito dal server."
+      );
+
+      return;
+
+    }
+
+
+    DATA =
+      convertAPIData(
+        data
+      );
+
+
+    render(DATA);
+
+
+    return;
+
+
+  }catch(fetchError){
+
+    /*
+     * Il FETCH può essere bloccato dal browser
+     * o dall'ambiente che ospita la pagina.
+     *
+     * In questo caso utilizziamo automaticamente
+     * il sistema JSONP già funzionante.
+     */
+
+    if(
+      requestId !==
+      refreshCounter
+    ){
+
+      return;
+
+    }
+
+
+    startJSONPFallback(
+      requestId,
+      cacheBuster
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   FALLBACK JSONP
+===================================================== */
+
+function startJSONPFallback(
+  requestId,
+  cacheBuster
+){
+
+  if(
+    requestId !==
+    refreshCounter
+  ){
+
+    return;
+
+  }
+
+
+  if(jsonpScript){
+
+    jsonpScript.remove();
+
+    jsonpScript = null;
+
+  }
 
 
   const url =
@@ -864,8 +1134,56 @@ function refresh(){
     true;
 
 
+  /*
+   * Timeout JSONP.
+   */
+
+  const timeout =
+    setTimeout(
+      function(){
+
+        if(
+          requestId !==
+          refreshCounter
+        ){
+
+          return;
+
+        }
+
+
+        if(jsonpScript){
+
+          jsonpScript.remove();
+
+          jsonpScript = null;
+
+        }
+
+
+        showError(
+          "Impossibile recuperare i dati dal server. " +
+          "Verifica il deployment Apps Script."
+        );
+
+      },
+      12000
+    );
+
+
+  jsonpScript.onload =
+    function(){
+
+      clearTimeout(timeout);
+
+    };
+
+
   jsonpScript.onerror =
     function(){
+
+      clearTimeout(timeout);
+
 
       if(
         requestId !==
@@ -1699,6 +2017,7 @@ function drawChart(rows){
         )
       ) *
       ih
+
     );
 
   }
