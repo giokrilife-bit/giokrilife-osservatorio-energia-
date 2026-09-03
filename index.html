@@ -1492,6 +1492,56 @@ button:disabled{
 
         <span>
           PSV €/Smc
+       <!-- ===================================================
+     GRAFICO 30 GIORNI
+=================================================== -->
+
+<section class="section">
+
+
+  <div class="chart-card">
+
+
+    <h2>
+
+      Andamento ultimi 30 giorni
+
+    </h2>
+
+
+    <div class="chartbox">
+
+      <canvas
+        id="chart"
+      ></canvas>
+
+    </div>
+
+
+    <div class="chart-legend">
+
+
+      <div class="legend-item">
+
+        <span
+          class="legend-line legend-pun"
+        ></span>
+
+        <span>
+          PUN €/kWh
+        </span>
+
+      </div>
+
+
+      <div class="legend-item">
+
+        <span
+          class="legend-line legend-psv"
+        ></span>
+
+        <span>
+          PSV €/Smc
         </span>
 
       </div>
@@ -1502,10 +1552,10 @@ button:disabled{
 
     <div class="chart-note">
 
-      Il grafico utilizza due scale verticali indipendenti:
-      una per il PUN e una per il PSV. Questo permette di
-      rappresentare correttamente l'andamento dei due indicatori
-      senza alterarne il confronto visivo.
+      Il grafico mostra l'andamento degli ultimi 30 giorni
+      disponibili. PUN e PSV utilizzano due scale verticali
+      indipendenti per rappresentare correttamente le variazioni
+      dei due indicatori.
 
     </div>
 
@@ -1897,15 +1947,15 @@ function convertAPIData(api){
   }
 
 
-  /* ===================================================
-     STORICO ULTIMI 7 GIORNI
+   /* ===================================================
+     STORICO ULTIMI 30 GIORNI
   =================================================== */
 
   const history =
     storico
       .slice()
       .reverse()
-      .slice(-7)
+      .slice(-30)
       .map(function(r){
 
         return {
@@ -3948,13 +3998,19 @@ function drawChart(rows){
     "center";
 
 
-  rows.forEach(
+   rows.forEach(
     function(row,i){
+
+      /*
+       * Con 30 giorni mostriamo una data
+       * ogni 5 giorni circa, più la prima
+       * e l'ultima.
+       */
 
       if(
         i === 0 ||
         i === rows.length - 1 ||
-        i % 2 === 0
+        i % 5 === 0
       ){
 
         ctx.fillText(
