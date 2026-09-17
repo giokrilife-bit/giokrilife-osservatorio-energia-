@@ -1864,11 +1864,19 @@ function convertAPIData(api){
       : [];
 
 
-  const latest =
+  const latestComplete =
     api.ultimoDato;
 
 
-  if(!latest){
+  const latestPUN =
+    api.ultimoPUN;
+
+
+  const latestPSV =
+    api.ultimoPSV;
+
+
+  if(!latestComplete){
 
     throw new Error(
       "Il server non ha restituito ultimoDato."
@@ -1877,8 +1885,31 @@ function convertAPIData(api){
   }
 
 
-   /* ===================================================
+  if(!latestPUN){
+
+    throw new Error(
+      "Il server non ha restituito ultimoPUN."
+    );
+
+  }
+
+
+  if(!latestPSV){
+
+    throw new Error(
+      "Il server non ha restituito ultimoPSV."
+    );
+
+  }
+
+
+  /* ===================================================
      STORICO ULTIMI 30 GIORNI
+
+     Lo storico API contiene solo i giorni
+     con PUN + PSV completi.
+
+     NON viene modificato.
   =================================================== */
 
   const history =
@@ -1908,39 +1939,69 @@ function convertAPIData(api){
 
 
   /* ===================================================
-     GIORNO PRECEDENTE
+     GIORNO PRECEDENTE PUN
+
+     Ultimo PUN = 17/09
+     Ultimo dato completo = 16/09
+
+     Confronto:
+     17/09 vs 16/09
   =================================================== */
 
-  let previous = null;
+  let previousPUN = null;
+
+
+  if(storico.length > 0){
+
+    previousPUN =
+      storico[0];
+
+  }
+
+
+  /* ===================================================
+     GIORNO PRECEDENTE PSV
+
+     Ultimo PSV = 16/09
+
+     Confronto:
+     16/09 vs 15/09
+  =================================================== */
+
+  let previousPSV = null;
 
 
   if(storico.length > 1){
 
-    previous =
+    previousPSV =
       storico[1];
 
   }
 
 
+  /* ===================================================
+     VALORE ATTUALE PUN
+  =================================================== */
+
+  const currentPun =
+    Number(
+      latestPUN.pun_kwh
+    );
+
+
+  /* ===================================================
+     VARIAZIONE PUN
+  =================================================== */
+
   let punChange = null;
 
-  let psvChange = null;
 
-
-  if(previous){
-
-    const currentPun =
-      Number(latest.pun_kwh);
+  if(previousPUN){
 
     const previousPun =
-      Number(previous.pun_kwh);
-
-
-    const currentPsv =
-      Number(latest.psv_smc);
-
-    const previousPsv =
-      Number(previous.psv_smc);
+      Number(
+        previousPUN.pun_kwh
+      );
 
 
     if(
@@ -1959,6 +2020,33 @@ function convertAPIData(api){
         100;
 
     }
+
+  }
+
+
+  /* ===================================================
+     VALORE ATTUALE PSV
+  =================================================== */
+
+  const currentPsv =
+    Number(
+      latestPSV.psv_smc
+    );
+
+
+  /* ===================================================
+     VARIAZIONE PSV
+  =================================================== */
+
+  let psvChange = null;
+
+
+  if(previousPSV){
+
+    const previousPsv =
+      Number(
+        previousPSV.psv_smc
+      );
 
 
     if(
@@ -1983,6 +2071,9 @@ function convertAPIData(api){
 
   /* ===================================================
      MEDIE MENSILI
+
+     Restano riferite all'ultimo dato completo.
+     NON vengono alterate.
   =================================================== */
 
   const mediaMensile =
@@ -1995,34 +2086,59 @@ function convertAPIData(api){
       : [];
 
 
+  /* ===================================================
+     OUTPUT CONVERTITO
+  =================================================== */
+
   return {
+
+    /* =================================================
+       ULTIMI DATI INDIPENDENTI
+    ================================================= */
 
     latest:{
 
-      pun:
-        Number(latest.pun_kwh),
+      /* PUN */
 
-      psv:
-        Number(latest.psv_smc),
+      pun:
+        currentPun,
 
       punChange:
         punChange,
 
+      punDate:
+        formatDate(
+          latestPUN.data
+        ),
+
+
+      /* PSV */
+
+      psv:
+        currentPsv,
+
       psvChange:
         psvChange,
 
-      punDate:
-        formatDate(latest.data),
-
       psvDate:
-        formatDate(latest.data)
+        formatDate(
+          latestPSV.data
+        )
 
     },
 
 
+    /* =================================================
+       STORICO
+    ================================================= */
+
     history:
       history,
 
+
+    /* =================================================
+       MEDIE MENSILI
+    ================================================= */
 
     monthly:{
 
@@ -2054,6 +2170,10 @@ function convertAPIData(api){
     },
 
 
+    /* =================================================
+       STORICO MEDIE MENSILI
+    ================================================= */
+
     monthlyHistory:
       medieMensili
         .map(function(m){
@@ -2083,6 +2203,10 @@ function convertAPIData(api){
         }),
 
 
+    /* =================================================
+       AGGIORNAMENTO API
+    ================================================= */
+
     generatedAt:
       formatDateTime(
         api.aggiornato
@@ -2091,79 +2215,6 @@ function convertAPIData(api){
   };
 
 }
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(value){
-
-  if(!value){
-
-    return "—";
-
-  }
-
-
-  const text =
-    String(value);
-
-
-  const match =
-    text.match(
-      /^(\d{4})-(\d{2})-(\d{2})/
-    );
-
-
-  if(match){
-
-    return (
-      match[3] +
-      "/" +
-      match[2] +
-      "/" +
-      match[1]
-    );
-
-  }
-
-
-  return text;
-
-}
-
-
-function formatDateTime(value){
-
-  if(!value){
-
-    return "—";
-
-  }
-
-
-  const d =
-    new Date(value);
-
-
-  if(isNaN(d.getTime())){
-
-    return String(value);
-
-  }
-
-
-  return d.toLocaleString(
-    "it-IT",
-    {
-      dateStyle:"short",
-      timeStyle:"short"
-    }
-  );
-
-}
-
 
 /* =====================================================
    NUMERI
