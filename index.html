@@ -1,4607 +1,4254 @@
 <!DOCTYPE html>
-
 <html lang="it">
-
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
->
+  <title>
+    GiOKri Life | Osservatorio Energia
+  </title>
 
-<title>
-  GiOKri Life | Quotazioni PUN & PSV
-</title>
+  <meta
+    name="description"
+    content="Osservatorio GiOKri Life: andamento PUN e PSV, medie mensili e confronto dei principali indici energetici."
+  >
 
-<style>
+  <style>
 
-/* =====================================================
-   VARIABILI
-===================================================== */
+    :root {
+      --blue: #173f5f;
+      --blue-dark: #102f47;
+      --blue-light: #eaf3f8;
 
-:root{
+      --green: #2e7d32;
+      --green-light: #edf7ee;
 
-  --bg:#f5f7fa;
-  --card:#ffffff;
-  --text:#18212b;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-  --accent:#0b6bcb;
-  --accent-dark:#084f96;
-  --gas:#d97706;
-  --up:#c62828;
-  --down:#16803c;
-  --flat:#6b7280;
+      --orange: #ef6c00;
+      --orange-light: #fff3e8;
 
-}
+      --red: #c62828;
+      --red-light: #fdeeee;
 
+      --text: #24313d;
+      --muted: #687581;
+      --border: #dce3e8;
+      --background: #f5f7f9;
+      --white: #ffffff;
 
-/* =====================================================
-   BASE
-===================================================== */
+      --shadow:
+        0 8px 24px rgba(20, 45, 65, 0.08);
 
-*{
-  box-sizing:border-box;
-}
+      --radius: 16px;
+    }
 
-html{
-  scroll-behavior:smooth;
-}
 
-body{
+    * {
+      box-sizing: border-box;
+    }
 
-  margin:0;
 
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+    html {
+      scroll-behavior: smooth;
+    }
 
-  background:
-    var(--bg);
 
-  color:
-    var(--text);
+    body {
+      margin: 0;
+      padding: 0;
 
-}
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-.wrap{
+      background:
+        var(--background);
 
-  max-width:1100px;
+      color:
+        var(--text);
 
-  margin:auto;
+      line-height:
+        1.5;
+    }
 
-  padding:22px;
 
-}
+    button,
+    input,
+    select {
+      font: inherit;
+    }
 
 
-/* =====================================================
-   HEADER
-===================================================== */
+    a {
+      color: inherit;
+    }
 
-header{
 
-  display:flex;
+    .container {
+      width: min(
+        1180px,
+        calc(100% - 32px)
+      );
 
-  justify-content:space-between;
+      margin: 0 auto;
+    }
 
-  align-items:center;
 
-  gap:16px;
+    /* ===================================================
+       HEADER
+    =================================================== */
 
-  margin-bottom:22px;
+    header {
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue-dark),
+          var(--blue)
+        );
 
-}
+      color:
+        white;
 
-.brand{
+      padding:
+        42px 0 48px;
+    }
 
-  font-weight:800;
 
-  font-size:24px;
+    .header-inner {
+      display:
+        flex;
 
-}
+      align-items:
+        center;
 
-.brand span{
+      justify-content:
+        space-between;
 
-  font-weight:400;
+      gap:
+        30px;
+    }
 
-}
 
-.updated{
+    .brand {
+      min-width:
+        0;
+    }
 
-  font-size:13px;
 
-  color:var(--muted);
+    .brand-kicker {
+      font-size:
+        14px;
 
-  text-align:right;
+      font-weight:
+        700;
 
-  line-height:1.45;
+      letter-spacing:
+        1px;
 
-}
+      text-transform:
+        uppercase;
 
+      opacity:
+        .82;
 
-/* =====================================================
-   ERROR GENERALE
-===================================================== */
+      margin-bottom:
+        7px;
+    }
 
-.error{
 
-  background:#fff3f3;
+    .brand h1 {
+      margin:
+        0;
 
-  color:#8b1e1e;
+      font-size:
+        clamp(28px, 5vw, 46px);
 
-  padding:14px;
+      line-height:
+        1.08;
+    }
 
-  border-radius:12px;
 
-  margin-bottom:18px;
+    .brand p {
+      margin:
+        12px 0 0;
 
-  display:none;
+      max-width:
+        720px;
 
-  line-height:1.45;
+      font-size:
+        16px;
 
-}
+      opacity:
+        .9;
+    }
 
 
-/* =====================================================
-   CARDS PUN / PSV
-===================================================== */
+    .header-badge {
+      flex:
+        0 0 auto;
 
-.cards{
+      padding:
+        12px 16px;
 
-  display:grid;
+      border:
+        1px solid rgba(255,255,255,.25);
 
-  grid-template-columns:
-    repeat(2,1fr);
+      border-radius:
+        12px;
 
-  gap:18px;
+      background:
+        rgba(255,255,255,.08);
 
-}
+      font-size:
+        13px;
 
-.card{
+      text-align:
+        center;
+    }
 
-  background:
-    var(--card);
 
-  border:
-    1px solid var(--line);
+    /* ===================================================
+       ERROR
+    =================================================== */
 
-  border-radius:18px;
+    .error-box {
+      display:
+        none;
 
-  padding:22px;
+      margin:
+        24px auto 0;
 
-  box-shadow:
-    0 5px 18px #0000000a;
+      padding:
+        15px 18px;
 
-}
+      border-radius:
+        12px;
 
-.label{
+      background:
+        var(--red-light);
 
-  font-size:14px;
+      color:
+        var(--red);
 
-  color:var(--muted);
+      border:
+        1px solid #f2caca;
 
-  font-weight:700;
+      font-size:
+        14px;
+    }
 
-  text-transform:uppercase;
 
-  letter-spacing:.04em;
+    .error-box.visible {
+      display:
+        block;
+    }
 
-}
 
-.value{
+    /* ===================================================
+       MAIN
+    =================================================== */
 
-  font-size:42px;
+    main {
+      padding:
+        34px 0 70px;
+    }
 
-  font-weight:800;
 
-  margin:8px 0 4px;
+    .section {
+      margin-bottom:
+        32px;
+    }
 
-}
 
-.unit{
+    .section-title {
+      margin:
+        0 0 16px;
 
-  font-size:17px;
+      font-size:
+        22px;
 
-  font-weight:600;
+      color:
+        var(--blue-dark);
+    }
 
-}
 
-.change{
+    .section-subtitle {
+      margin:
+        -8px 0 20px;
 
-  font-size:15px;
+      color:
+        var(--muted);
 
-  font-weight:700;
+      font-size:
+        14px;
+    }
 
-  margin-top:8px;
 
-  min-height:20px;
+    /* ===================================================
+       CARDS
+    =================================================== */
 
-}
+    .cards {
+      display:
+        grid;
 
-.up{
-  color:var(--up);
-}
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
-.down{
-  color:var(--down);
-}
+      gap:
+        20px;
+    }
 
-.flat{
-  color:var(--flat);
-}
 
-.date{
+    .index-card {
+      position:
+        relative;
 
-  font-size:13px;
+      background:
+        var(--white);
 
-  color:var(--muted);
+      border:
+        1px solid var(--border);
 
-  margin-top:12px;
+      border-radius:
+        var(--radius);
 
-}
+      padding:
+        26px;
 
+      box-shadow:
+        var(--shadow);
 
-/* =====================================================
-   MEDIA MENSILE
-===================================================== */
+      overflow:
+        hidden;
+    }
 
-.month-summary{
 
-  margin-top:18px;
+    .index-card::before {
+      content:
+        "";
 
-  display:grid;
+      position:
+        absolute;
 
-  grid-template-columns:
-    repeat(2,1fr);
+      left:
+        0;
 
-  gap:18px;
+      top:
+        0;
 
-}
+      bottom:
+        0;
 
-.month-box{
+      width:
+        5px;
 
-  background:#f8fafc;
+      background:
+        var(--blue);
+    }
 
-  border:
-    1px solid var(--line);
 
-  border-radius:14px;
+    .index-card.psv::before {
+      background:
+        var(--orange);
+    }
 
-  padding:15px 18px;
 
-}
+    .card-title {
+      display:
+        flex;
 
-.month-title{
+      align-items:
+        center;
 
-  font-size:13px;
+      gap:
+        8px;
 
-  color:var(--muted);
+      font-size:
+        15px;
 
-  font-weight:700;
+      font-weight:
+        700;
 
-  text-transform:uppercase;
+      color:
+        var(--muted);
 
-  letter-spacing:.04em;
+      margin-bottom:
+        10px;
+    }
 
-}
 
-.month-value{
+    .card-value {
+      font-size:
+        clamp(32px, 5vw, 46px);
 
-  font-size:24px;
+      font-weight:
+        800;
 
-  font-weight:800;
+      letter-spacing:
+        -1px;
 
-  margin-top:5px;
+      color:
+        var(--blue-dark);
 
-}
+      line-height:
+        1;
+    }
 
-.month-detail{
 
-  font-size:13px;
+    .psv .card-value {
+      color:
+        var(--orange);
+    }
 
-  color:var(--muted);
 
-  margin-top:5px;
+    .card-unit {
+      margin-top:
+        8px;
 
-}
+      font-size:
+        14px;
 
+      color:
+        var(--muted);
+    }
 
-/* =====================================================
-   SEZIONI
-===================================================== */
 
-.section{
+    .card-change {
+      display:
+        inline-flex;
 
-  margin-top:22px;
+      align-items:
+        center;
 
-}
+      gap:
+        5px;
 
-.section h2{
+      margin-top:
+        17px;
 
-  font-size:19px;
+      padding:
+        6px 10px;
 
-  margin:0 0 12px;
+      border-radius:
+        20px;
 
-}
+      background:
+        var(--green-light);
 
+      color:
+        var(--green);
 
-/* =====================================================
-   CALCOLATORE SPREAD
-===================================================== */
+      font-size:
+        13px;
 
-.spread-intro{
+      font-weight:
+        700;
+    }
 
-  margin:0 0 18px;
 
-  color:#405163;
+    .card-change.up {
+      background:
+        var(--red-light);
 
-  line-height:1.55;
+      color:
+        var(--red);
+    }
 
-}
 
-.comparison-form{
+    .card-change.neutral {
+      background:
+        #f1f3f5;
 
-  display:grid;
+      color:
+        var(--muted);
+    }
 
-  grid-template-columns:
-    1fr 1fr;
 
-  gap:14px;
+    .card-date {
+      margin-top:
+        14px;
 
-}
+      color:
+        var(--muted);
 
-.comparison-field{
+      font-size:
+        13px;
+    }
 
-  display:flex;
 
-  flex-direction:column;
+    /* ===================================================
+       MONTHLY SUMMARY
+    =================================================== */
 
-  gap:7px;
+    .monthly-card {
+      background:
+        var(--white);
 
-}
+      border:
+        1px solid var(--border);
 
-.comparison-field.full{
+      border-radius:
+        var(--radius);
 
-  grid-column:1 / -1;
+      padding:
+        24px;
 
-}
+      box-shadow:
+        var(--shadow);
+    }
 
-.comparison-field label{
 
-  font-size:13px;
+    .monthly-header {
+      display:
+        flex;
 
-  font-weight:700;
+      justify-content:
+        space-between;
 
-  color:#405163;
+      align-items:
+        flex-start;
 
-}
+      gap:
+        20px;
 
-.comparison-field select,
-.comparison-field input{
+      margin-bottom:
+        20px;
+    }
 
-  width:100%;
 
-  border:
-    1px solid #cfd8e3;
+    .monthly-period {
+      color:
+        var(--muted);
 
-  border-radius:10px;
+      font-size:
+        14px;
+    }
 
-  padding:12px 13px;
 
-  background:#fff;
+    .monthly-grid {
+      display:
+        grid;
 
-  color:var(--text);
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-  font-size:15px;
+      gap:
+        16px;
+    }
 
-  outline:none;
 
-}
+    .monthly-item {
+      padding:
+        18px;
 
-.comparison-field select:focus,
-.comparison-field input:focus{
+      border:
+        1px solid var(--border);
 
-  border-color:
-    var(--accent);
+      border-radius:
+        12px;
 
-  box-shadow:
-    0 0 0 3px #0b6bcb18;
+      background:
+        #fafbfc;
+    }
 
-}
 
-.price-input-wrap{
+    .monthly-item-label {
+      font-size:
+        13px;
 
-  position:relative;
+      color:
+        var(--muted);
 
-}
+      margin-bottom:
+        7px;
+    }
 
-.price-input-wrap input{
 
-  padding-right:75px;
+    .monthly-item-value {
+      font-size:
+        25px;
 
-}
+      font-weight:
+        800;
 
-.price-unit{
+      color:
+        var(--blue-dark);
+    }
 
-  position:absolute;
 
-  right:13px;
+    .monthly-item small {
+      display:
+        block;
 
-  top:50%;
+      margin-top:
+        5px;
 
-  transform:translateY(-50%);
+      color:
+        var(--muted);
 
-  color:var(--muted);
+      font-size:
+        12px;
+    }
 
-  font-size:13px;
 
-  font-weight:700;
+    /* ===================================================
+       COMPARISON
+    =================================================== */
 
-  pointer-events:none;
+    .comparison-card {
+      background:
+        var(--white);
 
-}
+      border:
+        1px solid var(--border);
 
-.comparison-actions{
+      border-radius:
+        var(--radius);
 
-  margin-top:15px;
+      padding:
+        24px;
 
-  display:flex;
+      box-shadow:
+        var(--shadow);
+    }
 
-  flex-wrap:wrap;
 
-  gap:10px;
+    .comparison-form {
+      display:
+        grid;
 
-}
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-.comparison-error{
+      gap:
+        16px;
 
-  display:none;
+      align-items:
+        end;
+    }
 
-  margin-top:14px;
 
-  padding:12px 14px;
+    .form-group label {
+      display:
+        block;
 
-  border-radius:10px;
+      margin-bottom:
+        7px;
 
-  background:#fff3f3;
+      font-size:
+        13px;
 
-  color:#8b1e1e;
+      font-weight:
+        700;
 
-  font-size:14px;
+      color:
+        var(--muted);
+    }
 
-  line-height:1.45;
 
-}
+    .form-group input,
+    .form-group select {
+      width:
+        100%;
 
-.comparison-result{
+      border:
+        1px solid var(--border);
 
-  display:none;
+      border-radius:
+        10px;
 
-  margin-top:18px;
+      padding:
+        12px 13px;
 
-  padding:18px;
+      background:
+        white;
 
-  border-radius:14px;
+      color:
+        var(--text);
 
-  border:1px solid var(--line);
+      outline:
+        none;
+    }
 
-  background:#f8fafc;
 
-}
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color:
+        var(--blue);
+    }
 
-.comparison-result-title{
 
-  font-size:13px;
+    .btn {
+      display:
+        inline-flex;
 
-  font-weight:700;
+      justify-content:
+        center;
 
-  text-transform:uppercase;
+      align-items:
+        center;
 
-  letter-spacing:.04em;
+      gap:
+        7px;
 
-  color:var(--muted);
+      min-height:
+        45px;
 
-}
+      padding:
+        11px 18px;
 
-.comparison-result-main{
+      border:
+        0;
 
-  font-size:32px;
+      border-radius:
+        10px;
 
-  font-weight:800;
+      background:
+        var(--blue);
 
-  margin-top:5px;
+      color:
+        white;
 
-}
+      font-weight:
+        700;
 
-.comparison-result-detail{
+      cursor:
+        pointer;
 
-  margin-top:10px;
+      text-decoration:
+        none;
+    }
 
-  font-size:14px;
 
-  line-height:1.55;
+    .btn:hover {
+      background:
+        var(--blue-dark);
+    }
 
-  color:#405163;
 
-}
+    .comparison-result {
+      display:
+        none;
 
-.comparison-result-note{
+      margin-top:
+        20px;
 
-  margin-top:12px;
+      padding:
+        18px;
 
-  font-size:13px;
+      border-radius:
+        12px;
 
-  font-weight:700;
+      background:
+        var(--blue-light);
 
-}
+      color:
+        var(--blue-dark);
+    }
 
-.comparison-positive{
 
-  border-color:#f2caca;
+    .comparison-result.visible {
+      display:
+        block;
+    }
 
-  background:#fff8f8;
 
-}
+    .comparison-result strong {
+      font-size:
+        18px;
+    }
 
-.comparison-positive
-.comparison-result-main{
 
-  color:var(--up);
+    /* ===================================================
+       CHART
+    =================================================== */
 
-}
+    .chart-card {
+      background:
+        var(--white);
 
-.comparison-negative{
+      border:
+        1px solid var(--border);
 
-  border-color:#bfe2cc;
+      border-radius:
+        var(--radius);
 
-  background:#f7fcf9;
+      padding:
+        24px;
 
-}
+      box-shadow:
+        var(--shadow);
+    }
 
-.comparison-negative
-.comparison-result-main{
 
-  color:var(--down);
+    .chart-header {
+      display:
+        flex;
 
-}
+      align-items:
+        flex-start;
 
-.comparison-neutral{
+      justify-content:
+        space-between;
 
-  border-color:#d8dde4;
+      gap:
+        20px;
 
-  background:#fafafa;
+      margin-bottom:
+        20px;
+    }
 
-}
 
-.comparison-neutral
-.comparison-result-main{
+    .chart-title {
+      margin:
+        0;
 
-  color:var(--flat);
+      font-size:
+        20px;
 
-}
+      color:
+        var(--blue-dark);
+    }
 
-.comparison-disclaimer{
 
-  margin-top:14px;
+    .chart-subtitle {
+      margin:
+        5px 0 0;
 
-  font-size:12px;
+      color:
+        var(--muted);
 
-  color:var(--muted);
+      font-size:
+        13px;
+    }
 
-  line-height:1.5;
 
-}
+    .chart-wrap {
+      position:
+        relative;
 
+      width:
+        100%;
 
-/* =====================================================
-   GRAFICO
-===================================================== */
+      height:
+        380px;
+    }
 
-.chart-card{
 
-  background:var(--card);
+    #energyChart {
+      display:
+        block;
 
-  border:
-    1px solid var(--line);
+      width:
+        100%;
 
-  border-radius:18px;
+      height:
+        100%;
+    }
 
-  padding:22px;
 
-  box-shadow:
-    0 5px 18px #0000000a;
+    .chart-legend {
+      display:
+        flex;
 
-}
+      flex-wrap:
+        wrap;
 
-.chartbox{
+      gap:
+        18px;
 
-  height:330px;
+      margin-top:
+        15px;
+    }
 
-  position:relative;
 
-}
+    .legend-item {
+      display:
+        inline-flex;
 
-#chart{
+      align-items:
+        center;
 
-  width:100%;
+      gap:
+        7px;
 
-  height:100%;
+      font-size:
+        13px;
 
-  display:block;
+      color:
+        var(--muted);
+    }
 
-}
 
-.chart-legend{
+    .legend-line {
+      width:
+        26px;
 
-  display:flex;
+      height:
+        3px;
 
-  flex-wrap:wrap;
+      border-radius:
+        10px;
 
-  gap:20px;
+      display:
+        inline-block;
+    }
 
-  font-size:13px;
 
-  color:var(--muted);
+    .legend-pun {
+      background:
+        var(--blue);
+    }
 
-  margin-top:8px;
 
-}
+    .legend-psv {
+      background:
+        var(--orange);
+    }
 
-.legend-item{
 
-  display:flex;
+    .chart-note {
+      margin-top:
+        13px;
 
-  align-items:center;
+      color:
+        var(--muted);
 
-  gap:7px;
+      font-size:
+        12px;
+    }
 
-}
 
-.legend-line{
+    /* ===================================================
+       ACTIONS
+    =================================================== */
 
-  width:24px;
+    .actions {
+      display:
+        grid;
 
-  height:3px;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
-  border-radius:3px;
+      gap:
+        16px;
+    }
 
-}
 
-.legend-pun{
+    .action-card {
+      background:
+        var(--white);
 
-  background:var(--accent);
+      border:
+        1px solid var(--border);
 
-}
+      border-radius:
+        var(--radius);
 
-.legend-psv{
+      padding:
+        22px;
 
-  background:var(--gas);
+      box-shadow:
+        var(--shadow);
+    }
 
-}
 
-.chart-note{
+    .action-card h3 {
+      margin:
+        0 0 8px;
 
-  margin-top:10px;
+      color:
+        var(--blue-dark);
 
-  font-size:12px;
+      font-size:
+        17px;
+    }
 
-  color:var(--muted);
 
-  line-height:1.45;
+    .action-card p {
+      margin:
+        0 0 16px;
 
-}
+      color:
+        var(--muted);
 
+      font-size:
+        14px;
+    }
 
-/* =====================================================
-   AZIONI
-===================================================== */
 
-.actions{
+    /* ===================================================
+       SOCIAL
+    =================================================== */
 
-  display:flex;
+    .social-card {
+      background:
+        var(--white);
 
-  flex-wrap:wrap;
+      border:
+        1px solid var(--border);
 
-  gap:10px;
+      border-radius:
+        var(--radius);
 
-  margin-top:18px;
+      padding:
+        24px;
 
-}
+      box-shadow:
+        var(--shadow);
+    }
 
-button{
 
-  border:0;
+    .social-preview {
+      display:
+        flex;
 
-  border-radius:10px;
+      justify-content:
+        center;
 
-  padding:12px 16px;
+      padding:
+        12px 0 20px;
+    }
 
-  font-weight:700;
 
-  cursor:pointer;
+    #socialCanvas {
+      width:
+        min(100%, 700px);
 
-  background:var(--accent);
+      height:
+        auto;
 
-  color:#fff;
+      border-radius:
+        14px;
 
-  transition:.2s;
+      box-shadow:
+        0 8px 30px rgba(0,0,0,.12);
+    }
 
-  font-size:14px;
 
-}
+    .social-actions {
+      display:
+        flex;
 
-button:hover{
+      flex-wrap:
+        wrap;
 
-  background:
-    var(--accent-dark);
+      gap:
+        10px;
 
-}
+      justify-content:
+        center;
+    }
 
-button.secondary{
 
-  background:#e9eef5;
+    /* ===================================================
+       BOOKING
+    =================================================== */
 
-  color:#243447;
+    .booking {
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--blue-dark)
+        );
 
-}
+      color:
+        white;
 
-button.secondary:hover{
+      border-radius:
+        var(--radius);
 
-  background:#dbe3ed;
+      padding:
+        30px;
 
-}
+      box-shadow:
+        var(--shadow);
 
-button.green{
+      text-align:
+        center;
+    }
 
-  background:#16803c;
 
-}
+    .booking h2 {
+      margin:
+        0 0 9px;
 
-button.green:hover{
+      font-size:
+        25px;
+    }
 
-  background:#11632f;
 
-}
+    .booking p {
+      max-width:
+        720px;
 
-button:disabled{
+      margin:
+        0 auto 20px;
 
-  opacity:.6;
+      opacity:
+        .9;
+    }
 
-  cursor:not-allowed;
 
-}
+    .booking .btn {
+      background:
+        white;
 
+      color:
+        var(--blue-dark);
+    }
 
-/* =====================================================
-   SOCIAL
-===================================================== */
 
-.social{
+    .booking .btn:hover {
+      background:
+        #eef3f6;
+    }
 
-  background:#fff;
 
-  border:
-    1px solid var(--line);
+    /* ===================================================
+       SOURCE
+    =================================================== */
 
-  border-radius:18px;
+    .source-note {
+      margin-top:
+        25px;
 
-  padding:20px;
+      padding:
+        16px 18px;
 
-  margin-top:22px;
+      border-left:
+        4px solid var(--blue);
 
-}
+      background:
+        white;
 
-.social h2{
+      border-radius:
+        10px;
 
-  margin-top:0;
+      color:
+        var(--muted);
 
-}
+      font-size:
+        12px;
+    }
 
-.social-grid{
 
-  display:grid;
+    /* ===================================================
+       FOOTER
+    =================================================== */
 
-  grid-template-columns:
-    1fr 1fr;
+    footer {
+      padding:
+        25px 0 35px;
 
-  gap:20px;
+      text-align:
+        center;
 
-  align-items:center;
+      color:
+        var(--muted);
 
-}
+      font-size:
+        12px;
+    }
 
-#socialCard{
 
-  width:100%;
+    /* ===================================================
+       RESPONSIVE
+    =================================================== */
 
-  max-width:520px;
+    @media (max-width: 900px) {
 
-  aspect-ratio:1;
+      .header-inner {
+        flex-direction:
+          column;
 
-  background:#fff;
+        align-items:
+          flex-start;
+      }
 
-  border:
-    1px solid var(--line);
 
-  border-radius:12px;
+      .header-badge {
+        width:
+          100%;
+      }
 
-  display:block;
 
-}
+      .cards {
+        grid-template-columns:
+          1fr;
+      }
 
-.posttext{
 
-  white-space:pre-wrap;
+      .monthly-grid {
+        grid-template-columns:
+          1fr;
+      }
 
-  background:#f7f8fa;
 
-  padding:16px;
+      .comparison-form {
+        grid-template-columns:
+          1fr;
+      }
 
-  border-radius:12px;
 
-  font-size:14px;
+      .actions {
+        grid-template-columns:
+          1fr;
+      }
 
-  line-height:1.55;
+    }
 
-  min-height:250px;
 
-}
+    @media (max-width: 600px) {
 
-.social-actions{
+      .container {
+        width:
+          min(
+            100% - 20px,
+            1180px
+          );
+      }
 
-  display:flex;
 
-  flex-wrap:wrap;
+      header {
+        padding:
+          30px 0 34px;
+      }
 
-  gap:10px;
 
-  margin-top:14px;
+      main {
+        padding:
+          24px 0 50px;
+      }
 
-}
 
+      .index-card,
+      .monthly-card,
+      .comparison-card,
+      .chart-card,
+      .social-card {
+        padding:
+          19px;
+      }
 
-/* =====================================================
-   BOOKING
-===================================================== */
 
-.booking-box{
+      .chart-wrap {
+        height:
+          300px;
+      }
 
-  background:#eef6ff;
 
-  border:
-    1px solid #cfe4fa;
+      .card-value {
+        font-size:
+          37px;
+      }
 
-  border-radius:14px;
+    }
 
-  padding:18px;
-
-  margin-top:18px;
-
-}
-
-.booking-box h3{
-
-  margin:0 0 8px;
-
-  font-size:18px;
-
-}
-
-.booking-box p{
-
-  margin:0 0 14px;
-
-  color:#405163;
-
-  line-height:1.5;
-
-}
-
-
-/* =====================================================
-   SOURCE
-===================================================== */
-
-.source{
-
-  font-size:12px;
-
-  color:var(--muted);
-
-  margin-top:18px;
-
-  line-height:1.55;
-
-  background:#fff;
-
-  border:
-    1px solid var(--line);
-
-  border-radius:14px;
-
-  padding:16px;
-
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(max-width:760px){
-
-  .cards,
-  .social-grid,
-  .month-summary{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .comparison-form{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .comparison-field.full{
-
-    grid-column:auto;
-
-  }
-
-  .value{
-
-    font-size:36px;
-
-  }
-
-  .updated{
-
-    text-align:left;
-
-  }
-
-  header{
-
-    align-items:flex-start;
-
-    flex-direction:column;
-
-  }
-
-  .chartbox{
-
-    height:290px;
-
-  }
-
-  .wrap{
-
-    padding:15px;
-
-  }
-
-  .comparison-result-main{
-
-    font-size:28px;
-
-  }
-
-}
-
-</style>
+  </style>
 
 </head>
 
+
 <body>
 
-<div class="wrap">
 
-<!-- ===================================================
-     HEADER
-=================================================== -->
+  <!-- ===================================================
+       HEADER
+  =================================================== -->
 
-<header>
+  <header>
 
-  <div class="brand">
+    <div class="container">
 
-```
-GiOKri Life
-<span>| Energia</span>
-```
+      <div class="header-inner">
 
-  </div>
+        <div class="brand">
 
-  <div
-    class="updated"
-    id="updated"
-  >
+          <div class="brand-kicker">
+            GiOKri Life
+          </div>
 
-```
-Caricamento dati...
-```
+          <h1>
+            ⚡ Osservatorio Energia
+          </h1>
 
-  </div>
+          <p>
+            PUN e PSV, andamento dei mercati energetici,
+            medie mensili e strumenti di confronto.
+          </p>
 
-</header>
+        </div>
 
-<!-- ===================================================
-     ERROR GENERALE
-=================================================== -->
 
-<div
-  id="error"
-  class="error"
-></div>
+        <div class="header-badge">
+          Dati aggiornati periodicamente
+        </div>
 
-<!-- ===================================================
-     QUOTAZIONI
-=================================================== -->
+      </div>
 
-<section class="cards">
+    </div>
 
-  <article class="card">
+  </header>
 
-```
-<div class="label">
 
-  ⚡ PUN Index GME
+  <main>
 
-</div>
+    <div class="container">
 
-<div
-  class="value"
-  id="pun"
->
 
-  —
+      <!-- ===================================================
+           ERROR
+      =================================================== -->
 
-</div>
+      <div
+        id="errorBox"
+        class="error-box"
+      ></div>
 
-<div class="unit">
 
-  €/kWh
+      <!-- ===================================================
+           INDICI
+      =================================================== -->
 
-</div>
+      <section class="section">
 
-<div
-  class="change"
-  id="punChange"
->
+        <div class="cards">
 
-  —
 
-</div>
+          <!-- PUN -->
 
-<div
-  class="date"
-  id="punDate"
->
+          <article class="index-card">
 
-  Dato: —
+            <div class="card-title">
+              ⚡ PUN Index GME
+            </div>
 
-</div>
-```
+            <div
+              id="punValue"
+              class="card-value"
+            >
+              —
+            </div>
 
-  </article>
+            <div class="card-unit">
+              €/kWh
+            </div>
 
-  <article class="card">
+            <div
+              id="punChange"
+              class="card-change neutral"
+            >
+              —
+            </div>
 
-```
-<div class="label">
+            <div
+              id="punDate"
+              class="card-date"
+            >
+              Dato: —
+            </div>
 
-  🔥 PSV
+          </article>
 
-</div>
 
-<div
-  class="value"
-  id="psv"
->
+          <!-- PSV -->
 
-  —
+          <article class="index-card psv">
 
-</div>
+            <div class="card-title">
+              🔥 PSV
+            </div>
 
-<div class="unit">
+            <div
+              id="psvValue"
+              class="card-value"
+            >
+              —
+            </div>
 
-  €/Smc
+            <div class="card-unit">
+              €/Smc
+            </div>
 
-</div>
+            <div
+              id="psvChange"
+              class="card-change neutral"
+            >
+              —
+            </div>
 
-<div
-  class="change"
-  id="psvChange"
->
+            <div
+              id="psvDate"
+              class="card-date"
+            >
+              Dato: —
+            </div>
 
-  —
+          </article>
 
-</div>
+        </div>
 
-<div
-  class="date"
-  id="psvDate"
->
+      </section>
 
-  Dato: —
 
-</div>
-```
+      <!-- ===================================================
+           MEDIA MENSILE
+      =================================================== -->
 
-  </article>
+      <section class="section">
 
-</section>
+        <h2 class="section-title">
+          Media mensile
+        </h2>
 
-<!-- ===================================================
-     MEDIA MENSILE
-=================================================== -->
+        <p class="section-subtitle">
+          Media dei valori disponibili nell'ultimo mese elaborato.
+        </p>
 
-<section
-  class="month-summary"
-  id="monthSummary"
-  style="display:none;"
->
 
-  <div class="month-box">
+        <div class="monthly-card">
 
-```
-<div class="month-title">
+          <div class="monthly-header">
 
-  Media PUN del mese
+            <div>
 
-</div>
+              <strong id="monthlyPeriod">
+                —
+              </strong>
 
-<div
-  class="month-value"
-  id="punMonthAverage"
->
+              <div
+                id="monthlyDays"
+                class="monthly-period"
+              >
+                —
+              </div>
 
-  —
+            </div>
 
-</div>
+          </div>
 
-<div
-  class="month-detail"
-  id="punMonthDetail"
->
 
-  —
+          <div class="monthly-grid">
 
-</div>
-```
 
-  </div>
+            <div class="monthly-item">
 
-  <div class="month-box">
+              <div class="monthly-item-label">
+                Media PUN
+              </div>
 
-```
-<div class="month-title">
+              <div
+                id="monthlyPun"
+                class="monthly-item-value"
+              >
+                —
+              </div>
 
-  Media PSV del mese
+              <small>
+                €/kWh
+              </small>
 
-</div>
+            </div>
 
-<div
-  class="month-value"
-  id="psvMonthAverage"
->
 
-  —
+            <div class="monthly-item">
 
-</div>
+              <div class="monthly-item-label">
+                Media PSV
+              </div>
 
-<div
-  class="month-detail"
-  id="psvMonthDetail"
->
+              <div
+                id="monthlyPsv"
+                class="monthly-item-value"
+              >
+                —
+              </div>
 
-  —
+              <small>
+                €/Smc
+              </small>
 
-</div>
-```
+            </div>
 
-  </div>
 
-</section>
+            <div class="monthly-item">
 
-<!-- ===================================================
-     VERIFICA PREZZO / SPREAD
-=================================================== -->
+              <div class="monthly-item-label">
+                Giorni disponibili
+              </div>
 
-<section
-  class="section"
-  id="spreadSection"
->
+              <div
+                id="monthlyDaysValue"
+                class="monthly-item-value"
+              >
+                —
+              </div>
 
-  <div
-    class="chart-card"
-    id="spreadCard"
-  >
+              <small>
+                dati elaborati
+              </small>
 
-```
-<h2>
+            </div>
 
-  Verifica il tuo prezzo dell'energia
+          </div>
 
-</h2>
+        </div>
 
+      </section>
 
-<p class="spread-intro">
 
-  Inserisci il prezzo dell'energia riportato nella tua
-  bolletta e confrontalo con la media mensile PUN o PSV
-  del periodo selezionato.
+      <!-- ===================================================
+           CONFRONTO
+      =================================================== -->
 
-</p>
+      <section class="section">
 
+        <h2 class="section-title">
+          Confronta un valore
+        </h2>
 
-<div class="comparison-form">
+        <p class="section-subtitle">
+          Inserisci un prezzo per confrontarlo con l'indice
+          attualmente disponibile.
+        </p>
 
 
-  <div class="comparison-field">
+        <div class="comparison-card">
 
-    <label
-      for="comparisonType"
-    >
+          <div class="comparison-form">
 
-      Tipo di fornitura
 
-    </label>
+            <div class="form-group">
 
+              <label for="comparisonType">
+                Indice
+              </label>
 
-    <select
-      id="comparisonType"
-    >
+              <select id="comparisonType">
 
-      <option value="pun">
-        ⚡ Luce — PUN
-      </option>
+                <option value="pun">
+                  PUN
+                </option>
 
-      <option value="psv">
-        🔥 Gas — PSV
-      </option>
+                <option value="psv">
+                  PSV
+                </option>
 
-    </select>
+              </select>
 
-  </div>
+            </div>
 
 
-  <div class="comparison-field">
+            <div class="form-group">
 
-    <label
-      for="comparisonMonth"
-    >
+              <label for="comparisonValue">
+                Valore da confrontare
+              </label>
 
-      Mese da confrontare
+              <input
+                id="comparisonValue"
+                type="number"
+                step="0.00001"
+                placeholder="es. 0,25000"
+              >
 
-    </label>
+            </div>
 
 
-    <select
-      id="comparisonMonth"
-    >
+            <button
+              id="comparisonButton"
+              class="btn"
+              type="button"
+            >
+              Confronta
+            </button>
 
-      <option value="">
+          </div>
 
-        Caricamento mesi...
 
-      </option>
+          <div
+            id="comparisonResult"
+            class="comparison-result"
+          ></div>
 
-    </select>
+        </div>
 
-  </div>
+      </section>
 
 
-  <div class="comparison-field full">
+      <!-- ===================================================
+           GRAFICO
+      =================================================== -->
 
-    <label
-      for="comparisonPrice"
-    >
+      <section class="section">
 
-      Prezzo dell'energia riportato in bolletta
+        <div class="chart-card">
 
-    </label>
+          <div class="chart-header">
 
+            <div>
 
-    <div class="price-input-wrap">
+              <h2 class="chart-title">
+                Andamento ultimi 30 giorni
+              </h2>
 
+              <p class="chart-subtitle">
+                Evoluzione giornaliera di PUN e PSV
+                sui dati completi disponibili.
+              </p>
 
-      <input
-        type="text"
-        id="comparisonPrice"
-        inputmode="decimal"
-        placeholder="es. 0,18000"
-        autocomplete="off"
-      >
+            </div>
 
+          </div>
 
-      <span
-        class="price-unit"
-        id="comparisonUnit"
-      >
 
-        €/kWh
+          <div class="chart-wrap">
 
-      </span>
+            <canvas
+              id="energyChart"
+            ></canvas>
+
+          </div>
+
+
+          <div class="chart-legend">
+
+            <div class="legend-item">
+
+              <span class="legend-line legend-pun"></span>
+
+              <span>
+                PUN €/kWh
+              </span>
+
+            </div>
+
+
+            <div class="legend-item">
+
+              <span class="legend-line legend-psv"></span>
+
+              <span>
+                PSV €/Smc
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="chart-note">
+            Il grafico utilizza le giornate per le quali
+            sono disponibili entrambi gli indici.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           AZIONI
+      =================================================== -->
+
+      <section class="section">
+
+        <div class="actions">
+
+
+          <div class="action-card">
+
+            <h3>
+              📊 Controlla il tuo prezzo
+            </h3>
+
+            <p>
+              Confronta il prezzo indicato in bolletta
+              con l'andamento degli indici energetici.
+            </p>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="scrollToComparison()"
+            >
+              Vai al confronto
+            </button>
+
+          </div>
+
+
+          <div class="action-card">
+
+            <h3>
+              💡 Analizza la bolletta
+            </h3>
+
+            <p>
+              GiOKri Life può aiutarti a leggere e
+              comprendere le principali voci della bolletta.
+            </p>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="goToBooking()"
+            >
+              Richiedi analisi
+            </button>
+
+          </div>
+
+
+          <div class="action-card">
+
+            <h3>
+              🤝 Parla con GiOKri Life
+            </h3>
+
+            <p>
+              Un confronto diretto può aiutarti a capire
+              meglio le condizioni della tua fornitura.
+            </p>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="goToBooking()"
+            >
+              Contattaci
+            </button>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           SOCIAL
+      =================================================== -->
+
+      <section class="section">
+
+        <div class="social-card">
+
+          <h2 class="section-title">
+            Condividi l'aggiornamento
+          </h2>
+
+          <p class="section-subtitle">
+            Genera una scheda sintetica con gli ultimi
+            valori disponibili.
+          </p>
+
+
+          <div class="social-preview">
+
+            <canvas
+              id="socialCanvas"
+              width="1080"
+              height="1080"
+            ></canvas>
+
+          </div>
+
+
+          <div class="social-actions">
+
+            <button
+              id="downloadSocial"
+              class="btn"
+              type="button"
+            >
+              Scarica immagine
+            </button>
+
+
+            <button
+              id="copyPostButton"
+              class="btn"
+              type="button"
+            >
+              Copia testo
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           BOOKING
+      =================================================== -->
+
+      <section class="section">
+
+        <div class="booking">
+
+          <h2>
+            Vuoi capire se la tua fornitura è adeguata?
+          </h2>
+
+          <p>
+            GiOKri Life può aiutarti ad analizzare
+            la situazione e valutare le alternative
+            disponibili.
+          </p>
+
+          <button
+            class="btn"
+            type="button"
+            onclick="goToBooking()"
+          >
+            Prenota un confronto
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           FONTE
+      =================================================== -->
+
+      <div class="source-note">
+
+        I valori mostrati sono riferiti all'ultimo giorno
+        disponibile per ciascun indice (PUN e PSV).
+
+        Il PUN e il PSV possono quindi avere date di
+        aggiornamento differenti.
+
+        L'Osservatorio ha finalità informative e non
+        costituisce un'offerta commerciale.
+
+      </div>
 
 
     </div>
 
-  </div>
+  </main>
 
 
-</div>
+  <footer>
 
+    GiOKri Life · Osservatorio Energia
 
-<div class="comparison-actions">
+  </footer>
 
 
-  <button
-    type="button"
-    onclick="calculateSpread()"
-  >
+  <script>
 
-    🔎 Verifica lo spread
 
-  </button>
+    /* ===================================================
+       CONFIGURAZIONE
+    =================================================== */
 
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
 
-  <button
-    type="button"
-    class="secondary"
-    onclick="resetComparison()"
-  >
 
-    ↺ Azzera
+    const BOOKING_URL =
+      "https://giokrilife-bit.github.io/giokrilife-booking/";
 
-  </button>
 
+    let DATA =
+      null;
 
-</div>
 
+    let jsonpScript =
+      null;
 
-<div
-  id="comparisonError"
-  class="comparison-error"
-></div>
 
+    let refreshCounter =
+      0;
 
-<div
-  id="comparisonResult"
-  class="comparison-result"
->
 
+    /* ===================================================
+       JSONP CALLBACK
+    =================================================== */
 
-  <div
-    class="comparison-result-title"
-    id="comparisonResultTitle"
-  >
+    window.giokriEnergyCallback =
+      function(api){
 
-    Il tuo confronto
+        try {
 
-  </div>
+          DATA =
+            convertAPIData(api);
 
+          hideError();
 
-  <div
-    class="comparison-result-main"
-    id="comparisonResultMain"
-  >
+          render(DATA);
 
-    —
+        } catch(error) {
 
-  </div>
+          showError(
+            error.message ||
+            "Errore nella lettura dei dati."
+          );
 
+        }
 
-  <div
-    class="comparison-result-detail"
-    id="comparisonResultDetail"
-  ></div>
+      };
 
 
-  <div
-    class="comparison-result-note"
-    id="comparisonResultNote"
-  ></div>
+    /* ===================================================
+       REFRESH
+    =================================================== */
 
+    function refresh(){
 
-</div>
+      refreshCounter++;
 
-
-<div class="comparison-disclaimer">
-
-  Il confronto è indicativo e riguarda il prezzo dell'energia
-  rispetto al valore medio PUN/PSV del mese selezionato.
-  Non rappresenta il costo complessivo della bolletta:
-  possono incidere spread contrattuale, quote fisse,
-  perdite di rete, imposte, oneri e altre componenti.
-
-</div>
-```
-
-  </div>
-
-</section>
-
-<!-- ===================================================
-     GRAFICO
-=================================================== -->
-
-<section class="section">
-
-  <div class="chart-card">
-
-```
-<h2>
-
-  Andamento ultimi 30 giorni
-
-</h2>
-
-
-<div class="chartbox">
-
-  <canvas
-    id="chart"
-  ></canvas>
-
-</div>
-
-
-<div class="chart-legend">
-
-
-  <div class="legend-item">
-
-    <span
-      class="legend-line legend-pun"
-    ></span>
-
-    <span>
-      PUN €/kWh
-    </span>
-
-  </div>
-
-
-  <div class="legend-item">
-
-    <span
-      class="legend-line legend-psv"
-    ></span>
-
-    <span>
-      PSV €/Smc
-    </span>
-
-  </div>
-
-
-</div>
-```
-
-  </div>
-
-</section>
-
-<!-- ===================================================
-     AZIONI
-=================================================== -->
-
-<section class="actions">
-
-<button
-type="button"
-onclick="refresh()"
-
->
-
-```
-↻ Aggiorna dati
-```
-
-  </button>
-
-<button
-type="button"
-onclick="generateSocial()"
-class="secondary"
-
->
-
-```
-📲 Genera Social Card
-```
-
-  </button>
-
-<button
-type="button"
-onclick="downloadSocialCard()"
-class="secondary"
-
->
-
-```
-⬇ Scarica Social Card
-```
-
-  </button>
-
-</section>
-
-<!-- ===================================================
-     SOCIAL
-=================================================== -->
-
-<section class="social">
-
-  <h2>
-
-```
-Contenuto per i social
-```
-
-  </h2>
-
-  <div class="social-grid">
-
-```
-<canvas
-  id="socialCard"
-  width="1080"
-  height="1080"
-></canvas>
-
-
-<div>
-
-
-  <div
-    class="posttext"
-    id="postText"
-  >
-
-    Generazione...
-
-  </div>
-
-
-  <div class="social-actions">
-
-
-    <button
-      type="button"
-      onclick="copyPost()"
-      class="secondary"
-    >
-
-      📋 Copia testo
-
-    </button>
-
-
-    <button
-      type="button"
-      onclick="downloadSocialCard()"
-      class="secondary"
-    >
-
-      ⬇ Scarica Social Card
-
-    </button>
-
-
-  </div>
-
-
-  <div class="booking-box">
-
-
-    <h3>
-
-      Vuoi capire quanto stai realmente pagando?
-
-    </h3>
-
-
-    <p>
-
-      Porta la tua bolletta e analizziamo insieme
-      il prezzo dell'energia, le quote fisse e
-      le principali condizioni del contratto.
-
-    </p>
-
-
-    <button
-      type="button"
-      onclick="goToBooking()"
-      class="green"
-    >
-
-      📅 Prenota una verifica gratuita
-
-    </button>
-
-
-  </div>
-
-
-</div>
-```
-
-  </div>
-
-</section>
-
-<!-- ===================================================
-     NOTE
-=================================================== -->
-
-<div class="source">
-
-<strong>Nota:</strong>
-
-i valori mostrati sono riferiti all'ultimo giorno disponibile
-per ciascun indice (PUN e PSV).
-
-Se il dato del giorno non è ancora disponibile,
-il sistema utilizza automaticamente l'ultimo dato disponibile.
-
-Il PUN è riportato in €/kWh per facilitarne
-il confronto con le bollette.
-
-Il confronto tra PUN/PSV e il prezzo riportato
-in bolletta è indicativo: il prezzo effettivamente
-applicato può comprendere spread, quote fisse,
-perdite di rete, componenti contrattuali e altre voci.
-
-</div>
-
-</div>
-
-<!-- =====================================================
-     JAVASCRIPT UNICO
-===================================================== -->
-
-<script>
-
-
-/* =====================================================
-   CONFIGURAZIONE
-===================================================== */
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycby08-3-rsEjOHDWXnWHMmmV-Y-21IvIrwvxdTQohs1cc0gwUTTbFnH9OvxM9_XIpE2r/exec";
-
-
-const BOOKING_URL =
-"https://giokrilife-bit.github.io/giokrilife-booking/";
-
-
-/* =====================================================
-   VARIABILI GLOBALI
-===================================================== */
-
-let DATA = null;
-
-let jsonpScript = null;
-
-let refreshCounter = 0;
-
-
-/* =====================================================
-   CALLBACK JSONP
-===================================================== */
-
-window.giokriEnergyCallback =
-function(d){
-
-  if(jsonpScript){
-
-    jsonpScript.remove();
-
-    jsonpScript = null;
-
-  }
-
-
-  if(!d){
-
-    showError(
-      "Il server non ha restituito dati."
-    );
-
-    return;
-
-  }
-
-
-  if(!d.success){
-
-    showError(
-      d.error ||
-      "Errore restituito dal server."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    DATA =
-      convertAPIData(d);
-
-
-    render(DATA);
-
-  }
-  catch(e){
-
-    showError(
-      "Errore nella lettura dei dati: " +
-      e.message
-    );
-
-  }
-
-};
-
-
-/* =====================================================
-   RECUPERO DATI
-===================================================== */
-
-function refresh(){
-
-  hideError();
-
-  refreshCounter++;
-
-  const requestId =
-    refreshCounter;
-
-
-  if(jsonpScript){
-
-    jsonpScript.remove();
-
-    jsonpScript = null;
-
-  }
-
-
-  const cacheBuster =
-    Date.now();
-
-
-  const url =
-    API_URL +
-    "?callback=giokriEnergyCallback" +
-    "&_=" +
-    cacheBuster;
-
-
-  jsonpScript =
-    document.createElement(
-      "script"
-    );
-
-
-  jsonpScript.src =
-    url;
-
-
-  jsonpScript.async =
-    true;
-
-
-  jsonpScript.onerror =
-    function(){
-
-      if(
-        requestId !==
-        refreshCounter
-      ){
-
-        return;
-
-      }
-
+      const callbackName =
+        "giokriEnergyCallback";
 
       if(jsonpScript){
 
-        jsonpScript.remove();
-
-        jsonpScript = null;
+        try {
+          jsonpScript.remove();
+        } catch(e) {}
 
       }
 
 
-      showError(
-        "Impossibile recuperare i dati dal server. " +
-        "Verifica il deployment Apps Script."
-      );
-
-    };
+      jsonpScript =
+        document.createElement("script");
 
 
-  document.head.appendChild(
-    jsonpScript
-  );
-
-}
-
-
-/* =====================================================
-   CONVERSIONE DATI API
-===================================================== */
-
-function convertAPIData(api){
-
-  const storico =
-    Array.isArray(api.storico)
-      ? api.storico
-      : [];
+      jsonpScript.src =
+        API_URL +
+        "?callback=" +
+        callbackName +
+        "&_=" +
+        Date.now();
 
 
-  const latestComplete =
-    api.ultimoDato;
+      jsonpScript.onerror =
+        function(){
 
-
-  const latestPUN =
-    api.ultimoPUN;
-
-
-  const latestPSV =
-    api.ultimoPSV;
-
-
-  if(!latestComplete){
-
-    throw new Error(
-      "Il server non ha restituito ultimoDato."
-    );
-
-  }
-
-
-  if(!latestPUN){
-
-    throw new Error(
-      "Il server non ha restituito ultimoPUN."
-    );
-
-  }
-
-
-  if(!latestPSV){
-
-    throw new Error(
-      "Il server non ha restituito ultimoPSV."
-    );
-
-  }
-
-
-  /* ===================================================
-     STORICO ULTIMI 30 GIORNI
-  =================================================== */
-
-  const history =
-    storico
-      .slice()
-      .reverse()
-      .slice(-30)
-      .map(function(r){
-
-        return {
-
-          date:
-            formatDate(r.data),
-
-          rawDate:
-            r.data,
-
-          pun:
-            Number(r.pun_kwh),
-
-          psv:
-            Number(r.psv_smc)
+          showError(
+            "Impossibile collegarsi all'Osservatorio Energia."
+          );
 
         };
 
-      });
 
-
-  /* ===================================================
-     PRECEDENTE PUN
-     
-     storico[0] = ultimo dato completo
-     storico[1] = giorno completo precedente
-  =================================================== */
-
-  let previousPUN = null;
-
-
-  if(storico.length > 0){
-
-    previousPUN =
-      storico[0];
-
-  }
-
-
-  /* ===================================================
-     PRECEDENTE PSV
-     
-     Anche per il PSV utilizziamo il dato precedente
-     rispetto all'ultimo PSV disponibile.
-  =================================================== */
-
-  let previousPSV = null;
-
-
-  if(storico.length > 1){
-
-    previousPSV =
-      storico[1];
-
-  }
-
-
-  /* ===================================================
-     VARIAZIONE PUN
-  =================================================== */
-
-  let punChange = null;
-
-
-  const currentPun =
-    Number(
-      latestPUN.pun_kwh
-    );
-
-
-  if(previousPUN){
-
-    const previousPun =
-      Number(
-        previousPUN.pun_kwh
+      document.body.appendChild(
+        jsonpScript
       );
 
-
-    if(
-      isFinite(previousPun) &&
-      previousPun !== 0
-    ){
-
-      punChange =
-        (
-          (
-            currentPun -
-            previousPun
-          ) /
-          previousPun
-        ) *
-        100;
-
     }
 
-  }
 
+    /* ===================================================
+       CONVERSIONE API
+       
+       IMPORTANTE:
+       ultimoDato = ultimo dato COMPLETO
+       ultimoPUN  = ultimo PUN disponibile
+       ultimoPSV  = ultimo PSV disponibile
 
-  /* ===================================================
-     VARIAZIONE PSV
-  =================================================== */
+       storico API:
+       già ordinato dal più recente
+       al più vecchio.
+    =================================================== */
 
-  let psvChange = null;
+    function convertAPIData(api){
 
+      const storico =
+        Array.isArray(api.storico)
+          ? api.storico
+          : [];
 
-  const currentPsv =
-    Number(
-      latestPSV.psv_smc
-    );
 
+      const latestComplete =
+        api.ultimoDato;
 
-  if(previousPSV){
 
-    const previousPsv =
-      Number(
-        previousPSV.psv_smc
-      );
+      const latestPUN =
+        api.ultimoPUN;
 
 
-    if(
-      isFinite(previousPsv) &&
-      previousPsv !== 0
-    ){
+      const latestPSV =
+        api.ultimoPSV;
 
-      psvChange =
-        (
-          (
-            currentPsv -
-            previousPsv
-          ) /
-          previousPsv
-        ) *
-        100;
 
-    }
+      if(!latestComplete){
 
-  }
+        throw new Error(
+          "Il server non ha restituito ultimoDato."
+        );
 
-
-  /* ===================================================
-     MEDIE MENSILI
-  =================================================== */
-
-  const mediaMensile =
-    api.mediaMensile || {};
-
-
-  const medieMensili =
-    Array.isArray(api.medieMensili)
-      ? api.medieMensili
-      : [];
-
-
-  /* ===================================================
-     OGGETTO UTILIZZATO DAL RESTO DELLA PAGINA
-  =================================================== */
-
-  return {
-
-    latest:{
-
-      pun:
-        currentPun,
-
-      punChange:
-        punChange,
-
-      punDate:
-        formatDate(
-          latestPUN.data
-        ),
-
-      psv:
-        currentPsv,
-
-      psvChange:
-        psvChange,
-
-      psvDate:
-        formatDate(
-          latestPSV.data
-        )
-
-    },
-
-
-    history:
-      history,
-
-
-    monthly:{
-
-      pun:
-        Number(
-          mediaMensile.pun_kwh
-        ) || 0,
-
-      psv:
-        Number(
-          mediaMensile.psv_smc
-        ) || 0,
-
-      giorni:
-        Number(
-          mediaMensile.giorni
-        ) || 0,
-
-      mese:
-        mediaMensile.mese
-          ? mediaMensile.mese
-          : "",
-
-      anno:
-        mediaMensile.anno
-          ? mediaMensile.anno
-          : ""
-
-    },
-
-
-    monthlyHistory:
-      medieMensili
-        .map(function(m){
-
-          return {
-
-            periodo:
-              m.periodo || "",
-
-            mese:
-              m.mese || "",
-
-            anno:
-              m.anno || "",
-
-            pun:
-              Number(m.pun_kwh),
-
-            psv:
-              Number(m.psv_smc),
-
-            giorni:
-              Number(m.giorni) || 0
-
-          };
-
-        }),
-
-
-    generatedAt:
-      formatDateTime(
-        api.aggiornato
-      )
-
-  };
-
-}
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function formatDate(value){
-
-  if(!value){
-
-    return "—";
-
-  }
-
-
-  const text =
-    String(value);
-
-
-  const match =
-    text.match(
-      /^(\d{4})-(\d{2})-(\d{2})/
-    );
-
-
-  if(match){
-
-    return (
-      match[3] +
-      "/" +
-      match[2] +
-      "/" +
-      match[1]
-    );
-
-  }
-
-
-  return text;
-
-}
-
-
-function formatDateTime(value){
-
-  if(!value){
-
-    return "—";
-
-  }
-
-
-  const d =
-    new Date(value);
-
-
-  if(isNaN(d.getTime())){
-
-    return String(value);
-
-  }
-
-
-  return d.toLocaleString(
-    "it-IT",
-    {
-      dateStyle:"short",
-      timeStyle:"short"
-    }
-  );
-
-}
-
-
-/* =====================================================
-   NUMERI
-===================================================== */
-
-function fmt(n,dec){
-
-  if(
-    n === null ||
-    n === undefined ||
-    !isFinite(Number(n))
-  ){
-
-    return "—";
-
-  }
-
-
-  return Number(n)
-    .toLocaleString(
-      "it-IT",
-      {
-        minimumFractionDigits:dec,
-        maximumFractionDigits:dec
       }
-    );
 
-}
 
-
-/* =====================================================
-   VARIAZIONE
-===================================================== */
-
-function changeHtml(v){
-
-  if(
-    v === null ||
-    v === undefined ||
-    !isFinite(Number(v))
-  ){
-
-    return "—";
-
-  }
-
-
-  v =
-    Number(v);
-
-
-  let cls =
-    "flat";
-
-
-  let arrow =
-    "=";
-
-
-  let sign =
-    "";
-
-
-  if(v > 0){
-
-    cls =
-      "up";
-
-    arrow =
-      "▲";
-
-    sign =
-      "+";
-
-  }
-
-
-  if(v < 0){
-
-    cls =
-      "down";
-
-    arrow =
-      "▼";
-
-  }
-
-
-  return `
-
-    <span class="${cls}">
-
-      ${arrow}
-
-      ${sign}${Math.abs(v)
-        .toFixed(1)
-        .replace(".",",")}%
-
-      vs giorno precedente
-
-    </span>
-
-  `;
-
-}
-
-
-function plainChange(v){
-
-  if(
-    v === null ||
-    v === undefined ||
-    !isFinite(Number(v))
-  ){
-
-    return "";
-
-  }
-
-
-  v =
-    Number(v);
-
-
-  if(v > 0){
-
-    return (
-      "▲ +" +
-      v.toFixed(1).replace(".",",") +
-      "% vs giorno precedente"
-    );
-
-  }
-
-
-  if(v < 0){
-
-    return (
-      "▼ " +
-      Math.abs(v)
-        .toFixed(1)
-        .replace(".",",") +
-      "% vs giorno precedente"
-    );
-
-  }
-
-
-  return "= invariato";
-
-}
-
-
-/* =====================================================
-   RENDER PRINCIPALE
-===================================================== */
-
-function render(d){
-
-  document.getElementById("pun")
-    .textContent =
-      fmt(d.latest.pun,5);
-
-
-  document.getElementById("psv")
-    .textContent =
-      fmt(d.latest.psv,5);
-
-
-  document.getElementById("punChange")
-    .innerHTML =
-      changeHtml(
-        d.latest.punChange
-      );
-
-
-  document.getElementById("psvChange")
-    .innerHTML =
-      changeHtml(
-        d.latest.psvChange
-      );
-
-
-  document.getElementById("punDate")
-    .textContent =
-      "Dato: " +
-      d.latest.punDate;
-
-
-  document.getElementById("psvDate")
-    .textContent =
-      "Dato: " +
-      d.latest.psvDate;
-
-
-  document.getElementById("updated")
-    .innerHTML =
-      "Aggiornato: " +
-      d.generatedAt +
-      "<br>Ultimo dato disponibile";
-
-
-  renderMonthlyAverage(d);
-
-
-  drawChart(
-    d.history
-  );
-
-
-  initComparison();
-
-
-  generateSocial();
-
-}
-
-
-/* =====================================================
-   MEDIA MENSILE
-===================================================== */
-
-function renderMonthlyAverage(d){
-
-  const box =
-    document.getElementById(
-      "monthSummary"
-    );
-
-
-  const m =
-    d.monthly;
-
-
-  if(
-    !m ||
-    (
-      !m.pun &&
-      !m.psv
-    )
-  ){
-
-    box.style.display =
-      "none";
-
-    return;
-
-  }
-
-
-  box.style.display =
-    "grid";
-
-
-  const mese =
-    m.mese
-      ? m.mese
-      : "";
-
-
-  const anno =
-    m.anno
-      ? " " + m.anno
-      : "";
-
-
-  document.getElementById(
-    "punMonthAverage"
-  ).textContent =
-    fmt(m.pun,5) +
-    " €/kWh";
-
-
-  document.getElementById(
-    "psvMonthAverage"
-  ).textContent =
-    fmt(m.psv,5) +
-    " €/Smc";
-
-
-  document.getElementById(
-    "punMonthDetail"
-  ).textContent =
-    "Media " +
-    mese +
-    anno +
-    " · " +
-    m.giorni +
-    " giorni disponibili";
-
-
-  document.getElementById(
-    "psvMonthDetail"
-  ).textContent =
-    "Media " +
-    mese +
-    anno +
-    " · " +
-    m.giorni +
-    " giorni disponibili";
-
-}
-
-
-/* =====================================================
-   CALCOLATORE SPREAD
-===================================================== */
-
-function getMonthlyReference(periodo){
-
-  if(
-    !DATA ||
-    !Array.isArray(DATA.monthlyHistory)
-  ){
-
-    return null;
-
-  }
-
-
-  const list =
-    DATA.monthlyHistory;
-
-
-  for(
-    let i = 0;
-    i < list.length;
-    i++
-  ){
-
-    if(
-      String(list[i].periodo) ===
-      String(periodo)
-    ){
-
-      return list[i];
-
-    }
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =====================================================
-   POPOLAMENTO MESI
-===================================================== */
-
-function populateComparisonMonths(){
-
-  const select =
-    document.getElementById(
-      "comparisonMonth"
-    );
-
-
-  if(!select){
-
-    return;
-
-  }
-
-
-  select.innerHTML =
-    "";
-
-
-  if(
-    !DATA ||
-    !Array.isArray(DATA.monthlyHistory) ||
-    DATA.monthlyHistory.length === 0
-  ){
-
-    const option =
-      document.createElement(
-        "option"
-      );
-
-
-    option.value =
-      "";
-
-
-    option.textContent =
-      "Nessun mese disponibile";
-
-
-    select.appendChild(
-      option
-    );
-
-
-    return;
-
-  }
-
-
-  const months =
-    DATA.monthlyHistory
-      .slice()
-      .sort(
-        function(a,b){
-
-          return String(a.periodo)
-            .localeCompare(
-              String(b.periodo)
+      if(!latestPUN){
+
+        throw new Error(
+          "Il server non ha restituito ultimoPUN."
+        );
+
+      }
+
+
+      if(!latestPSV){
+
+        throw new Error(
+          "Il server non ha restituito ultimoPSV."
+        );
+
+      }
+
+
+      /*
+       * CORREZIONE GRAFICO
+       *
+       * L'API restituisce storico già ordinato:
+       *
+       * [0] = più recente
+       * [1] = giorno precedente
+       * ...
+       *
+       * Quindi:
+       *
+       * slice(0,30)
+       *
+       * prende i 30 dati più recenti.
+       *
+       * reverse()
+       *
+       * li riordina dal più vecchio
+       * al più recente per il grafico.
+       *
+       * NON usare:
+       *
+       * reverse().slice(-30)
+       *
+       * perché porterebbe a prendere
+       * i 30 dati più vecchi.
+       */
+
+      const history =
+        storico
+          .slice(0, 30)
+          .reverse()
+          .map(function(r){
+
+            return {
+
+              date:
+                formatDate(
+                  r.data
+                ),
+
+              rawDate:
+                r.data,
+
+              pun:
+                Number(
+                  r.pun_kwh
+                ),
+
+              psv:
+                Number(
+                  r.psv_smc
+                )
+
+            };
+
+          })
+          .filter(function(r){
+
+            return (
+              isFinite(r.pun) &&
+              isFinite(r.psv)
             );
 
-        }
-      );
+          });
 
 
-  months.forEach(
-    function(m){
+      /*
+       * Il confronto giornaliero
+       * deve utilizzare i due dati
+       * completi immediatamente precedenti.
+       *
+       * storico[0] = 16/09
+       * storico[1] = 15/09
+       */
 
-      const option =
-        document.createElement(
-          "option"
+      let previousPUN =
+        null;
+
+
+      if(storico.length > 0){
+
+        previousPUN =
+          storico[0];
+
+      }
+
+
+      let previousPSV =
+        null;
+
+
+      if(storico.length > 1){
+
+        previousPSV =
+          storico[1];
+
+      }
+
+
+      let punChange =
+        null;
+
+
+      const currentPun =
+        Number(
+          latestPUN.pun_kwh
         );
 
 
-      option.value =
-        m.periodo;
+      if(previousPUN){
 
+        const previousPun =
+          Number(
+            previousPUN.pun_kwh
+          );
 
-      option.textContent =
-        capitalizeFirst(m.mese) +
-        " " +
-        m.anno;
-
-
-      select.appendChild(
-        option
-      );
-
-    }
-  );
-
-
-  const last =
-    months[
-      months.length - 1
-    ];
-
-
-  if(last){
-
-    select.value =
-      last.periodo;
-
-  }
-
-}
-
-
-/* =====================================================
-   INIZIALIZZAZIONE CONFRONTO
-===================================================== */
-
-function initComparison(){
-
-  populateComparisonMonths();
-
-  updateComparisonPlaceholder();
-
-}
-
-
-/* =====================================================
-   MAIUSCOLA
-===================================================== */
-
-function capitalizeFirst(text){
-
-  if(!text){
-
-    return "";
-
-  }
-
-
-  const s =
-    String(text);
-
-
-  return (
-    s.charAt(0).toUpperCase() +
-    s.slice(1)
-  );
-
-}
-
-
-/* =====================================================
-   CALCOLO SPREAD
-===================================================== */
-
-function calculateSpread(){
-
-  const type =
-    document.getElementById(
-      "comparisonType"
-    );
-
-
-  const priceInput =
-    document.getElementById(
-      "comparisonPrice"
-    );
-
-
-  const monthSelect =
-    document.getElementById(
-      "comparisonMonth"
-    );
-
-
-  const result =
-    document.getElementById(
-      "comparisonResult"
-    );
-
-
-  if(
-    !type ||
-    !priceInput ||
-    !monthSelect ||
-    !result
-  ){
-
-    return;
-
-  }
-
-
-  hideComparisonError();
-
-
-  let raw =
-    String(
-      priceInput.value
-    )
-      .trim();
-
-
-  raw =
-    raw.replace(
-      /\s/g,
-      ""
-    );
-
-
-  if(
-    raw.indexOf(",") !== -1 &&
-    raw.indexOf(".") !== -1
-  ){
-
-    raw =
-      raw.replace(
-        /\./g,
-        ""
-      );
-
-    raw =
-      raw.replace(
-        ",",
-        "."
-      );
-
-  }else{
-
-    raw =
-      raw.replace(
-        ",",
-        "."
-      );
-
-  }
-
-
-  raw =
-    raw.replace(
-      /[^0-9.\-]/g,
-      ""
-    );
-
-
-  const price =
-    Number(raw);
-
-
-  if(
-    !isFinite(price) ||
-    price <= 0
-  ){
-
-    showComparisonError(
-      "Inserisci un prezzo valido riportato in bolletta."
-    );
-
-    return;
-
-  }
-
-
-  const periodo =
-    monthSelect.value;
-
-
-  if(!periodo){
-
-    showComparisonError(
-      "Seleziona il mese da confrontare."
-    );
-
-    return;
-
-  }
-
-
-  const reference =
-    getMonthlyReference(
-      periodo
-    );
-
-
-  if(!reference){
-
-    showComparisonError(
-      "Non è disponibile una media per il mese selezionato."
-    );
-
-    return;
-
-  }
-
-
-  let referenceValue;
-
-  let unit;
-
-  let label;
-
-
-  if(
-    type.value === "pun"
-  ){
-
-    referenceValue =
-      Number(reference.pun);
-
-    unit =
-      "€/kWh";
-
-    label =
-      "PUN";
-
-  }else{
-
-    referenceValue =
-      Number(reference.psv);
-
-    unit =
-      "€/Smc";
-
-    label =
-      "PSV";
-
-  }
-
-
-  if(
-    !isFinite(referenceValue) ||
-    referenceValue <= 0
-  ){
-
-    showComparisonError(
-      "Il dato di riferimento non è disponibile per il mese selezionato."
-    );
-
-    return;
-
-  }
-
-
-  const spread =
-    price -
-    referenceValue;
-
-
-  const spreadPercent =
-    (
-      spread /
-      referenceValue
-    ) *
-    100;
-
-
-  const resultTitle =
-    document.getElementById(
-      "comparisonResultTitle"
-    );
-
-
-  const resultMain =
-    document.getElementById(
-      "comparisonResultMain"
-    );
-
-
-  const resultDetail =
-    document.getElementById(
-      "comparisonResultDetail"
-    );
-
-
-  const resultNote =
-    document.getElementById(
-      "comparisonResultNote"
-    );
-
-
-  if(resultTitle){
-
-    resultTitle.textContent =
-      "Il tuo confronto con " +
-      label;
-
-  }
-
-
-  if(resultMain){
-
-    resultMain.textContent =
-      formatSignedEuro(
-        spread
-      ) +
-      " " +
-      unit;
-
-  }
-
-
-  if(resultDetail){
-
-    let direction;
-
-
-    if(spread > 0){
-
-      direction =
-        "sopra";
-
-    }else if(spread < 0){
-
-      direction =
-        "sotto";
-
-    }else{
-
-      direction =
-        "in linea con";
-
-    }
-
-
-    resultDetail.innerHTML =
-      "Prezzo in bolletta: <strong>" +
-      fmt(price,5) +
-      " " +
-      unit +
-      "</strong><br>" +
-
-      label +
-      " medio di " +
-      capitalizeFirst(
-        reference.mese
-      ) +
-      " " +
-      reference.anno +
-      ": <strong>" +
-      fmt(referenceValue,5) +
-      " " +
-      unit +
-      "</strong><br><br>" +
-
-      "Il prezzo indicato in bolletta è " +
-      "<strong>" +
-      direction +
-      "</strong> " +
-      "rispetto al valore medio di riferimento.";
-
-  }
-
-
-  if(resultNote){
-
-    resultNote.innerHTML =
-      "Differenza: " +
-      (
-        spreadPercent >= 0
-          ? "+"
-          : ""
-      ) +
-      spreadPercent
-        .toFixed(1)
-        .replace(".",",") +
-      "% rispetto al " +
-      label +
-      " medio del mese.";
-
-  }
-
-
-  result.classList.remove(
-    "comparison-positive",
-    "comparison-negative",
-    "comparison-neutral"
-  );
-
-
-  if(spread > 0){
-
-    result.classList.add(
-      "comparison-positive"
-    );
-
-  }else if(spread < 0){
-
-    result.classList.add(
-      "comparison-negative"
-    );
-
-  }else{
-
-    result.classList.add(
-      "comparison-neutral"
-    );
-
-  }
-
-
-  result.style.display =
-    "block";
-
-
-  if(
-    window.innerWidth <= 760
-  ){
-
-    setTimeout(
-      function(){
-
-        result.scrollIntoView({
-          behavior:"smooth",
-          block:"nearest"
-        });
-
-      },
-      100
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   FORMATTAZIONE SPREAD
-===================================================== */
-
-function formatSignedEuro(value){
-
-  if(
-    value === null ||
-    value === undefined ||
-    !isFinite(Number(value))
-  ){
-
-    return "—";
-
-  }
-
-
-  const n =
-    Number(value);
-
-
-  if(n > 0){
-
-    return (
-      "+" +
-      fmt(n,5)
-    );
-
-  }
-
-
-  if(n < 0){
-
-    return (
-      "−" +
-      fmt(Math.abs(n),5)
-    );
-
-  }
-
-
-  return "0,00000";
-
-}
-
-
-/* =====================================================
-   ERRORI CONFRONTO
-===================================================== */
-
-function showComparisonError(text){
-
-  const error =
-    document.getElementById(
-      "comparisonError"
-    );
-
-
-  if(!error){
-
-    return;
-
-  }
-
-
-  error.textContent =
-    text;
-
-
-  error.style.display =
-    "block";
-
-}
-
-
-function hideComparisonError(){
-
-  const error =
-    document.getElementById(
-      "comparisonError"
-    );
-
-
-  if(!error){
-
-    return;
-
-  }
-
-
-  error.textContent =
-    "";
-
-
-  error.style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   RESET CONFRONTO
-===================================================== */
-
-function resetComparisonResult(){
-
-  const result =
-    document.getElementById(
-      "comparisonResult"
-    );
-
-
-  if(result){
-
-    result.style.display =
-      "none";
-
-
-    result.classList.remove(
-      "comparison-positive",
-      "comparison-negative",
-      "comparison-neutral"
-    );
-
-  }
-
-
-  hideComparisonError();
-
-}
-
-
-function resetComparison(){
-
-  const input =
-    document.getElementById(
-      "comparisonPrice"
-    );
-
-
-  if(input){
-
-    input.value =
-      "";
-
-  }
-
-
-  resetComparisonResult();
-
-  updateComparisonPlaceholder();
-
-}
-
-
-/* =====================================================
-   PLACEHOLDER LUCE / GAS
-===================================================== */
-
-function updateComparisonPlaceholder(){
-
-  const type =
-    document.getElementById(
-      "comparisonType"
-    );
-
-
-  const input =
-    document.getElementById(
-      "comparisonPrice"
-    );
-
-
-  const unit =
-    document.getElementById(
-      "comparisonUnit"
-    );
-
-
-  if(!type || !input){
-
-    return;
-
-  }
-
-
-  if(
-    type.value === "pun"
-  ){
-
-    input.placeholder =
-      "es. 0,18000";
-
-
-    if(unit){
-
-      unit.textContent =
-        "€/kWh";
-
-    }
-
-  }else{
-
-    input.placeholder =
-      "es. 0,70000";
-
-
-    if(unit){
-
-      unit.textContent =
-        "€/Smc";
-
-    }
-
-  }
-
-
-  resetComparisonResult();
-
-}
-
-
-/* =====================================================
-   EVENTI CONFRONTO
-===================================================== */
-
-function setupComparisonEvents(){
-
-  const type =
-    document.getElementById(
-      "comparisonType"
-    );
-
-
-  const month =
-    document.getElementById(
-      "comparisonMonth"
-    );
-
-
-  const price =
-    document.getElementById(
-      "comparisonPrice"
-    );
-
-
-  if(type){
-
-    type.addEventListener(
-      "change",
-      updateComparisonPlaceholder
-    );
-
-  }
-
-
-  if(month){
-
-    month.addEventListener(
-      "change",
-      resetComparisonResult
-    );
-
-  }
-
-
-  if(price){
-
-    price.addEventListener(
-      "keydown",
-      function(event){
 
         if(
-          event.key === "Enter"
+          isFinite(previousPun) &&
+          previousPun !== 0
         ){
 
-          event.preventDefault();
-
-          calculateSpread();
+          punChange =
+            (
+              (
+                currentPun -
+                previousPun
+              ) /
+              previousPun
+            ) *
+            100;
 
         }
 
       }
-    );
-
-  }
-
-}
 
 
-/* =====================================================
-   GRAFICO
-===================================================== */
-
-function drawChart(rows){
-
-  const c =
-    document.getElementById(
-      "chart"
-    );
+      let psvChange =
+        null;
 
 
-  if(!c){
-
-    return;
-
-  }
-
-
-  const ctx =
-    c.getContext("2d");
+      const currentPsv =
+        Number(
+          latestPSV.psv_smc
+        );
 
 
-  const ratio =
-    window.devicePixelRatio || 1;
+      if(previousPSV){
+
+        const previousPsv =
+          Number(
+            previousPSV.psv_smc
+          );
 
 
-  const w =
-    c.clientWidth;
+        if(
+          isFinite(previousPsv) &&
+          previousPsv !== 0
+        ){
+
+          psvChange =
+            (
+              (
+                currentPsv -
+                previousPsv
+              ) /
+              previousPsv
+            ) *
+            100;
+
+        }
+
+      }
 
 
-  const h =
-    c.clientHeight;
+      const mediaMensile =
+        api.mediaMensile || {};
 
 
-  if(
-    !w ||
-    !h
-  ){
+      const medieMensili =
+        Array.isArray(
+          api.medieMensili
+        )
+          ? api.medieMensili
+          : [];
 
-    return;
-
-  }
-
-
-  c.width =
-    Math.round(
-      w * ratio
-    );
-
-
-  c.height =
-    Math.round(
-      h * ratio
-    );
-
-
-  ctx.setTransform(
-    ratio,
-    0,
-    0,
-    ratio,
-    0,
-    0
-  );
-
-
-  ctx.clearRect(
-    0,
-    0,
-    w,
-    h
-  );
-
-
-  if(
-    !rows ||
-    rows.length === 0
-  ){
-
-    return;
-
-  }
-
-
-  const pad = {
-
-    l:58,
-
-    r:58,
-
-    t:25,
-
-    b:45
-
-  };
-
-
-  const iw =
-    w -
-    pad.l -
-    pad.r;
-
-
-  const ih =
-    h -
-    pad.t -
-    pad.b;
-
-
-  const pun =
-    rows.map(
-      r =>
-        Number(r.pun)
-    );
-
-
-  const psv =
-    rows.map(
-      r =>
-        Number(r.psv)
-    );
-
-
-  const punMin =
-    Math.min(...pun);
-
-
-  const punMax =
-    Math.max(...pun);
-
-
-  const psvMin =
-    Math.min(...psv);
-
-
-  const psvMax =
-    Math.max(...psv);
-
-
-  function range(min,max){
-
-    const r =
-      max - min;
-
-
-    if(r === 0){
 
       return {
 
-        min:
-          min - 0.01,
+        latest: {
 
-        max:
-          max + 0.01
+          pun:
+            currentPun,
+
+          punChange:
+            punChange,
+
+          punDate:
+            formatDate(
+              latestPUN.data
+            ),
+
+          psv:
+            currentPsv,
+
+          psvChange:
+            psvChange,
+
+          psvDate:
+            formatDate(
+              latestPSV.data
+            )
+
+        },
+
+
+        history:
+          history,
+
+
+        monthly: {
+
+          pun:
+            Number(
+              mediaMensile.pun_kwh
+            ) || 0,
+
+          psv:
+            Number(
+              mediaMensile.psv_smc
+            ) || 0,
+
+          giorni:
+            Number(
+              mediaMensile.giorni
+            ) || 0,
+
+          mese:
+            mediaMensile.mese
+              ? mediaMensile.mese
+              : "",
+
+          anno:
+            mediaMensile.anno
+              ? mediaMensile.anno
+              : ""
+
+        },
+
+
+        monthlyHistory:
+          medieMensili
+            .map(function(m){
+
+              return {
+
+                periodo:
+                  m.periodo || "",
+
+                mese:
+                  m.mese || "",
+
+                anno:
+                  m.anno || "",
+
+                pun:
+                  Number(
+                    m.pun_kwh
+                  ),
+
+                psv:
+                  Number(
+                    m.psv_smc
+                  ),
+
+                giorni:
+                  Number(
+                    m.giorni
+                  ) || 0
+
+              };
+
+            }),
+
+
+        generatedAt:
+          formatDateTime(
+            api.aggiornato
+          )
 
       };
 
     }
 
 
-    return {
+    /* ===================================================
+       DATE
+    =================================================== */
 
-      min:
-        min - r * 0.12,
+    function formatDate(value){
 
-      max:
-        max + r * 0.12
-
-    };
-
-  }
+      if(!value){
+        return "—";
+      }
 
 
-  const pr =
-    range(
-      punMin,
-      punMax
-    );
+      const date =
+        new Date(value);
 
 
-  const gr =
-    range(
-      psvMin,
-      psvMax
-    );
+      if(
+        isNaN(
+          date.getTime()
+        )
+      ){
+
+        return String(value);
+
+      }
 
 
-  function x(i){
+      return new Intl.DateTimeFormat(
+        "it-IT",
+        {
+          day:
+            "2-digit",
 
-    if(
-      rows.length === 1
+          month:
+            "2-digit",
+
+          year:
+            "numeric"
+        }
+      ).format(date);
+
+    }
+
+
+    function formatDateTime(value){
+
+      if(!value){
+        return "—";
+      }
+
+
+      const date =
+        new Date(value);
+
+
+      if(
+        isNaN(
+          date.getTime()
+        )
+      ){
+
+        return String(value);
+
+      }
+
+
+      return new Intl.DateTimeFormat(
+        "it-IT",
+        {
+          day:
+            "2-digit",
+
+          month:
+            "2-digit",
+
+          year:
+            "numeric",
+
+          hour:
+            "2-digit",
+
+          minute:
+            "2-digit"
+        }
+      ).format(date);
+
+    }
+
+
+    /* ===================================================
+       FORMAT NUMERI
+    =================================================== */
+
+    function fmt(
+      value,
+      decimals
     ){
 
+      if(
+        value === null ||
+        value === undefined ||
+        !isFinite(value)
+      ){
+
+        return "—";
+
+      }
+
+
+      return Number(value)
+        .toLocaleString(
+          "it-IT",
+          {
+            minimumFractionDigits:
+              decimals,
+
+            maximumFractionDigits:
+              decimals
+          }
+        );
+
+    }
+
+
+    /* ===================================================
+       VARIAZIONI
+    =================================================== */
+
+    function changeHtml(
+      value
+    ){
+
+      if(
+        value === null ||
+        value === undefined ||
+        !isFinite(value)
+      ){
+
+        return "Variazione non disponibile";
+
+      }
+
+
+      const arrow =
+        value > 0
+          ? "▲"
+          : value < 0
+            ? "▼"
+            : "•";
+
+
+      const sign =
+        value > 0
+          ? "+"
+          : "";
+
+
       return (
-        pad.l +
-        iw / 2
+        arrow +
+        " " +
+        sign +
+        fmt(
+          value,
+          1
+        ) +
+        "% vs giorno precedente"
       );
 
     }
 
 
-    return (
-      pad.l +
-      (
-        i /
-        (rows.length - 1)
-      ) *
-      iw
-    );
+    function plainChange(
+      value
+    ){
 
-  }
+      if(
+        value === null ||
+        value === undefined ||
+        !isFinite(value)
+      ){
+
+        return "n.d.";
+
+      }
 
 
-  function y(
-    value,
-    min,
-    max
-  ){
+      const sign =
+        value > 0
+          ? "+"
+          : "";
 
-    return (
-      pad.t +
-      (
-        1 -
-        (
-          (value - min) /
-          (max - min)
+
+      return (
+        sign +
+        fmt(
+          value,
+          1
+        ) +
+        "%"
+      );
+
+    }
+
+
+    /* ===================================================
+       RENDER
+    =================================================== */
+
+    function render(
+      data
+    ){
+
+      if(!data){
+        return;
+      }
+
+
+      /*
+       * PUN
+       */
+
+      document
+        .getElementById(
+          "punValue"
         )
-      ) *
-      ih
-    );
-
-  }
-
-
-  /* GRIGLIA */
-
-  ctx.strokeStyle =
-    "#e5e7eb";
-
-
-  ctx.lineWidth =
-    1;
-
-
-  for(
-    let i=0;
-    i<5;
-    i++
-  ){
-
-    const yy =
-      pad.t +
-      (
-        i / 4
-      ) *
-      ih;
-
-
-    ctx.beginPath();
-
-
-    ctx.moveTo(
-      pad.l,
-      yy
-    );
-
-
-    ctx.lineTo(
-      w - pad.r,
-      yy
-    );
-
-
-    ctx.stroke();
-
-  }
-
-
-  /* ASSI */
-
-  ctx.strokeStyle =
-    "#cbd5e1";
-
-
-  ctx.lineWidth =
-    1;
-
-
-  ctx.beginPath();
-
-
-  ctx.moveTo(
-    pad.l,
-    pad.t
-  );
-
-
-  ctx.lineTo(
-    pad.l,
-    h - pad.b
-  );
-
-
-  ctx.stroke();
-
-
-  ctx.beginPath();
-
-
-  ctx.moveTo(
-    w - pad.r,
-    pad.t
-  );
-
-
-  ctx.lineTo(
-    w - pad.r,
-    h - pad.b
-  );
-
-
-  ctx.stroke();
-
-
-  /* ETICHETTE PUN */
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-
-  ctx.font =
-    "11px Arial";
-
-
-  ctx.textAlign =
-    "right";
-
-
-  for(
-    let i=0;
-    i<5;
-    i++
-  ){
-
-    const value =
-      pr.max -
-      (
-        i / 4
-      ) *
-      (
-        pr.max -
-        pr.min
-      );
-
-
-    const yy =
-      pad.t +
-      (
-        i / 4
-      ) *
-      ih;
-
-
-    ctx.fillText(
-      fmt(value,3),
-      pad.l - 8,
-      yy + 4
-    );
-
-  }
-
-
-  /* ETICHETTE PSV */
-
-  ctx.fillStyle =
-    "#d97706";
-
-
-  ctx.textAlign =
-    "left";
-
-
-  for(
-    let i=0;
-    i<5;
-    i++
-  ){
-
-    const value =
-      gr.max -
-      (
-        i / 4
-      ) *
-      (
-        gr.max -
-        gr.min
-      );
-
-
-    const yy =
-      pad.t +
-      (
-        i / 4
-      ) *
-      ih;
-
-
-    ctx.fillText(
-      fmt(value,3),
-      w - pad.r + 8,
-      yy + 4
-    );
-
-  }
-
-
-  /* LINEE */
-
-  function drawLine(
-    key,
-    scale,
-    stroke
-  ){
-
-    ctx.beginPath();
-
-
-    rows.forEach(
-      function(row,i){
-
-        const xx =
-          x(i);
-
-
-        const yy =
-          y(
-            Number(row[key]),
-            scale.min,
-            scale.max
+        .textContent =
+          fmt(
+            data.latest.pun,
+            5
           );
 
 
-        if(i === 0){
+      const punChange =
+        document.getElementById(
+          "punChange"
+        );
 
-          ctx.moveTo(
-            xx,
-            yy
+
+      punChange.textContent =
+        changeHtml(
+          data.latest.punChange
+        );
+
+
+      punChange.className =
+        "card-change " +
+        (
+          data.latest.punChange > 0
+            ? "up"
+            : data.latest.punChange === 0
+              ? "neutral"
+              : ""
+        );
+
+
+      document
+        .getElementById(
+          "punDate"
+        )
+        .textContent =
+          "Dato: " +
+          data.latest.punDate;
+
+
+      /*
+       * PSV
+       */
+
+      document
+        .getElementById(
+          "psvValue"
+        )
+        .textContent =
+          fmt(
+            data.latest.psv,
+            5
           );
 
-        }else{
 
-          ctx.lineTo(
-            xx,
-            yy
+      const psvChange =
+        document.getElementById(
+          "psvChange"
+        );
+
+
+      psvChange.textContent =
+        changeHtml(
+          data.latest.psvChange
+        );
+
+
+      psvChange.className =
+        "card-change " +
+        (
+          data.latest.psvChange > 0
+            ? "up"
+            : data.latest.psvChange === 0
+              ? "neutral"
+              : ""
+        );
+
+
+      document
+        .getElementById(
+          "psvDate"
+        )
+        .textContent =
+          "Dato: " +
+          data.latest.psvDate;
+
+
+      /*
+       * MEDIA MENSILE
+       */
+
+      renderMonthlyAverage(
+        data
+      );
+
+
+      /*
+       * GRAFICO
+       */
+
+      drawChart(
+        data.history
+      );
+
+
+      /*
+       * SOCIAL
+       */
+
+      generateSocial(
+        data
+      );
+
+    }
+
+
+    /* ===================================================
+       MEDIA MENSILE
+    =================================================== */
+
+    function renderMonthlyAverage(
+      data
+    ){
+
+      const monthly =
+        data.monthly;
+
+
+      let period =
+        "";
+
+
+      if(
+        monthly.mese &&
+        monthly.anno
+      ){
+
+        period =
+          monthly.mese +
+          " " +
+          monthly.anno;
+
+      } else {
+
+        period =
+          "Ultimo mese disponibile";
+
+      }
+
+
+      document
+        .getElementById(
+          "monthlyPeriod"
+        )
+        .textContent =
+          period;
+
+
+      document
+        .getElementById(
+          "monthlyDays"
+        )
+        .textContent =
+          monthly.giorni +
+          " giorni disponibili";
+
+
+      document
+        .getElementById(
+          "monthlyPun"
+        )
+        .textContent =
+          fmt(
+            monthly.pun,
+            5
+          );
+
+
+      document
+        .getElementById(
+          "monthlyPsv"
+        )
+        .textContent =
+          fmt(
+            monthly.psv,
+            5
+          );
+
+
+      document
+        .getElementById(
+          "monthlyDaysValue"
+        )
+        .textContent =
+          monthly.giorni;
+
+    }
+
+
+    /* ===================================================
+       CONFRONTO
+    =================================================== */
+
+    function runComparison(){
+
+      if(!DATA){
+        return;
+      }
+
+
+      const type =
+        document
+          .getElementById(
+            "comparisonType"
+          )
+          .value;
+
+
+      const input =
+        document
+          .getElementById(
+            "comparisonValue"
+          )
+          .value;
+
+
+      const value =
+        Number(
+          String(input)
+            .replace(",", ".")
+        );
+
+
+      const result =
+        document
+          .getElementById(
+            "comparisonResult"
+          );
+
+
+      if(
+        !isFinite(value)
+      ){
+
+        result.textContent =
+          "Inserisci un valore valido.";
+
+        result.className =
+          "comparison-result visible";
+
+        return;
+
+      }
+
+
+      const reference =
+        type === "pun"
+          ? DATA.latest.pun
+          : DATA.latest.psv;
+
+
+      const unit =
+        type === "pun"
+          ? "€/kWh"
+          : "€/Smc";
+
+
+      const date =
+        type === "pun"
+          ? DATA.latest.punDate
+          : DATA.latest.psvDate;
+
+
+      if(
+        !isFinite(reference) ||
+        reference === 0
+      ){
+
+        result.textContent =
+          "Il dato di riferimento non è disponibile.";
+
+        result.className =
+          "comparison-result visible";
+
+        return;
+
+      }
+
+
+      const difference =
+        (
+          (
+            value -
+            reference
+          ) /
+          reference
+        ) *
+        100;
+
+
+      const absolute =
+        value -
+        reference;
+
+
+      let direction =
+        "";
+
+
+      if(
+        difference > 0
+      ){
+
+        direction =
+          "superiore";
+
+      } else if(
+        difference < 0
+      ){
+
+        direction =
+          "inferiore";
+
+      } else {
+
+        direction =
+          "uguale";
+
+      }
+
+
+      result.innerHTML =
+        "<strong>" +
+        fmt(
+          value,
+          5
+        ) +
+        " " +
+        unit +
+        "</strong>" +
+        "<br><br>" +
+
+        "Indice " +
+        type.toUpperCase() +
+        ": " +
+        "<strong>" +
+        fmt(
+          reference,
+          5
+        ) +
+        " " +
+        unit +
+        "</strong>" +
+
+        "<br>" +
+
+        "Il valore inserito è " +
+        direction +
+        " del " +
+        "<strong>" +
+        Math.abs(
+          difference
+        ).toLocaleString(
+          "it-IT",
+          {
+            minimumFractionDigits:
+              1,
+
+            maximumFractionDigits:
+              1
+          }
+        ) +
+        "%</strong> rispetto all'indice." +
+
+        "<br>" +
+
+        "Dato indice: " +
+        date;
+
+
+      result.className =
+        "comparison-result visible";
+
+    }
+
+
+    function setupComparisonEvents(){
+
+      document
+        .getElementById(
+          "comparisonButton"
+        )
+        .addEventListener(
+          "click",
+          runComparison
+        );
+
+
+      document
+        .getElementById(
+          "comparisonValue"
+        )
+        .addEventListener(
+          "keydown",
+          function(event){
+
+            if(
+              event.key === "Enter"
+            ){
+
+              runComparison();
+
+            }
+
+          }
+        );
+
+    }
+
+
+    function scrollToComparison(){
+
+      const element =
+        document
+          .getElementById(
+            "comparisonType"
+          );
+
+
+      if(element){
+
+        element
+          .scrollIntoView({
+            behavior:
+              "smooth",
+            block:
+              "center"
+          });
+
+      }
+
+    }
+
+
+    /* ===================================================
+       GRAFICO
+    =================================================== */
+
+    function drawChart(
+      rows
+    ){
+
+      const canvas =
+        document
+          .getElementById(
+            "energyChart"
+          );
+
+
+      if(!canvas){
+        return;
+      }
+
+
+      const ctx =
+        canvas.getContext(
+          "2d"
+        );
+
+
+      const parent =
+        canvas.parentElement;
+
+
+      const width =
+        parent.clientWidth;
+
+
+      const height =
+        parent.clientHeight;
+
+
+      const dpr =
+        window.devicePixelRatio ||
+        1;
+
+
+      canvas.width =
+        width *
+        dpr;
+
+
+      canvas.height =
+        height *
+        dpr;
+
+
+      canvas.style.width =
+        width +
+        "px";
+
+
+      canvas.style.height =
+        height +
+        "px";
+
+
+      ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+
+
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      if(
+        !rows ||
+        !rows.length
+      ){
+
+        ctx.fillStyle =
+          "#687581";
+
+        ctx.font =
+          "14px Arial";
+
+        ctx.textAlign =
+          "center";
+
+        ctx.fillText(
+          "Dati non disponibili",
+          width / 2,
+          height / 2
+        );
+
+        return;
+
+      }
+
+
+      const validRows =
+        rows.filter(
+          function(r){
+
+            return (
+              isFinite(r.pun) &&
+              isFinite(r.psv)
+            );
+
+          }
+        );
+
+
+      if(!validRows.length){
+        return;
+      }
+
+
+      const padding = {
+
+        top:
+          25,
+
+        right:
+          25,
+
+        bottom:
+          55,
+
+        left:
+          60
+
+      };
+
+
+      const chartWidth =
+        width -
+        padding.left -
+        padding.right;
+
+
+      const chartHeight =
+        height -
+        padding.top -
+        padding.bottom;
+
+
+      const allValues =
+        [];
+
+
+      validRows.forEach(
+        function(r){
+
+          allValues.push(
+            r.pun
+          );
+
+          allValues.push(
+            r.psv
+          );
+
+        }
+      );
+
+
+      let minValue =
+        Math.min.apply(
+          null,
+          allValues
+        );
+
+
+      let maxValue =
+        Math.max.apply(
+          null,
+          allValues
+        );
+
+
+      const range =
+        maxValue -
+        minValue;
+
+
+      const margin =
+        range === 0
+          ? 0.05
+          : range * 0.12;
+
+
+      minValue -=
+        margin;
+
+
+      maxValue +=
+        margin;
+
+
+      function xPosition(
+        index
+      ){
+
+        if(
+          validRows.length === 1
+        ){
+
+          return (
+            padding.left +
+            chartWidth / 2
           );
 
         }
 
+
+        return (
+          padding.left +
+          (
+            index /
+            (
+              validRows.length - 1
+            )
+          ) *
+          chartWidth
+        );
+
       }
-    );
 
 
-    ctx.strokeStyle =
-      stroke;
+      function yPosition(
+        value
+      ){
+
+        return (
+          padding.top +
+          (
+            1 -
+            (
+              (
+                value -
+                minValue
+              ) /
+              (
+                maxValue -
+                minValue
+              )
+            )
+          ) *
+          chartHeight
+        );
+
+      }
 
 
-    ctx.lineWidth =
-      3;
+      /* GRIGLIA */
+
+      ctx.strokeStyle =
+        "#e5eaee";
+
+      ctx.lineWidth =
+        1;
 
 
-    ctx.lineJoin =
-      "round";
+      const gridCount =
+        5;
 
 
-    ctx.lineCap =
-      "round";
+      for(
+        let i = 0;
+        i <= gridCount;
+        i++
+      ){
+
+        const y =
+          padding.top +
+          (
+            i /
+            gridCount
+          ) *
+          chartHeight;
 
 
-    ctx.stroke();
+        ctx.beginPath();
+
+        ctx.moveTo(
+          padding.left,
+          y
+        );
+
+        ctx.lineTo(
+          width -
+          padding.right,
+          y
+        );
+
+        ctx.stroke();
 
 
-    rows.forEach(
-      function(row,i){
-
-        const xx =
-          x(i);
-
-
-        const yy =
-          y(
-            Number(row[key]),
-            scale.min,
-            scale.max
+        const value =
+          maxValue -
+          (
+            i /
+            gridCount
+          ) *
+          (
+            maxValue -
+            minValue
           );
+
+
+        ctx.fillStyle =
+          "#687581";
+
+        ctx.font =
+          "11px Arial";
+
+        ctx.textAlign =
+          "right";
+
+        ctx.fillText(
+          fmt(
+            value,
+            3
+          ),
+          padding.left - 8,
+          y + 4
+        );
+
+      }
+
+
+      /* ASSE X */
+
+      ctx.strokeStyle =
+        "#d8e0e5";
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        padding.left,
+        height -
+        padding.bottom
+      );
+
+      ctx.lineTo(
+        width -
+        padding.right,
+        height -
+        padding.bottom
+      );
+
+      ctx.stroke();
+
+
+      /* ETICHETTE DATE */
+
+      const labelCount =
+        Math.min(
+          6,
+          validRows.length
+        );
+
+
+      for(
+        let i = 0;
+        i < labelCount;
+        i++
+      ){
+
+        const index =
+          Math.round(
+            (
+              i /
+              Math.max(
+                1,
+                labelCount - 1
+              )
+            ) *
+            (
+              validRows.length - 1
+            )
+          );
+
+
+        const row =
+          validRows[index];
+
+
+        const x =
+          xPosition(index);
+
+
+        ctx.fillStyle =
+          "#687581";
+
+        ctx.font =
+          "10px Arial";
+
+        ctx.textAlign =
+          "center";
+
+
+        ctx.fillText(
+          row.date,
+          x,
+          height -
+          padding.bottom +
+          22
+        );
+
+      }
+
+
+      function drawLine(
+        field,
+        lineColor
+      ){
+
+        ctx.strokeStyle =
+          lineColor;
+
+        ctx.lineWidth =
+          2.5;
+
+        ctx.lineJoin =
+          "round";
+
+        ctx.lineCap =
+          "round";
 
 
         ctx.beginPath();
 
 
-        ctx.arc(
-          xx,
-          yy,
-          4,
-          0,
-          Math.PI * 2
+        validRows.forEach(
+          function(row, index){
+
+            const x =
+              xPosition(index);
+
+
+            const y =
+              yPosition(
+                row[field]
+              );
+
+
+            if(index === 0){
+
+              ctx.moveTo(
+                x,
+                y
+              );
+
+            } else {
+
+              ctx.lineTo(
+                x,
+                y
+              );
+
+            }
+
+          }
         );
 
 
-        ctx.fillStyle =
-          stroke;
+        ctx.stroke();
 
 
-        ctx.fill();
+        validRows.forEach(
+          function(row, index){
+
+            const x =
+              xPosition(index);
+
+
+            const y =
+              yPosition(
+                row[field]
+              );
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+              x,
+              y,
+              3,
+              0,
+              Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+              lineColor;
+
+            ctx.fill();
+
+          }
+        );
 
       }
-    );
-
-  }
 
 
-  drawLine(
-    "pun",
-    pr,
-    "#0b6bcb"
-  );
+      /*
+       * I due indici hanno unità diverse.
+       *
+       * Il grafico mostra quindi l'andamento
+       * relativo dei due valori sulla stessa
+       * area visiva.
+       */
+
+      drawLine(
+        "pun",
+        "#173f5f"
+      );
 
 
-  drawLine(
-    "psv",
-    gr,
-    "#d97706"
-  );
+      drawLine(
+        "psv",
+        "#ef6c00"
+      );
+
+    }
 
 
-  /* DATE */
+    /* ===================================================
+       SOCIAL
+    =================================================== */
 
-  ctx.fillStyle =
-    "#6b7280";
+    function generateSocial(
+      data
+    ){
+
+      const canvas =
+        document
+          .getElementById(
+            "socialCanvas"
+          );
 
 
-  ctx.font =
-    "11px Arial";
+      if(!canvas){
+        return;
+      }
 
 
-  ctx.textAlign =
-    "center";
+      const ctx =
+        canvas.getContext(
+          "2d"
+        );
 
 
-  rows.forEach(
-    function(row,i){
+      const width =
+        canvas.width;
+
+
+      const height =
+        canvas.height;
+
+
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      /*
+       * Sfondo
+       */
+
+      const gradient =
+        ctx.createLinearGradient(
+          0,
+          0,
+          width,
+          height
+        );
+
+
+      gradient.addColorStop(
+        0,
+        "#102f47"
+      );
+
+
+      gradient.addColorStop(
+        1,
+        "#173f5f"
+      );
+
+
+      ctx.fillStyle =
+        gradient;
+
+
+      ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+
+      /*
+       * Titolo
+       */
+
+      ctx.fillStyle =
+        "#ffffff";
+
+      ctx.font =
+        "bold 58px Arial";
+
+      ctx.fillText(
+        "GiOKri Life",
+        70,
+        105
+      );
+
+
+      ctx.font =
+        "bold 42px Arial";
+
+      ctx.fillText(
+        "OSSERVATORIO ENERGIA",
+        70,
+        165
+      );
+
+
+      ctx.font =
+        "28px Arial";
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.78)";
+
+
+      ctx.fillText(
+        "Ultimo dato disponibile per ciascun indice",
+        70,
+        215
+      );
+
+
+      /*
+       * PUN BOX
+       */
+
+      ctx.fillStyle =
+        "#ffffff";
+
+
+      roundRect(
+        ctx,
+        65,
+        285,
+        950,
+        250,
+        28
+      );
+
+
+      ctx.fillStyle =
+        "#173f5f";
+
+      ctx.font =
+        "bold 34px Arial";
+
+
+      ctx.fillText(
+        "⚡ PUN Index GME",
+        105,
+        345
+      );
+
+
+      ctx.font =
+        "bold 76px Arial";
+
+
+      ctx.fillText(
+        fmt(
+          data.latest.pun,
+          5
+        ),
+        105,
+        435
+      );
+
+
+      ctx.font =
+        "30px Arial";
+
+      ctx.fillStyle =
+        "#687581";
+
+
+      ctx.fillText(
+        "€/kWh",
+        105,
+        480
+      );
+
+
+      ctx.font =
+        "bold 28px Arial";
+
+      ctx.fillStyle =
+        data.latest.punChange < 0
+          ? "#2e7d32"
+          : data.latest.punChange > 0
+            ? "#c62828"
+            : "#687581";
+
+
+      ctx.fillText(
+        plainChange(
+          data.latest.punChange
+        ) +
+        " vs giorno precedente",
+        520,
+        350
+      );
+
+
+      ctx.font =
+        "26px Arial";
+
+      ctx.fillStyle =
+        "#687581";
+
+
+      ctx.fillText(
+        "Dato: " +
+        data.latest.punDate,
+        520,
+        405
+      );
+
+
+      /*
+       * PSV BOX
+       */
+
+      ctx.fillStyle =
+        "#ffffff";
+
+
+      roundRect(
+        ctx,
+        65,
+        575,
+        950,
+        250,
+        28
+      );
+
+
+      ctx.fillStyle =
+        "#ef6c00";
+
+      ctx.font =
+        "bold 34px Arial";
+
+
+      ctx.fillText(
+        "🔥 PSV",
+        105,
+        635
+      );
+
+
+      ctx.font =
+        "bold 76px Arial";
+
+
+      ctx.fillText(
+        fmt(
+          data.latest.psv,
+          5
+        ),
+        105,
+        725
+      );
+
+
+      ctx.font =
+        "30px Arial";
+
+      ctx.fillStyle =
+        "#687581";
+
+
+      ctx.fillText(
+        "€/Smc",
+        105,
+        770
+      );
+
+
+      ctx.font =
+        "bold 28px Arial";
+
+      ctx.fillStyle =
+        data.latest.psvChange < 0
+          ? "#2e7d32"
+          : data.latest.psvChange > 0
+            ? "#c62828"
+            : "#687581";
+
+
+      ctx.fillText(
+        plainChange(
+          data.latest.psvChange
+        ) +
+        " vs giorno precedente",
+        520,
+        640
+      );
+
+
+      ctx.font =
+        "26px Arial";
+
+      ctx.fillStyle =
+        "#687581";
+
+
+      ctx.fillText(
+        "Dato: " +
+        data.latest.psvDate,
+        520,
+        695
+      );
+
+
+      /*
+       * FOOTER SOCIAL
+       */
+
+      ctx.font =
+        "23px Arial";
+
+      ctx.fillStyle =
+        "rgba(255,255,255,.75)";
+
+
+      ctx.fillText(
+        "www.giokrilife.it",
+        70,
+        955
+      );
+
+    }
+
+
+    function roundRect(
+      ctx,
+      x,
+      y,
+      width,
+      height,
+      radius
+    ){
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        x + radius,
+        y
+      );
+
+      ctx.lineTo(
+        x + width - radius,
+        y
+      );
+
+      ctx.quadraticCurveTo(
+        x + width,
+        y,
+        x + width,
+        y + radius
+      );
+
+      ctx.lineTo(
+        x + width,
+        y + height - radius
+      );
+
+      ctx.quadraticCurveTo(
+        x + width,
+        y + height,
+        x + width - radius,
+        y + height
+      );
+
+      ctx.lineTo(
+        x + radius,
+        y + height
+      );
+
+      ctx.quadraticCurveTo(
+        x,
+        y + height,
+        x,
+        y + height - radius
+      );
+
+      ctx.lineTo(
+        x,
+        y + radius
+      );
+
+      ctx.quadraticCurveTo(
+        x,
+        y,
+        x + radius,
+        y
+      );
+
+      ctx.closePath();
+
+      ctx.fill();
+
+    }
+
+
+    /* ===================================================
+       DOWNLOAD SOCIAL
+    =================================================== */
+
+    function downloadSocialCard(){
+
+      const canvas =
+        document
+          .getElementById(
+            "socialCanvas"
+          );
+
+
+      if(!canvas){
+        return;
+      }
+
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+
+      link.download =
+        "giokri-life-osservatorio-energia.png";
+
+
+      link.href =
+        canvas.toDataURL(
+          "image/png"
+        );
+
+
+      link.click();
+
+    }
+
+
+    /* ===================================================
+       COPY POST
+    =================================================== */
+
+    function copyPost(){
+
+      if(!DATA){
+        return;
+      }
+
+
+      const text =
+        "⚡ GiOKri Life | Osservatorio Energia\n\n" +
+
+        "PUN Index GME\n" +
+
+        fmt(
+          DATA.latest.pun,
+          5
+        ) +
+        " €/kWh\n" +
+
+        plainChange(
+          DATA.latest.punChange
+        ) +
+        " vs giorno precedente\n" +
+
+        "Dato: " +
+        DATA.latest.punDate +
+        "\n\n" +
+
+        "🔥 PSV\n" +
+
+        fmt(
+          DATA.latest.psv,
+          5
+        ) +
+        " €/Smc\n" +
+
+        plainChange(
+          DATA.latest.psvChange
+        ) +
+        " vs giorno precedente\n" +
+
+        "Dato: " +
+        DATA.latest.psvDate +
+        "\n\n" +
+
+        "I valori si riferiscono all'ultimo giorno disponibile per ciascun indice.\n\n" +
+
+        "GiOKri Life | Osservatorio Energia";
+
 
       if(
-        i === 0 ||
-        i === rows.length - 1 ||
-        i % 5 === 0
+        navigator.clipboard &&
+        navigator.clipboard.writeText
       ){
 
-        ctx.fillText(
-          row.date,
-          x(i),
-          h - 15
+        navigator.clipboard
+          .writeText(
+            text
+          )
+          .then(
+            function(){
+
+              const button =
+                document
+                  .getElementById(
+                    "copyPostButton"
+                  );
+
+
+              const oldText =
+                button.textContent;
+
+
+              button.textContent =
+                "Testo copiato";
+
+
+              setTimeout(
+                function(){
+
+                  button.textContent =
+                    oldText;
+
+                },
+                1800
+              );
+
+            }
+          )
+          .catch(
+            function(){
+
+              fallbackCopy(
+                text
+              );
+
+            }
+          );
+
+      } else {
+
+        fallbackCopy(
+          text
         );
 
       }
 
     }
-  );
 
 
-  /* TITOLI ASSI */
-
-  ctx.save();
-
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-
-  ctx.font =
-    "bold 11px Arial";
-
-
-  ctx.textAlign =
-    "left";
-
-
-  ctx.fillText(
-    "PUN €/kWh",
-    pad.l,
-    14
-  );
-
-
-  ctx.fillStyle =
-    "#d97706";
-
-
-  ctx.textAlign =
-    "right";
-
-
-  ctx.fillText(
-    "PSV €/Smc",
-    w - pad.r,
-    14
-  );
-
-
-  ctx.restore();
-
-}
-
-
-/* =====================================================
-   SOCIAL CARD
-===================================================== */
-
-function generateSocial(){
-
-  if(!DATA){
-
-    return;
-
-  }
-
-
-  const c =
-    document.getElementById(
-      "socialCard"
-    );
-
-
-  if(!c){
-
-    return;
-
-  }
-
-
-  const ctx =
-    c.getContext("2d");
-
-
-  ctx.clearRect(
-    0,
-    0,
-    1080,
-    1080
-  );
-
-
-  ctx.fillStyle =
-    "#f5f7fa";
-
-
-  ctx.fillRect(
-    0,
-    0,
-    1080,
-    1080
-  );
-
-
-  /* TITOLO */
-
-  ctx.fillStyle =
-    "#18212b";
-
-
-  ctx.font =
-    "bold 50px Arial";
-
-
-  ctx.fillText(
-    "GIORNATA ENERGETICA",
-    65,
-    90
-  );
-
-
-  ctx.font =
-    "26px Arial";
-
-
-  ctx.fillStyle =
-    "#6b7280";
-
-
-  ctx.fillText(
-    "GiOKri Life | Ultimo dato disponibile",
-    65,
-    132
-  );
-
-
-  /* PUN */
-
-  ctx.fillStyle =
-    "#ffffff";
-
-
-  ctx.fillRect(
-    55,
-    175,
-    970,
-    205
-  );
-
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-
-  ctx.font =
-    "bold 32px Arial";
-
-
-  ctx.fillText(
-    "PUN",
-    85,
-    225
-  );
-
-
-  ctx.fillStyle =
-    "#18212b";
-
-
-  ctx.font =
-    "bold 64px Arial";
-
-
-  ctx.fillText(
-    fmt(DATA.latest.pun,5) +
-    " €/kWh",
-    85,
-    300
-  );
-
-
-  ctx.font =
-    "23px Arial";
-
-
-  ctx.fillStyle =
-    "#6b7280";
-
-
-  ctx.fillText(
-    DATA.latest.punDate,
-    85,
-    345
-  );
-
-
-  /* PSV */
-
-  ctx.fillStyle =
-    "#ffffff";
-
-
-  ctx.fillRect(
-    55,
-    405,
-    970,
-    205
-  );
-
-
-  ctx.fillStyle =
-    "#d97706";
-
-
-  ctx.font =
-    "bold 32px Arial";
-
-
-  ctx.fillText(
-    "PSV",
-    85,
-    455
-  );
-
-
-  ctx.fillStyle =
-    "#18212b";
-
-
-  ctx.font =
-    "bold 64px Arial";
-
-
-  ctx.fillText(
-    fmt(DATA.latest.psv,5) +
-    " €/Smc",
-    85,
-    530
-  );
-
-
-  ctx.font =
-    "23px Arial";
-
-
-  ctx.fillStyle =
-    "#6b7280";
-
-
-  ctx.fillText(
-    DATA.latest.psvDate,
-    85,
-    575
-  );
-
-
-  /* SPIEGAZIONE */
-
-  ctx.fillStyle =
-    "#18212b";
-
-
-  ctx.font =
-    "bold 31px Arial";
-
-
-  ctx.fillText(
-    "COME LEGGERE LA TUA BOLLETTA",
-    65,
-    675
-  );
-
-
-  ctx.font =
-    "24px Arial";
-
-
-  ctx.fillStyle =
-    "#18212b";
-
-
-  ctx.fillText(
-    "1. Prendi la tua bolletta",
-    75,
-    725
-  );
-
-
-  ctx.fillText(
-    "2. Cerca il prezzo €/kWh o €/Smc",
-    75,
-    765
-  );
-
-
-  ctx.fillText(
-    "3. Confrontalo con PUN o PSV",
-    75,
-    805
-  );
-
-
-  ctx.font =
-    "20px Arial";
-
-
-  ctx.fillStyle =
-    "#6b7280";
-
-
-  ctx.fillText(
-    "Il confronto aiuta a capire quanto pesa",
-    75,
-    845
-  );
-
-
-  ctx.fillText(
-    "il prezzo applicato dal tuo fornitore.",
-    75,
-    875
-  );
-
-
-  /* CTA */
-
-  ctx.fillStyle =
-    "#0b6bcb";
-
-
-  ctx.fillRect(
-    65,
-    915,
-    950,
-    72
-  );
-
-
-  ctx.fillStyle =
-    "#ffffff";
-
-
-  ctx.font =
-    "bold 27px Arial";
-
-
-  ctx.textAlign =
-    "center";
-
-
-  ctx.fillText(
-    "PRENOTA UNA VERIFICA GRATUITA",
-    540,
-    960
-  );
-
-
-  ctx.textAlign =
-    "left";
-
-
-  /* TESTO SOCIAL */
-
-  const text =
-`GIORNATA ENERGETICA | ${DATA.latest.punDate}
-
-⚡ PUN: ${fmt(DATA.latest.pun,5)} €/kWh
-${plainChange(DATA.latest.punChange)}
-
-🔥 PSV: ${fmt(DATA.latest.psv,5)} €/Smc
-${plainChange(DATA.latest.psvChange)}
-
-COME LEGGERE LA TUA BOLLETTA
-
-1️⃣ Prendi la tua bolletta.
-2️⃣ Cerca il prezzo dell'energia in €/kWh o €/Smc.
-3️⃣ Confrontalo con il PUN o il PSV del periodo.
-
-La differenza può aiutarti a capire quanto pesa il prezzo applicato dal tuo fornitore.
-
-⚠️ Il confronto è indicativo: il prezzo finale può comprendere spread, quote fisse, perdite di rete e altre componenti contrattuali.
-
-Vuoi capire davvero quanto stai pagando?
-
-📅 Prenota una verifica gratuita con GiOKri Life:
-${BOOKING_URL}
-
-#GiOKriLife #PUN #PSV #Energia #Bollette #Risparmio`;
-
-
-  const post =
-    document.getElementById(
-      "postText"
-    );
-
-
-  if(post){
-
-    post.textContent =
-      text;
-
-  }
-
-}
-
-
-/* =====================================================
-   DOWNLOAD SOCIAL CARD
-===================================================== */
-
-function downloadSocialCard(){
-
-  if(!DATA){
-
-    alert(
-      "Attendi il caricamento dei dati."
-    );
-
-    return;
-
-  }
-
-
-  const canvas =
-    document.getElementById(
-      "socialCard"
-    );
-
-
-  if(!canvas){
-
-    return;
-
-  }
-
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-
-  const data =
-    DATA.latest.punDate
-      .replaceAll(
-        "/",
-        "-"
-      );
-
-
-  link.download =
-    "GiOKri-Life-Giornata-Energetica-" +
-    data +
-    ".png";
-
-
-  link.href =
-    canvas.toDataURL(
-      "image/png"
-    );
-
-
-  link.click();
-
-}
-
-
-/* =====================================================
-   COPIA TESTO
-===================================================== */
-
-async function copyPost(){
-
-  const element =
-    document.getElementById(
-      "postText"
-    );
-
-
-  if(!element){
-
-    return;
-
-  }
-
-
-  const text =
-    element.textContent;
-
-
-  try{
-
-    await navigator.clipboard.writeText(
+    function fallbackCopy(
       text
-    );
+    ){
+
+      const textarea =
+        document.createElement(
+          "textarea"
+        );
 
 
-    alert(
-      "Testo del post copiato negli appunti."
-    );
+      textarea.value =
+        text;
 
-  }
-  catch(e){
 
-    const area =
-      document.createElement(
-        "textarea"
+      textarea.style.position =
+        "fixed";
+
+
+      textarea.style.opacity =
+        "0";
+
+
+      document.body.appendChild(
+        textarea
       );
 
 
-    area.value =
-      text;
+      textarea.select();
 
 
-    document.body.appendChild(
-      area
-    );
+      try {
+
+        document.execCommand(
+          "copy"
+        );
+
+      } catch(e) {}
 
 
-    area.select();
-
-
-    try{
-
-      document.execCommand(
-        "copy"
-      );
-
-
-      alert(
-        "Testo del post copiato negli appunti."
-      );
-
-    }
-    catch(err){
-
-      alert(
-        "Non è stato possibile copiare automaticamente il testo."
-      );
+      textarea.remove();
 
     }
 
 
-    area.remove();
+    /* ===================================================
+       BOOKING
+    =================================================== */
 
-  }
+    function goToBooking(){
 
-}
-
-
-/* =====================================================
-   PRENOTAZIONE
-===================================================== */
-
-function goToBooking(){
-
-  window.open(
-    BOOKING_URL,
-    "_blank",
-    "noopener,noreferrer"
-  );
-
-}
-
-
-/* =====================================================
-   ERRORI GENERALI
-===================================================== */
-
-function showError(text){
-
-  const e =
-    document.getElementById(
-      "error"
-    );
-
-
-  if(!e){
-
-    return;
-
-  }
-
-
-  e.textContent =
-    text;
-
-
-  e.style.display =
-    "block";
-
-}
-
-
-function hideError(){
-
-  const e =
-    document.getElementById(
-      "error"
-    );
-
-
-  if(!e){
-
-    return;
-
-  }
-
-
-  e.style.display =
-    "none";
-
-}
-
-
-/* =====================================================
-   RESIZE
-===================================================== */
-
-window.addEventListener(
-  "resize",
-  function(){
-
-    if(DATA){
-
-      drawChart(
-        DATA.history
+      window.open(
+        BOOKING_URL,
+        "_blank"
       );
 
     }
 
-  }
-);
+
+    /* ===================================================
+       ERROR
+    =================================================== */
+
+    function showError(
+      message
+    ){
+
+      const box =
+        document
+          .getElementById(
+            "errorBox"
+          );
 
 
-/* =====================================================
-   AVVIO
-===================================================== */
+      box.textContent =
+        message;
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function(){
 
-    setupComparisonEvents();
+      box.classList.add(
+        "visible"
+      );
 
-    refresh();
+    }
 
-  }
-);
 
-</script>
+    function hideError(){
+
+      const box =
+        document
+          .getElementById(
+            "errorBox"
+          );
+
+
+      box.textContent =
+        "";
+
+
+      box.classList.remove(
+        "visible"
+      );
+
+    }
+
+
+    /* ===================================================
+       RESIZE
+    =================================================== */
+
+    let resizeTimer =
+      null;
+
+
+    window.addEventListener(
+      "resize",
+      function(){
+
+        clearTimeout(
+          resizeTimer
+        );
+
+
+        resizeTimer =
+          setTimeout(
+            function(){
+
+              if(DATA){
+
+                drawChart(
+                  DATA.history
+                );
+
+                generateSocial(
+                  DATA
+                );
+
+              }
+
+            },
+            120
+          );
+
+      }
+    );
+
+
+    /* ===================================================
+       INIT
+    =================================================== */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function(){
+
+        setupComparisonEvents();
+
+
+        document
+          .getElementById(
+            "downloadSocial"
+          )
+          .addEventListener(
+            "click",
+            downloadSocialCard
+          );
+
+
+        document
+          .getElementById(
+            "copyPostButton"
+          )
+          .addEventListener(
+            "click",
+            copyPost
+          );
+
+
+        refresh();
+
+      }
+    );
+
+  </script>
 
 </body>
 </html>
