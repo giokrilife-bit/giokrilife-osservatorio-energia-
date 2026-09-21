@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 
 <html lang="it">
@@ -1012,8 +1011,10 @@ button:disabled{
 
   <div class="brand">
 
+```
 GiOKri Life
 <span>| Energia</span>
+```
 
   </div>
 
@@ -1022,7 +1023,9 @@ GiOKri Life
     id="updated"
   >
 
+```
 Caricamento dati...
+```
 
   </div>
 
@@ -1045,6 +1048,7 @@ Caricamento dati...
 
   <article class="card">
 
+```
 <div class="label">
 
   ⚡ PUN Index GME
@@ -1083,11 +1087,13 @@ Caricamento dati...
   Dato: —
 
 </div>
+```
 
   </article>
 
   <article class="card">
 
+```
 <div class="label">
 
   🔥 PSV
@@ -1126,6 +1132,7 @@ Caricamento dati...
   Dato: —
 
 </div>
+```
 
   </article>
 
@@ -1143,6 +1150,7 @@ Caricamento dati...
 
   <div class="month-box">
 
+```
 <div class="month-title">
 
   Media PUN del mese
@@ -1166,11 +1174,13 @@ Caricamento dati...
   —
 
 </div>
+```
 
   </div>
 
   <div class="month-box">
 
+```
 <div class="month-title">
 
   Media PSV del mese
@@ -1194,6 +1204,7 @@ Caricamento dati...
   —
 
 </div>
+```
 
   </div>
 
@@ -1213,6 +1224,7 @@ Caricamento dati...
     id="spreadCard"
   >
 
+```
 <h2>
 
   Verifica il tuo prezzo dell'energia
@@ -1406,10 +1418,11 @@ Caricamento dati...
   Il confronto è indicativo e riguarda il prezzo dell'energia
   rispetto al valore medio PUN/PSV del mese selezionato.
   Non rappresenta il costo complessivo della bolletta:
-  possono incidere spread contrattuale, quote fisse, perdite
-  di rete, imposte, oneri e altre componenti.
+  possono incidere spread contrattuale, quote fisse,
+  perdite di rete, imposte, oneri e altre componenti.
 
 </div>
+```
 
   </div>
 
@@ -1423,6 +1436,7 @@ Caricamento dati...
 
   <div class="chart-card">
 
+```
 <h2>
 
   Andamento ultimi 30 giorni
@@ -1469,6 +1483,7 @@ Caricamento dati...
 
 
 </div>
+```
 
   </div>
 
@@ -1486,7 +1501,9 @@ onclick="refresh()"
 
 >
 
+```
 ↻ Aggiorna dati
+```
 
   </button>
 
@@ -1497,7 +1514,9 @@ class="secondary"
 
 >
 
+```
 📲 Genera Social Card
+```
 
   </button>
 
@@ -1508,7 +1527,9 @@ class="secondary"
 
 >
 
+```
 ⬇ Scarica Social Card
+```
 
   </button>
 
@@ -1522,12 +1543,15 @@ class="secondary"
 
   <h2>
 
+```
 Contenuto per i social
+```
 
   </h2>
 
   <div class="social-grid">
 
+```
 <canvas
   id="socialCard"
   width="1080"
@@ -1610,6 +1634,7 @@ Contenuto per i social
 
 
 </div>
+```
 
   </div>
 
@@ -1869,22 +1894,13 @@ function convertAPIData(api){
 
   /* ===================================================
      STORICO ULTIMI 30 GIORNI
-
-     L'API restituisce lo storico dal più recente
-     al più vecchio.
-
-     Prendiamo quindi i primi 30 record più recenti
-     e successivamente li invertiamo per visualizzarli
-     cronologicamente nel grafico.
-
-     Il filtro finale esclude eventuali record privi
-     di PUN o PSV.
   =================================================== */
 
   const history =
     storico
-      .slice(0, 30)
+      .slice()
       .reverse()
+      .slice(-30)
       .map(function(r){
 
         return {
@@ -1903,20 +1919,12 @@ function convertAPIData(api){
 
         };
 
-      })
-      .filter(function(r){
-
-        return (
-          isFinite(r.pun) &&
-          isFinite(r.psv)
-        );
-
       });
 
 
   /* ===================================================
      PRECEDENTE PUN
-
+     
      storico[0] = ultimo dato completo
      storico[1] = giorno completo precedente
   =================================================== */
@@ -1934,7 +1942,7 @@ function convertAPIData(api){
 
   /* ===================================================
      PRECEDENTE PSV
-
+     
      Anche per il PSV utilizziamo il dato precedente
      rispetto all'ultimo PSV disponibile.
   =================================================== */
@@ -3552,7 +3560,7 @@ function drawChart(rows){
       max:
         max + r * 0.12
 
-      };
+    };
 
   }
 
@@ -3613,7 +3621,6 @@ function drawChart(rows){
         )
       ) *
       ih
-
     );
 
   }
@@ -4598,4 +4605,3 @@ document.addEventListener(
 
 </body>
 </html>
-```
